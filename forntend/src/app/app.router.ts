@@ -16,6 +16,4 @@ export const ROUTES : Routes = [
     { path: 'conta-corrente-extrato', component: ContaCorrenteExtratoComponent }, 
     { path: 'conta-corrente-saque', component: ContaCorrenteSaqueComponent }, 
     { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent }, 
-
-    
 ]
