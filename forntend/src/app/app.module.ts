@@ -10,9 +10,11 @@ import {
   MatCardModule,
   MatInputModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule,
+  MatTableModule
 } from '@angular/material';
-
+import {CdkTableModule} from '@angular/cdk/table';
 //tem que importar os Components 
 import { AppComponent } from './app.component';
 // import { MenssageComponent } from './menssage.component';
@@ -71,7 +73,10 @@ import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastra
     MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
-
+    MatSelectModule,
+    MatTableModule,
+    CdkTableModule,
+    
     HttpModule,
     FormsModule,
     RouterModule.forRoot(ROUTES)
