@@ -27,8 +27,6 @@ import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saqu
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
 
 
-
-
 //coisa de comunicacao ao servidor
 import { WebService } from './web.service';
 import { HttpModule } from '@angular/http';
@@ -36,9 +34,9 @@ import { HttpModule } from '@angular/http';
 //todos relacionado com routes
 import { RouterModule, Routes} from '@angular/router';
 import { ROUTES } from './app.router';
-import { DebitoExcluirComponent } from './contaCorrente/debito/debito-excluir.component';
-import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
-import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
+// import { DebitoExcluirComponent } from './contaCorrente/debito/debito-excluir.component';
+// import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
+// import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 
 //o que importa em cima tem que copiar para abaixo tambem, Component no declarations
 //Module no imports, WebService no providers
@@ -55,9 +53,9 @@ import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastra
     ContaCorrenteSaqueComponent,
     ContaCorrenteDebitoComponent,
    
-    DebitoExcluirComponent,
-    DebitoConsultarComponent,
-    DebitoCadastrarComponent
+    // DebitoExcluirComponent,
+    // DebitoConsultarComponent,
+    // DebitoCadastrarComponent
     
     
   ],
