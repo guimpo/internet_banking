@@ -12,6 +12,8 @@ export class DebitoCadastrarComponent {
     estados: string [] = [ 
         'Paraná' , 'Santa Catarina' , 'São Paulo' , 'Minas Gerais' , 'Rio de janeiro' ];
 
-    contas: string [] = [ 'Gás'  , 'luz' , 'água' , 'telefone' ];    
+    contas: string [] = [ 'Gás'  , 'luz' , 'água' , 'telefone' ];  
+    
+    empresas: string [] = [ 'INSS-CONTRIB.INDIV'  , 'INSS-GPS/PARCELADO'  ];  
 
 }
