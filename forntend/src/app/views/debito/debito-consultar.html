@@ -1,0 +1,24 @@
+<mat-card >
+    <mat-card-header>
+      <div ></div>
+      <mat-card-title>Conta Cadastrada</mat-card-title>
+      
+    </mat-card-header>
+   
+    <mat-card-content >
+      <table matSort (matSortChange)="sortData($event)">
+        <tr>
+          <th mat-sort-header="data">Data</th>
+          <th mat-sort-header="historico">Histórico</th>
+          <th mat-sort-header="valor">Valor (R$)</th>
+        </tr>
+      
+        <tr  *ngFor="let extrato of sortedData">
+          <td>{{extrato.data}}</td>
+          <td>{{extrato.historico}}</td>
+          <td>{{extrato.valor}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+   
+  </mat-card>
