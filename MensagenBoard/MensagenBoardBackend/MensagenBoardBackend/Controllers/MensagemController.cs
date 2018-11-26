@@ -24,10 +24,12 @@ namespace MensagenBoardBackend.Controllers
                     sobrenome="lugar"
                 }
         };
+
         public IEnumerable<Models.Mensagem> Get()
         {
             return messages;
         }
+
         //adiciona dado
         [HttpPost]
         public void Post([FromBody] Models.Mensagem message)
