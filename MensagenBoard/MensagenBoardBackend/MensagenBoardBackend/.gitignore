@@ -32,4 +32,4 @@ msbuild.wrn
 .vs/
 
 # DB connection
-Conexao/Conecxao.cs
+Conexao/
