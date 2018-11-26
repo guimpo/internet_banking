@@ -16,6 +16,7 @@ export class WebService {
 
     }
 
+    // TESTES
     getMensagens(){
         return this.http.get(this.BASE_URL + '/mensagens').toPromise();
     }
@@ -23,7 +24,10 @@ export class WebService {
     postMessage(message) {
         return this.http.post(this.BASE_URL + '/mensagens', message).toPromise();
     }
+    ///////////
 
+
+    // CONTA CORRENT ----
     postTransacao(transacao) {
         return this.http.post(this.BASE_URL + '/transacao', transacao).toPromise();
     }
@@ -35,5 +39,10 @@ export class WebService {
     getLogin(id){
         return this.http.get(this.BASE_URL + '/transacao/login/' + id).toPromise();
     }
+
+    getExtrato(){
+        return this.http.get(this.BASE_URL + '/transacao').toPromise();
+    }
+    ///////
     
 }
