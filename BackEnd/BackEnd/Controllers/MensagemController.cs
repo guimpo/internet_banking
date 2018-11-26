@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MensagenBoardBackend.Controllers
+namespace BackEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/mensagens")]

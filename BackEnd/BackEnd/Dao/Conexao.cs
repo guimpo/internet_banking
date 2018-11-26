@@ -1,14 +1,14 @@
 ﻿using MySql.Data.MySqlClient;
 
 
-namespace MensagenBoardBackend.Conexao
+namespace BackEnd.Dao
 {
-    public class Conecxao
+    public class Conexao
     {
         public MySqlConnection Con { get; set; }
         public MySqlCommand Comando { get; set; }
 
-        public Conecxao()
+        public Conexao()
         {
             string strCon = "Server=localhost;database=banco;Uid=root;Pwd=''";
             Con = new MySqlConnection(strCon);
