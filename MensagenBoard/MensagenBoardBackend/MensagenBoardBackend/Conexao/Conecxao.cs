@@ -10,7 +10,7 @@ namespace MensagenBoardBackend.Conexao
 
         public Conecxao()
         {
-            string strCon = "Server=localhost;database=banco;Uid=root;Pwd=venus";
+            string strCon = "Server=localhost;database=banco;Uid=root;Pwd=''";
             Con = new MySqlConnection(strCon);
             Comando = Con.CreateCommand();
             Con.Open();
