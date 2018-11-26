@@ -26,6 +26,9 @@ import { ContaCorrenteExtratoComponent } from './contaCorrente/conta-corrente-ex
 import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-deposito.component';
 import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saque.component';
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
+import { DebitoExcluirComponent } from './contaCorrente/debito/debito-excluir.component';
+import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
+import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 
 //coisa de comunicacao ao servidor
 import { WebService } from './web.service';
@@ -34,8 +37,6 @@ import { HttpModule } from '@angular/http';
 //todos relacionado com routes
 import { RouterModule, Routes} from '@angular/router';
 import { ROUTES } from './app.router';
-
-
 
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -94,7 +95,9 @@ import {
     // MenssageComponent,
     // NewMenssageComponent,
     ContaComponent,
-
+    DebitoExcluirComponent,
+    DebitoCadastrarComponent,
+    DebitoConsultarComponent,
     ContaCorrenteComponent,
     ContaCorrenteExtratoComponent,
     ContaCorrenteDepositoComponent,
