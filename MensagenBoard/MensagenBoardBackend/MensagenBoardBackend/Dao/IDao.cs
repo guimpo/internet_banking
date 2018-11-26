@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MensagenBoardBackend.Dao
+namespace BackEnd.Dao
 {
     public interface IDao<T>
     {

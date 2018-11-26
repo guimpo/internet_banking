@@ -1,6 +1,6 @@
-﻿using MensagenBoardBackend.Conexao;
-using MensagenBoardBackend.Dao;
-using MensagenBoardBackend.Models;
+﻿using BackEnd.Conexao;
+using BackEnd.Dao;
+using BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MensagenBoardBackend.Controllers
+namespace BackEnd.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
