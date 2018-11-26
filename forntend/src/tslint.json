@@ -1,6 +1,7 @@
 {
     "extends": "../tslint.json",
     "rules": {
+        "import-blacklist": [true, "rxjs", "rxjs/Rx"],
         "directive-selector": [
             true,
             "attribute",

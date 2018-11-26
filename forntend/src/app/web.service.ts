@@ -23,4 +23,17 @@ export class WebService {
     postMessage(message) {
         return this.http.post(this.BASE_URL + '/mensagens', message).toPromise();
     }
+
+    postTransacao(transacao) {
+        return this.http.post(this.BASE_URL + '/transacao', transacao).toPromise();
+    }
+
+    getTransacao(){
+        return this.http.get(this.BASE_URL + '/transacao').toPromise();
+    }
+
+    getLogin(id){
+        return this.http.get(this.BASE_URL + '/transacao/login/' + id).toPromise();
+    }
+    
 }

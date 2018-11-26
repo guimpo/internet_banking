@@ -34,7 +34,7 @@ import { WebService } from './web.service';
         sobrenome: ""
     }
     post(){
-         this.webService.postMessage(this.message);
+        this.webService.postMessage(this.message);
 
         //  atualiza pagina em tempo real 
         this.onPosted.emit(this.message);
