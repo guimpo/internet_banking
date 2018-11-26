@@ -158,9 +158,3 @@ ALTER TABLE `trasacao`
   ADD CONSTRAINT `fk_transacao_tipo` FOREIGN KEY (`id_tipo_transacao`) REFERENCES `tipo_transacao` (`id`);
   
 COMMIT;
-
-select * from trasacao ;
-
-
-INSERT INTO pessoa (id,nome )
-  VALUES (2, "kao" );

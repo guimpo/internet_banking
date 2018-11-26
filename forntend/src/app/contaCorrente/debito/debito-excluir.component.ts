@@ -1,8 +1,9 @@
 import { Component } from '@angular/core'
 
 @Component({
-    selector: 'debito-cadastro',
-    // templateUrl: '../views/conta-corrente-saque.html',
+    selector: 'debito-excluir',
+    templateUrl: '../../views/debito/debito-excluir.html',
+    
 })
 export class DebitoExcluirComponent {
 
