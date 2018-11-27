@@ -1,5 +1,4 @@
-﻿using BackEnd.Conexao;
-using BackEnd.Dao;
+﻿using BackEnd.Dao;
 using BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
@@ -20,7 +19,7 @@ namespace BackEnd.Controllers
 
         public List<Models.Transacao> ListarToDos()
         {
-            Conecxao conecxao = new Conecxao();
+            Conexao conexao = new Conexao();
             try
             {
 
@@ -28,8 +27,8 @@ namespace BackEnd.Controllers
 
 
                 string comando = "select * from trasacao ;";
-                conecxao.Comando.CommandText = comando;
-                MySqlDataReader reader = conecxao.Comando.ExecuteReader();
+                conexao.Comando.CommandText = comando;
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
                 {
 
@@ -56,13 +55,13 @@ namespace BackEnd.Controllers
             }
             finally
             {
-                conecxao.Fechar();
+                conexao.Fechar();
             }
         }
 
         public Transacao Alterar(Transacao t)
         {
-            Conecxao conexao = new Conecxao();
+            Conexao conexao = new Conexao();
 
             try
             {
@@ -94,7 +93,7 @@ namespace BackEnd.Controllers
 
         public Conta BuscarConta(Pessoa pessoa)
         {
-            Conecxao conexao = new Conecxao();
+            Conexao conexao = new Conexao();
             try
             {
                 string comando = "select * from conta where id_pessoa = @id";
@@ -133,7 +132,7 @@ namespace BackEnd.Controllers
 
         public Pessoa Longin(int id)
         {
-            Conecxao conexao = new Conecxao();
+            Conexao conexao = new Conexao();
             try
             {
                 string comando = "select * from pessoa where id = @id";
@@ -176,15 +175,15 @@ namespace BackEnd.Controllers
       
         public Transacao Inserir(Transacao t)
         {
-            Conecxao conecxao = new Conecxao();
+            Conexao conexao = new Conexao();
             try
             {
                 string sql = "insert into trasacao (  id_tipo_transacao, data, hora, valor ) values ( @tipo,  now(),   now(), @valor);";
-                conecxao.Comando.CommandText = sql;
-                conecxao.Comando.Parameters.AddWithValue("@tipo", t.id_tipo_transacao);
-                conecxao.Comando.Parameters.AddWithValue("@valor", t.valor);
+                conexao.Comando.CommandText = sql;
+                conexao.Comando.Parameters.AddWithValue("@tipo", t.id_tipo_transacao);
+                conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
                 
-                if (conecxao.Comando.ExecuteNonQuery() > 0)
+                if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
                     
 
@@ -202,7 +201,7 @@ namespace BackEnd.Controllers
             }
             finally
             {
-                conecxao.Fechar();
+                conexao.Fechar();
             }
         }
 
