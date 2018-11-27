@@ -55,6 +55,10 @@ export class WebService {
     deleteContaCadastrada(id){
         return this.http.delete(this.BASE_URL + '/conta/'+ id).toPromise();
     }
+
+    valida(valor) {
+        return this.http.get(this.BASE_URL + '/transacao/valida/' + valor).toPromise();
+    }
     ///////
     
 }

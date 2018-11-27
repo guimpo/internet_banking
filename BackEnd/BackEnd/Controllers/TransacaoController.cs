@@ -69,7 +69,11 @@ namespace BackEnd.Controllers
             {
                 string comando = "update conta set saldo = saldo + @valor where id_pessoa = 2;";
                 conexao.Comando.CommandText = comando;
-                conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
+                if (t.id_tipo_transacao == 2)
+                    conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
+                else
+                    conexao.Comando.Parameters.AddWithValue("@valor", -t.valor);
+
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
 
@@ -207,6 +211,27 @@ namespace BackEnd.Controllers
             }
         }
 
+        public int GetSaldo()
+        {
+            Conexao conexao = new Conexao();
+
+            try
+            {
+                string comando = "select saldo from conta where id_pessoa = 2;";
+                conexao.Comando.CommandText = comando;
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                reader.Read();
+                return Convert.ToInt32(reader["saldo"].ToString());
+            }
+            catch (MySqlException e)
+            {
+                return 0;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
 
         // GET popular
         [HttpGet]
@@ -237,6 +262,20 @@ namespace BackEnd.Controllers
            
             Inserir(transacao);
             Alterar(transacao);
+        }
+
+        [Route("valida/{valor}")]
+        [HttpGet]
+        public Bool valida(int valor)
+        {
+            Bool b = new Bool();
+            int saldo = GetSaldo();
+            if (valor <= saldo)
+                b.boolean = true;
+            else
+                b.boolean = false;
+
+            return b;
         }
     }
 }

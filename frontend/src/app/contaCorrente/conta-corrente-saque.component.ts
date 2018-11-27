@@ -1,9 +1,45 @@
-import { Component } from '@angular/core'
+import { Component,  Output, EventEmitter  } from '@angular/core'
+import { WebService } from '../web.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
     selector: 'conta-corrente-saque',
     templateUrl: '../views/conta-corrente-saque.html',
 })
 export class ContaCorrenteSaqueComponent {
+    form;
+    constructor(private webService : WebService, public snackBar: MatSnackBar){}
 
+    saque = {
+        id_tipo_transacao: 1,
+        valor: 0
+    }
+    async ngOnInit(){
+
+        //recebe do servidor
+        var response = await this.webService.getLogin(2);
+        console.log(response.json());
+  
+        //vai mostrar la em cima cooresponte
+        this.conta = response.json();
+        
+    }
+    conta = [ ];
+    async post(){
+        // console.log(this.deposito);
+        var response = await this.webService.valida(this.saque.valor);
+        var aux = response.json();
+        
+        if(aux.boolean) {
+            this.snackBar.open("Saque realizado com sucesso!", "Ok", {
+                duration:3000,
+            });
+            this.webService.postTransacao(this.saque);    
+        } else {
+            this.snackBar.open("Saldo insuficiente!", "Ok", {
+                duration:3000,
+            });
+        }
+        
+    }
 }
