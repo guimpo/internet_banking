@@ -33,6 +33,7 @@ import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consulta
 //coisa de comunicacao ao servidor
 import { WebService } from './web.service';
 import { HttpModule } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 //todos relacionado com routes
 import { RouterModule, Routes} from '@angular/router';
@@ -85,7 +86,9 @@ import {
   
 
 } from '@angular/material';
+
 import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
+import { HttpClientModule } from '@angular/common/http';
 
 //o que importa em cima tem que copiar para abaixo tambem, Component no declarations
 //Module no imports, WebService no providers
@@ -119,6 +122,7 @@ import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
     MatTableModule,
     CdkTableModule,
     
+    HttpClientModule,
     HttpModule,
     FormsModule,
     RouterModule.forRoot(ROUTES)   

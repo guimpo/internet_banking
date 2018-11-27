@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContaSalarioService } from './conta-salario.service';
 
 @Component({
   selector: 'app-conta-salario',
@@ -7,19 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContaSalarioComponent implements OnInit {
 
+  id: number;
+  nome: string;
   saldo: number;
-  letras: string[] = ['a', 'b', 'c'];
+  letras: string[] = [ "a", "b", "c"];
 
-  constructor() {
-    this.saldo = 500.0;
-
-    for (let i = 0; i < this.letras.length; i++) {
-      let l = this.letras[i];
-    }
+  constructor(private service: ContaSalarioService) {
+    
   }
 
   ngOnInit() {
-
+    this.service.get().subscribe(
+      conta => {
+        this.id = conta.id;
+        this.nome = conta.nome;
+        this.saldo = conta.saldo;
+    });
   }
 
 }
