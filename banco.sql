@@ -5,8 +5,8 @@
 -- Database: `banco`
 --
 
-create schema banco;
-use banco;
+CREATE schema IF NOT EXISTS banco;
+USE banco;
 
 -- --------------------------------------------------------
 
@@ -14,7 +14,7 @@ use banco;
 -- Estrutura da tabela `conta`
 --
 
-CREATE TABLE `conta` (
+CREATE TABLE IF NOT EXISTS `conta` (
   `id` int(11) NOT NULL,
   `id_tipo_conta` int(11) NOT NULL,
   `id_pessoa` int(11) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE `conta` (
 -- Estrutura da tabela `pessoa`
 --
 
-CREATE TABLE `pessoa` (
+CREATE TABLE IF NOT EXISTS `pessoa` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -38,7 +38,7 @@ CREATE TABLE `pessoa` (
 -- Estrutura da tabela `tipo_conta`
 --
 
-CREATE TABLE `tipo_conta` (
+CREATE TABLE IF NOT EXISTS `tipo_conta` (
   `id` int(11) NOT NULL,
   `descricao` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -49,7 +49,7 @@ CREATE TABLE `tipo_conta` (
 -- Estrutura da tabela `tipo_transacao`
 --
 
-CREATE TABLE `tipo_transacao` (
+CREATE TABLE IF NOT EXISTS `tipo_transacao` (
   `id` int(11) NOT NULL,
   `descricao` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -68,7 +68,7 @@ INSERT INTO `tipo_transacao` (`id`, `descricao`) VALUES
 -- Estrutura da tabela `trasacao`
 --
 
-CREATE TABLE `trasacao` (
+CREATE TABLE IF NOT EXISTS `trasacao` (
   `id` int(11) NOT NULL,
   `id_tipo_transacao` int(11) NOT NULL,
   `data` date NOT NULL,
@@ -177,3 +177,27 @@ select * from trasacao ;
 
 INSERT INTO pessoa (id,nome )
   VALUES (2, "kao" );
+
+    CREATE TABLE if not exists `conta_salario` (
+  `id` int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `numero` int(10),
+  `agencia` varchar(10),
+  `id_tipo_conta` int(11) NOT NULL,
+  `id_pessoa` int(11) NOT NULL,
+  `saldo` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `conta_salario`
+ADD CONSTRAINT `fk_conta_salario_conta_pessoa` FOREIGN KEY (`id_pessoa`) REFERENCES `pessoa` (`id`),
+ADD CONSTRAINT `fk_conta_salario_conta_tipo` FOREIGN KEY (`id_tipo_conta`) REFERENCES `tipo_conta` (`id`);
+
+INSERT INTO `banco`.`conta_salario` (`numero`, `agencia`, `id_tipo_conta`, `id_pessoa`, `saldo`)
+VALUES ('123456', '654321', '2', '3', '130');
+
+INSERT INTO `banco`.`pessoa` (`id`, `nome`) VALUES ('3', 'paulo');
+
+INSERT INTO `banco`.`pessoa` (`id`, `nome`) VALUES ('4', 'alessandro');
+
+
+INSERT INTO `banco`.`conta_salario` (`numero`, `agencia`, `id_tipo_conta`, `id_pessoa`, `saldo`)
+VALUES ('123456', '654321', '2', '3', '200');
