@@ -54,7 +54,7 @@ namespace BackEnd.Controllers
             }
         }
 
-        public ContaCadastro Inserir(ContaCadastro t)
+        public string Inserir(ContaCadastro t)
         {
             Conexao conecxao = new Conexao();
             try
@@ -69,7 +69,7 @@ namespace BackEnd.Controllers
                 {
 
 
-                    return t;
+                    return "sucesso";
                 }
                 else
                 {
@@ -137,17 +137,29 @@ namespace BackEnd.Controllers
 
         //adiciona dado
         [HttpPost]
-        public void Post([FromBody] Models.ContaCadastro conta)
+        public Bool Post([FromBody] Models.ContaCadastro conta)
         {
-
-            Inserir(conta);
+            Bool b = new Bool();
+            string s = Inserir(conta);
+            if (s.Equals("sucesso"))
+                b.boolean = true;
+            else
+                b.boolean = false;
+            return b;
+            
             
         }
         //delete 
         [HttpDelete("{id:int}")]
-        public void Delet(Int32 id)
+        public Bool Delet(Int32 id)
         {
-            Deletar(id);
+            Bool b = new Bool();
+            string s = Deletar(id);
+            if (s.Equals("sucesso"))
+                b.boolean = true;
+            else
+                b.boolean = false;
+            return b;
         }
     }
 }

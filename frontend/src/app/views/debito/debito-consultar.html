@@ -1,6 +1,9 @@
 <div style="padding:50px;">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
+    
+
+
     <!-- Position Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -15,9 +18,19 @@
     </ng-container>
 
      <!-- Symbol Column -->
-     <ng-container matColumnDef="codigo">
+    <ng-container matColumnDef="codigo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
       <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+    </ng-container>
+
+     <!-- Symbol Column -->
+     <ng-container matColumnDef="botao">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <td mat-cell *matCellDef="let element"> 
+          <button (click)="delete(element.id)" mat-raised-button color="warn" >
+            Remover
+          </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
