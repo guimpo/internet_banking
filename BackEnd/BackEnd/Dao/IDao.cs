@@ -7,8 +7,8 @@ namespace BackEnd.Dao
 {
     public interface IDao<T>
     {
-        List<T> ListarToDos();
-        T BuscarPonrId(int id);
+        List<T> ListarTodos();
+        T BuscarPorId(int id);
         T Inserir(T t);
         T Alterar(T t);
         T Deletar(T t);
