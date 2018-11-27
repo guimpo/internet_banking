@@ -10,6 +10,6 @@ namespace BackEnd.Models
         public int id { get; set; }
         public int id_tipo_conta { get; set; }
         public Pessoa id_pessoa { get; set; }
-        public float saldo { get; set; }
+        public double saldo { get; set; }
     }
 }

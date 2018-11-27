@@ -1,11 +1,11 @@
 <mat-card style="text-align: center;"> 
     <div >
-        <h1>Seu Saldo: {{ conta.saldo }}</h1>
+        <h1>Seu Saldo: R$ {{ conta.saldo | number:'1.2-2'}}</h1>
         <h4>Digite valor que deseja depositar:</h4>
     </div>
     <mat-card-content>
         <mat-form-field>
-            <input [(ngModel)]=" deposito.valor" matInput placeholder="Digite valor">
+            <input [(ngModel)]=" deposito.valor" matInput placeholder="Digite valor" type="number" min=0 step=50>
         </mat-form-field>
         <mat-card-actions>
             <button (click)="post()" mat-raised-button color="primary">Confirmar</button>

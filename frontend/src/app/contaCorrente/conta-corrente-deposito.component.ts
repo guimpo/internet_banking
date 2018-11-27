@@ -35,8 +35,12 @@ export class ContaCorrenteDepositoComponent {
         // console.log(this.deposito);
         var response = await this.webService.postTransacao(this.deposito);
         var aux = response.json();
-
-        if(aux.boolean) {
+        if(this.deposito.valor < 0) {
+            this.snackBar.open("Valor invalido!", "Ok", {
+                duration:3000,
+            });
+        }
+        else if(aux.boolean) {
             this.snackBar.open("Depósito realizado com sucesso!", "Ok", {
                 duration:3000,
             }); 

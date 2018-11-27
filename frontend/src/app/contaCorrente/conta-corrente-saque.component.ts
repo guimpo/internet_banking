@@ -30,7 +30,12 @@ export class ContaCorrenteSaqueComponent {
         //var response = await this.webService.valida(this.saque.valor);
         //var aux = response.json();
         
-        if(this.saque.valor <= this.conta['saldo']) {
+        if(this.saque.valor < 0) {
+            this.snackBar.open("Valor invalido!", "Ok", {
+                duration:3000,
+            });
+        }
+        else if(this.saque.valor <= this.conta['saldo']) {
             this.snackBar.open("Saque realizado com sucesso!", "Ok", {
                 duration:3000,
             });
