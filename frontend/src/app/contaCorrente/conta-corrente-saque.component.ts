@@ -27,10 +27,10 @@ export class ContaCorrenteSaqueComponent {
     conta = [ ];
     async post(){
         // console.log(this.deposito);
-        var response = await this.webService.valida(this.saque.valor);
-        var aux = response.json();
+        //var response = await this.webService.valida(this.saque.valor);
+        //var aux = response.json();
         
-        if(aux.boolean) {
+        if(this.saque.valor <= this.conta['saldo']) {
             this.snackBar.open("Saque realizado com sucesso!", "Ok", {
                 duration:3000,
             });
