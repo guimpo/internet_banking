@@ -43,6 +43,18 @@ export class WebService {
     getExtrato(){
         return this.http.get(this.BASE_URL + '/transacao').toPromise();
     }
+
+    postCadastrarConta(conta) {
+        return this.http.post(this.BASE_URL + '/conta', conta).toPromise();
+    }
+
+    getContaCadastrada(){
+        return this.http.get(this.BASE_URL + '/conta').toPromise();
+    }
+
+    deleteContaCadastrada(id){
+        return this.http.delete(this.BASE_URL + '/conta/'+ id).toPromise();
+    }
     ///////
     
 }

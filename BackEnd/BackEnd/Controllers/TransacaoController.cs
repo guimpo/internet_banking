@@ -1,5 +1,6 @@
 ﻿using BackEnd.Dao;
 using BackEnd.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 
@@ -19,6 +20,7 @@ namespace BackEnd.Controllers
 
         public List<Models.Transacao> ListarToDos()
         {
+
             Conexao conexao = new Conexao();
             try
             {

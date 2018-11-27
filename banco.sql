@@ -157,6 +157,19 @@ ALTER TABLE `conta`
 ALTER TABLE `trasacao`
   ADD CONSTRAINT `fk_transacao_tipo` FOREIGN KEY (`id_tipo_transacao`) REFERENCES `tipo_transacao` (`id`);
   
+--
+--  Estrutura da tabela `conta_cadastrada`
+--
+CREATE TABLE `conta_cadastrada` (
+  `id` int primary key auto_increment,
+  `id_conta` int NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  `numero_conta` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `conta`ADD PRIMARY KEY (`id`);
+ALTER TABLE `conta_cadastrada` ADD CONSTRAINT `fk_conta_id` FOREIGN KEY (`id_conta`) REFERENCES conta (id);
+
 COMMIT;
 
 select * from trasacao ;

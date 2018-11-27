@@ -1,7 +1,11 @@
 import { Component } from '@angular/core'
+import { WebService } from '../../web.service';
 
-
-
+export interface contaCadastrado {
+    id_conta: 1,
+    descricao: string,
+    numeroConta: string
+}   
 @Component({
     selector: 'debito-cadastrar',
     templateUrl: '../../views/debito/debito-cadastrar.html',
@@ -9,11 +13,22 @@ import { Component } from '@angular/core'
 })
 export class DebitoCadastrarComponent {
 
-    estados: string [] = [ 
-        'Paraná' , 'Santa Catarina' , 'São Paulo' , 'Minas Gerais' , 'Rio de janeiro' ];
+    constructor(private webService : WebService){}
 
-    contas: string [] = [ 'Gás'  , 'luz' , 'água' , 'telefone' ];  
+    servicos: string [] = [ 'Gás'  , 'luz' , 'água' , 'telefone' ]; 
+    contaCadastrado = {
+        id_conta: 1,
+        descricao: "",
+        codigo: ""
+
+    }
+    post(){
+        console.log(this.contaCadastrado);
+        this.webService.postCadastrarConta(this.contaCadastrado);
+
+       
+    }
     
-    empresas: string [] = [ 'INSS-CONTRIB.INDIV'  , 'INSS-GPS/PARCELADO'  ];  
+    
 
 }
