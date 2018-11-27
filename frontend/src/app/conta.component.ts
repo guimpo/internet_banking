@@ -14,7 +14,7 @@ import { Component } from '@angular/core'
     <mat-card style="margin:18px;"> 
         <mat-card-content>
             <mat-card-actions>
-                <button  mat-button color="primary">Conta Salário</button>
+                <button routerLink="/conta-salario" mat-button color="primary">Conta Salário</button>
             </mat-card-actions>
         </mat-card-content>
     </mat-card>

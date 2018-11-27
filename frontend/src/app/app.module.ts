@@ -85,7 +85,7 @@ import {
   
 
 } from '@angular/material';
-
+import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
 
 //o que importa em cima tem que copiar para abaixo tambem, Component no declarations
 //Module no imports, WebService no providers
@@ -102,9 +102,8 @@ import {
     ContaCorrenteExtratoComponent,
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,
-    ContaCorrenteDebitoComponent    
-    
-    
+    ContaCorrenteDebitoComponent,
+    ContaSalarioComponent
   ],
   imports: [
     BrowserModule,
