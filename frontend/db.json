@@ -1,0 +1,8 @@
+{
+    "ContaSalario":
+    {
+        "id": 1,
+        "nome": "paulo",
+        "saldo": "100.00"
+    }
+}
