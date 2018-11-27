@@ -3,8 +3,8 @@ import { ContaSalarioService } from './conta-salario.service';
 
 @Component({
   selector: 'app-conta-salario',
-  templateUrl: './conta-salario.component.html',
-  styleUrls: ['./conta-salario.component.css']
+  templateUrl: './views/conta-salario.component.html',
+  styleUrls: ['./css/conta-salario.component.css']
 })
 export class ContaSalarioComponent implements OnInit {
 
@@ -13,17 +13,17 @@ export class ContaSalarioComponent implements OnInit {
   saldo: number;
   letras: string[] = [ "a", "b", "c"];
 
-  constructor(private service: ContaSalarioService) {
+  // constructor(private service: ContaSalarioService) {
     
-  }
+  // }
 
   ngOnInit() {
-    this.service.get().subscribe(
-      conta => {
-        this.id = conta.id;
-        this.nome = conta.nome;
-        this.saldo = conta.saldo;
-    });
+  //   this.service.get().subscribe(
+  //     conta => {
+  //       this.id = conta.id;
+  //       this.nome = conta.nome;
+  //       this.saldo = conta.saldo;
+  //   });
   }
 
 }

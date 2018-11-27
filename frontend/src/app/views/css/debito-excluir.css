@@ -1,0 +1,6 @@
+a:hover {
+    background-color: yellow;
+}
+th.mat-sort-header-sorted {
+    color: black;
+}

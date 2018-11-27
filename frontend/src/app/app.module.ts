@@ -30,6 +30,11 @@ import { DebitoExcluirComponent } from './contaCorrente/debito/debito-excluir.co
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 
+//contasalario
+import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
+
+
+
 //coisa de comunicacao ao servidor
 import { WebService } from './web.service';
 import { HttpModule } from '@angular/http';
@@ -106,7 +111,9 @@ import { HttpClientModule } from '@angular/common/http';
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,
     ContaCorrenteDebitoComponent,
-    ContaSalarioComponent
+    ContaSalarioComponent,
+
+    ContaSalarioExtratoComponent
   ],
   imports: [
     BrowserModule,

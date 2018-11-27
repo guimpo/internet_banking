@@ -14,6 +14,7 @@ import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consulta
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 
 import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
+import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
 
 export const ROUTES : Routes = [
     { path: '', component: ContaComponent } ,
@@ -33,5 +34,6 @@ export const ROUTES : Routes = [
     { path: 'conta-corrente-debito/debito-cadastrar', component: DebitoCadastrarComponent },
     { path: 'conta-corrente-debito/debito-consultar', component: DebitoConsultarComponent },
 
-    { path: 'conta-salario', component: ContaSalarioComponent }
+    { path: 'conta-salario', component: ContaSalarioComponent },
+    { path: 'conta-salario-extrato', component: ContaSalarioExtratoComponent }
 ]
