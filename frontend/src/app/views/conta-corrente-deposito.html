@@ -1,7 +1,8 @@
-<mat-card > 
-    <mat-card-header>
-        <mat-card-title>Deposito</mat-card-title>   
-    </mat-card-header>
+<mat-card style="text-align: center;"> 
+    <div >
+        <h1>Seu Saldo: {{ conta.saldo }}</h1>
+        <h4>Digite valor que deseja depositar:</h4>
+    </div>
     <mat-card-content>
         <mat-form-field>
             <input [(ngModel)]=" deposito.valor" matInput placeholder="Digite valor">
@@ -10,11 +11,5 @@
             <button (click)="post()" mat-raised-button color="primary">Confirmar</button>
         </mat-card-actions>
     </mat-card-content>
+    
 </mat-card>
-
-
-<div >
-    <h1>sua saldo : {{ conta.saldo }}</h1>
-   
-</div>
-
