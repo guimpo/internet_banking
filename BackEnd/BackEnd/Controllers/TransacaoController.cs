@@ -18,7 +18,7 @@ namespace BackEnd.Controllers
     {
 
 
-        public List<Models.Transacao> ListarToDos()
+        public List<Models.Transacao> ListarTodos()
         {
 
             Conexao conexao = new Conexao();
@@ -90,7 +90,7 @@ namespace BackEnd.Controllers
                 conexao.Fechar();
             }
         }
-        public Transacao BuscarPonrId(int id)
+        public Transacao BuscarPorId(int id)
         { throw new NotImplementedException(); }
 
         public Conta BuscarConta(Pessoa pessoa)
@@ -214,7 +214,7 @@ namespace BackEnd.Controllers
         {
 
             
-            return ListarToDos();
+            return ListarTodos();
         }
 
 
