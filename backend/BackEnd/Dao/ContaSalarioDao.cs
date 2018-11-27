@@ -9,9 +9,34 @@ namespace BackEnd.Dao
 {
     public class ContaSalarioDao : IDao<ContaSalario>
     {
-        public ContaSalario Alterar(ContaSalario t)
+        public ContaSalario Alterar(ContaSalario c)
         {
-            throw new NotImplementedException();
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand = "UPDATE conta_salario SET saldo = @saldo WHERE id = @id";
+
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.Parameters.AddWithValue("@id", c.Id);
+                conexao.Comando.Parameters.AddWithValue("@saldo", c.Saldo);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return c;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (MySqlException e)
+            {
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
         public ContaSalario BuscarPorId(int id)
