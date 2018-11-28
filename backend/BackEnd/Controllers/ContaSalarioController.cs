@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BackEnd.Dao;
+using BackEnd.Dto;
 using BackEnd.Models;
+using BackEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -45,5 +47,18 @@ namespace BackEnd.Controllers
         public void Delete(int id)
         {
         }
+
+        // POST api/<controller>
+        [HttpPost("transferencia")]
+        public JsonResult Transferencia([FromBody] TransferenciaDto t)
+        {
+            var salario = new ContaSalario() { Id = t.ContaSalarioId };
+            var corrente = new Conta() { id = t.ContaCorrenteId };
+            // idContaSalario = 2
+            // idContaCorrente = 1
+            // valor 2
+            return Json(new ContaSalarioService().Transferir(salario, corrente, t.Valor));
+        }
+
     }
 }
