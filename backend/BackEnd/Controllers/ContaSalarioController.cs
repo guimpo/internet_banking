@@ -31,9 +31,11 @@ namespace BackEnd.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("saque")]
+        public JsonResult Post([FromBody] SaqueDto saque)
         {
+            var conta = new ContaSalario() { Id = saque.IdContaSalario};
+            return Json(new ContaSalarioService().Saque(conta, saque.Valor));
         }
 
         // PUT api/<controller>/5
