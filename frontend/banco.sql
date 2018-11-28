@@ -158,3 +158,30 @@ ALTER TABLE `trasacao`
   ADD CONSTRAINT `fk_transacao_tipo` FOREIGN KEY (`id_tipo_transacao`) REFERENCES `tipo_transacao` (`id`);
   
 COMMIT;
+
+CREATE TABLE if not exists `conta_contabil` (
+  `id` int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `pessoa_id` int(11),
+  `produto_id` int(11),
+  `data` date NOT NULL,
+  `hora` time NOT NULL,
+  `tipo_transacao_id` int(11),
+  `saldo` float
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `banco`.`conta_contabil` 
+ADD CONSTRAINT `fk_conta_contabil_pessoa`
+  FOREIGN KEY (`pessoa_id`)
+  REFERENCES `banco`.`pessoa` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_conta_contabil_produto`
+  FOREIGN KEY (`produto_id`)
+  REFERENCES `banco`.`conta_salario` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_conta_contabil_tipo_transacao`
+  FOREIGN KEY (`tipo_transacao_id`)
+  REFERENCES `banco`.`tipo_transacao` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
