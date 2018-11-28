@@ -1,13 +1,15 @@
-<mat-card > 
-    <mat-card-header>
-        <mat-card-title>Saque</mat-card-title>   
-    </mat-card-header>
+<mat-card style="text-align: center;"> 
+    <div >
+        <h1>Seu Saldo: R$ {{ conta.saldo | number:'1.2-2'}}</h1>
+        <h4>Digite valor que deseja sacar:</h4>
+    </div>
     <mat-card-content>
         <mat-form-field>
-            <input  matInput placeholder="Digite valor">
+            <input [(ngModel)]=" saque.valor" matInput placeholder="Digite valor" type="number" min=0 step=50>
         </mat-form-field>
         <mat-card-actions>
-            <button mat-raised-button color="primary">Confirmar</button>
+            <button (click)="post()" mat-raised-button color="primary">Confirmar</button>
         </mat-card-actions>
     </mat-card-content>
+    
 </mat-card>

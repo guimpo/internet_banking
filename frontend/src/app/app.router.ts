@@ -9,11 +9,12 @@ import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-d
 import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saque.component';
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
 
-import { DebitoExcluirComponent } from './contaCorrente/debito/debito-excluir.component';
+
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 
 import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
+import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
 
 export const ROUTES : Routes = [
     { path: '', component: ContaComponent } ,
@@ -29,9 +30,10 @@ export const ROUTES : Routes = [
     //     { path: 'debito-consultar', component: DebitoConsultarComponent }
     //   ] }, 
     { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent },
-    { path: 'conta-corrente-debito/debito-excluir', component: DebitoExcluirComponent },
+ 
     { path: 'conta-corrente-debito/debito-cadastrar', component: DebitoCadastrarComponent },
     { path: 'conta-corrente-debito/debito-consultar', component: DebitoConsultarComponent },
 
-    { path: 'conta-salario', component: ContaSalarioComponent }
+    { path: 'conta-salario', component: ContaSalarioComponent },
+    { path: 'conta-salario-extrato', component: ContaSalarioExtratoComponent }
 ]

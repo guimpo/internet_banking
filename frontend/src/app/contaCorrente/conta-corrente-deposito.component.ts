@@ -1,5 +1,5 @@
 import { Component,  Output, EventEmitter  } from '@angular/core'
-
+import {MatSnackBar} from '@angular/material';
 import { WebService } from '../web.service';
 
 
@@ -9,7 +9,8 @@ import { WebService } from '../web.service';
 })
 export class ContaCorrenteDepositoComponent {
     
-    constructor(private webService : WebService){}
+    
+    constructor(private webService : WebService, public snackBar: MatSnackBar){}
 
     deposito = {
         id_tipo_transacao: 2,
@@ -25,12 +26,29 @@ export class ContaCorrenteDepositoComponent {
         //vai mostrar la em cima cooresponte
         this.conta = response.json();
         
+
+       
+
     }
     conta = [ ];
-    post(){
+    async post(){
         // console.log(this.deposito);
-        this.webService.postTransacao(this.deposito);
-
+        var response = await this.webService.postTransacao(this.deposito);
+        var aux = response.json();
+        if(this.deposito.valor < 0) {
+            this.snackBar.open("Valor invalido!", "Ok", {
+                duration:3000,
+            });
+        }
+        else if(aux.boolean) {
+            this.snackBar.open("Depósito realizado com sucesso!", "Ok", {
+                duration:3000,
+            }); 
+        } else {
+            this.snackBar.open("falhou!", "Ok", {
+                duration:3000,
+            });
+        }
        
     }
 }

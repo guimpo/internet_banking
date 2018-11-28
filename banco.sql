@@ -1,5 +1,4 @@
-
-
+ 
 
 --
 -- Database: `banco`
@@ -198,6 +197,11 @@ INSERT INTO `banco`.`pessoa` (`id`, `nome`) VALUES ('3', 'paulo');
 
 INSERT INTO `banco`.`pessoa` (`id`, `nome`) VALUES ('4', 'alessandro');
 
+INSERT INTO `banco`.`tipo_conta` (`id`, `descricao`) VALUES ('1', 'conta corrente');
+
+INSERT INTO `banco`.`tipo_conta` (`id`, `descricao`) VALUES ('2', 'conta salario');
+
+INSERT INTO `banco`.`conta` (`id`, `id_tipo_conta`, `id_pessoa`, `saldo`) VALUES ('1', '1', '2', '100');
 
 INSERT INTO `banco`.`conta_salario` (`numero`, `agencia`, `id_tipo_conta`, `id_pessoa`, `saldo`)
 VALUES ('123456', '654321', '2', '3', '200');

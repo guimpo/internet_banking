@@ -1,8 +1,7 @@
 import { Component } from '@angular/core'
-import {Sort} from '@angular/material';
-import { Data } from '@angular/router'; 
 import { WebService } from '../../web.service';
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 export interface PeriodicElement {
     id: number ;
@@ -11,15 +10,16 @@ export interface PeriodicElement {
 }
 
 @Component({
-    selector: 'debito-consultar',
+    selector: 'debito-excluir',
     templateUrl: '../../views/debito/debito-consultar.html',
     styleUrls: ['../../views/css/sort-overview-example.css'],
 })
 export class DebitoConsultarComponent {
-    
-    constructor(private webService : WebService) {}
-    displayedColumns: string[] = ['id', 'descricao', 'codigo'];
+
+    constructor(private webService : WebService, public snackBar: MatSnackBar) {}
+    displayedColumns: string[] = ['id', 'descricao', 'codigo','botao'];
     dataSource = new MatTableDataSource();
+   
 
     async ngOnInit(){
 
@@ -27,15 +27,21 @@ export class DebitoConsultarComponent {
         var response = await this.webService.getContaCadastrada();
         console.log(response.json());
        
-        this.dataSource = response.json(); 
-        
-        
+        this.dataSource = response.json();   
     }
-    
-
-  
-
-    
+    async delete(id){
+       
+        var response = await this.webService.deleteContaCadastrada(id);
+        var aux = response.json();
         
-  
+        if(aux.boolean) {
+            this.snackBar.open("Conta removida com sucesso!", "Ok", {
+                duration:3000,
+            });   
+        } else {
+            this.snackBar.open("Falhou", "Ok", {
+                duration:3000,
+            });
+        }
+    }
 }

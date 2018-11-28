@@ -3,8 +3,8 @@ import { ContaSalarioService } from './conta-salario.service';
 
 @Component({
   selector: 'app-conta-salario',
-  templateUrl: './conta-salario.component.html',
-  styleUrls: ['./conta-salario.component.css']
+  templateUrl: './views/conta-salario.component.html',
+  styleUrls: ['./css/conta-salario.component.css']
 })
 export class ContaSalarioComponent implements OnInit {
 

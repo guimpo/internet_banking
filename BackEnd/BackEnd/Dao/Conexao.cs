@@ -10,7 +10,7 @@ namespace BackEnd.Dao
 
         public Conexao()
         {
-            string strCon = "Server=localhost;database=banco;Uid=root;Pwd=''";
+            string strCon = "Server=localhost;database=banco;Uid=root;Pwd='venus'";
             Con = new MySqlConnection(strCon);
             Comando = Con.CreateCommand();
             Con.Open();
