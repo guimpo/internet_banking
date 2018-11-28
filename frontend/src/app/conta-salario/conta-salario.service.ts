@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ContaSalario } from './conta-salario';
+import { Saque } from './saque';
 
 @Injectable({
   providedIn: 'root'
