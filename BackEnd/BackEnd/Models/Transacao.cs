@@ -11,7 +11,7 @@ namespace BackEnd.Models
         public int id_tipo_transacao { get; set; }
         public DateTime data { get; set; }
         public DateTime hora { get; set; }
-        public float valor { get; set; }
+        public double valor { get; set; }
 
         public static implicit operator List<object>(Transacao v)
         {

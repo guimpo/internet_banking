@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,8 +42,9 @@ namespace BackEnd.Controllers
                             id = Convert.ToInt32(reader["id"]),
                             id_tipo_transacao = Convert.ToInt32(reader["id_tipo_transacao"]),
                             data = Convert.ToDateTime(reader["data"]),
-                            hora = Convert.ToDateTime(reader["hora"]),
-                            valor = Convert.ToInt32(reader["valor"])
+                            //hora = Convert.ToDateTime(reader["hora"]),
+                            hora = DateTime.ParseExact((reader["hora"]).ToString(), "HH:mm:ss", CultureInfo.InvariantCulture),
+                            valor = Convert.ToDouble(reader["valor"])
                         };
                         transacoes.Add(t);
                     }
