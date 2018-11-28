@@ -114,7 +114,7 @@ namespace BackEnd.Controllers
                         id = Convert.ToInt32(reader["id"]),
                         id_tipo_conta = Convert.ToInt32(reader["id_tipo_conta"]),
                         id_pessoa = pessoa,
-                        saldo = Convert.ToDouble(reader["saldo"])
+                        saldo = (float) Convert.ToDouble(reader["saldo"])
 
                     };
 
