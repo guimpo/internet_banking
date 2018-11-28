@@ -205,3 +205,30 @@ INSERT INTO `banco`.`conta` (`id`, `id_tipo_conta`, `id_pessoa`, `saldo`) VALUES
 
 INSERT INTO `banco`.`conta_salario` (`numero`, `agencia`, `id_tipo_conta`, `id_pessoa`, `saldo`)
 VALUES ('123456', '654321', '2', '3', '200');
+
+CREATE TABLE if not exists `conta_contabil` (
+  `id` int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `pessoa_id` int(11),
+  `produto_id` int(11),
+  `data` date NOT NULL,
+  `hora` time NOT NULL,
+  `tipo_transacao_id` int(11),
+  `saldo` float
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `banco`.`conta_contabil` 
+ADD CONSTRAINT `fk_conta_contabil_pessoa`
+  FOREIGN KEY (`pessoa_id`)
+  REFERENCES `banco`.`pessoa` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_conta_contabil_produto`
+  FOREIGN KEY (`produto_id`)
+  REFERENCES `banco`.`conta_salario` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_conta_contabil_tipo_transacao`
+  FOREIGN KEY (`id`)
+  REFERENCES `banco`.`tipo_transacao` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
