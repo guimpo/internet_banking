@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ContaSalarioService } from './conta-salario.service';
 
 @Component({
-  selector: 'app-conta-salario-saque',
-  templateUrl: './views/conta-salario-saque.component.html',
+  selector: 'app-conta-salario-deposito',
+  templateUrl: './views/conta-salario-deposito.component.html',
   styleUrls: ['./css/conta-salario.component.css']
 })
-export class ContaSalarioSaqueComponent implements OnInit {
+export class ContaSalarioDepositoComponent implements OnInit {
 
   id: number;
   numero: number;
@@ -37,13 +37,13 @@ export class ContaSalarioSaqueComponent implements OnInit {
     });
   }
 
-  sacar(value) {
-    if(value < 10) {
+  depositar(value) {
+    if(value <= 0) {
       alert("valor inválido");
       return false;
     } else {
       alert(value);
-      this.service.sacar({
+      this.service.depositar({
         "idContaSalario": this.id,
         "valor": value
       }).subscribe(
