@@ -75,5 +75,31 @@ namespace BackEnd.Services
             }
             return null;
         }
+
+        public ContaSalario Deposito(ContaSalario conta, float valor)
+        {
+            var daoSalario = new ContaSalarioDao();
+            var _conta = daoSalario.BuscarPorId(conta.Id);
+            if (_conta != null && valor > 0)
+            {
+                _conta.Saldo += valor;
+                if (daoSalario.Alterar(_conta) != null)
+                {
+                    var daoContabil = new ContaContabilDao();
+                    var contaContabil = new ContaContabil()
+                    {
+                        Pessoa = _conta.Pessoa,
+                        Produto = _conta,
+                        TipoTransacao = 2,
+                        Saldo = valor
+                    };
+                    if (daoContabil.Inserir(contaContabil) != null)
+                    {
+                        return _conta;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

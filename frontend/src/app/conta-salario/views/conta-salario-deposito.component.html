@@ -1,0 +1,33 @@
+<mat-card >
+    <mat-card-header>
+        <mat-card-title>Bem vindo {{ nome }}!</mat-card-title>   
+    </mat-card-header>
+    <mat-card-content>
+      <p> Id: {{id}} </p>
+        
+      <p> Nome: {{nome}} </p>
+
+      <p> Conta: {{numero}} </p>
+
+      <p> Agência: {{agencia}} </p>
+          
+      <p> Saldo: {{saldo}} </p>
+
+     
+        <mat-form-field>
+            <input 
+            #quantia
+            matInput placeholder="Digite valor" type="number">
+        </mat-form-field>
+
+      <mat-card-actions>
+          <button (click)="depositar(quantia.value)" mat-raised-button color="primary">Confirmar Deposito</button>
+          <button routerLink="" mat-raised-button color="primary">Voltar</button>
+      </mat-card-actions>
+
+    </mat-card-content>
+</mat-card>
+
+
+
+
