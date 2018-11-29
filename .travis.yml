@@ -14,7 +14,8 @@ before_script:
 script:
   - cd BackEnd
   - pwd
-  - dotnet sonarscanner begin /k:"BackEnd" /n:"BackEnd" /v:"#.#.#" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml" || true
+  - dotnet sonarscanner begin /k:"BackEnd" /n:"BackEnd" /v:"#.#.#" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" d:/sonar.organization="guimpo-github"
+/d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml" || true
   - dotnet build ./BackEnd/BackEnd.csproj
   - dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN" || true
 
