@@ -1,14 +1,22 @@
 language: csharp
-dist: trusty
 mono: none
 dotnet: 2.1.500
 
-addons:
-  sonarcloud:
-    organization: "guimpo-github" # the key of the org you chose at step #3
-    token:
-      secure: "$SONAR_TOKEN"
+install:
+  - dotnet tool install --global dotnet-sonarscanner
+  - dotnet build ./BackEnd/BackEnd.sln
+
+before_script:
+  - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
-  # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  - cd BackEnd/
+  - dotnet sonarscanner begin /k:"BackEnd" /n:"BackEnd" /v:"1.0.0" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml" || true
+  - dotnet build
+  - dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN" || true
+
+cache:
+  directories:	
+    - '$HOME/.nuget/packages'	
+    - '$HOME/.local/share/NuGet/Cache'	
+    - '$HOME/.sonar/cache'
