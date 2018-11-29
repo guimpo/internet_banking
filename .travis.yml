@@ -1,5 +1,11 @@
 language: csharp
+dist: trusty
 mono: none
 dotnet: 2.1.500
+
+addons:
+  sonarcloud:
+    organization: "guimpo-github"
+
 script:
- - dotnet build ./BackEnd/BackEnd.sln
+ - sonar-scanner
