@@ -37,6 +37,77 @@ namespace BackEnd.Controllers
             ContaCorrenteDao ccDao = new ContaCorrenteDao();
             Conta conta = ccDao.BuscarPorId(pessoa);
             return conta;
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from conta where pessoa_id = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", pessoa.id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    Conta conta = new Conta()
+                    {
+                        Id = Convert.ToInt32(reader["id"]),
+                        TipoConta = Convert.ToInt32(reader["tipo_conta_id"]),
+                        Pessoa = pessoa,
+                        Saldo = Convert.ToDouble(reader["saldo"])
+
+                    };
+                    return conta;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
+        public Pessoa Longin(int id)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from pessoa where id = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    Pessoa pessoa = new Pessoa()
+                    {
+                        id = Convert.ToInt32(reader["id"]),
+                        nome = reader["nome"].ToString()
+
+                    };
+
+                    return pessoa;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
         public Pessoa Login(int id)

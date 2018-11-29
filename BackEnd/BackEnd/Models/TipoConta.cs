@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Models
 {
-    public class TipoConta
+    public static class TipoConta
     {
-        public int id { get; set; }
-        public string descricao { get; set; }
+        public const int CORRENTE = 1;
     }
 }
