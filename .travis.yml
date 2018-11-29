@@ -4,14 +4,14 @@ dotnet: 2.1.500
 
 install:
   - dotnet tool install --global dotnet-sonarscanner
-  - dotnet restore BackEnd/BackEnd.csproj
+  - dotnet build ./BackEnd/BackEnd.sln
 
 before_script:
   - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
   - dotnet sonarscanner begin /k:"banking" /n:"BackEnd" /v:"1.0.0" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml" || true
-  - dotnet build ToolBox/ToolBox.csproj
+  - dotnet build ./BackEnd/BackEnd.sln
   - dotnet sonarscanner end /d:sonar.login="$SONAR_KEY" || true
 
 cache:
