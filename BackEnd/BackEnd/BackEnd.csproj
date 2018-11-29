@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
+  
+  <!-- SonarQube needs this -->
+  <ProjectGuid>{E2CEBBAF-6DF7-41E9-815D-9AD4CF90C844}</ProjectGuid>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
