@@ -13,14 +13,14 @@ export class ContaCorrenteDepositoComponent {
     constructor(private webService : WebService, public snackBar: MatSnackBar){}
 
     deposito = {
-        id_tipo_transacao: 2,
+        tipo_transacao_id: 2,
         valor: 0
 
     }
     async ngOnInit(){
 
         //recebe do servidor
-        var response = await this.webService.getLogin(2);
+        var response = await this.webService.getLogin(1);
         console.log(response.json());
   
         //vai mostrar la em cima cooresponte

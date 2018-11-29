@@ -30,9 +30,9 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string sql = "insert into trasacao (  id_tipo_transacao, data, hora, valor ) values ( @tipo,  now(),   now(), @valor);";
+                string sql = "insert into trasacao (data, hora, valor, tipo_transacao_id, conta_id1) values (now(), now(), @valor, @tipo, 1);";
                 conexao.Comando.CommandText = sql;
-                conexao.Comando.Parameters.AddWithValue("@tipo", t.id_tipo_transacao);
+                conexao.Comando.Parameters.AddWithValue("@tipo", t.tipo_transacao_id);
                 conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
@@ -66,7 +66,7 @@ namespace BackEnd.Dao
                 List<Models.Transacao> transacoes = new List<Models.Transacao> { };
 
 
-                string comando = "select * from trasacao ;";
+                string comando = "select * from trasacao where conta_id1 = 1;";
                 conexao.Comando.CommandText = comando;
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
@@ -77,7 +77,7 @@ namespace BackEnd.Dao
                         Transacao t = new Models.Transacao
                         {
                             id = Convert.ToInt32(reader["id"]),
-                            id_tipo_transacao = Convert.ToInt32(reader["id_tipo_transacao"]),
+                            tipo_transacao_id = Convert.ToInt32(reader["tipo_transacao_id"]),
                             data = Convert.ToDateTime(reader["data"]),
                             //hora = Convert.ToDateTime(reader["hora"]),
                             hora = DateTime.ParseExact((reader["hora"]).ToString(), "HH:mm:ss", CultureInfo.InvariantCulture),

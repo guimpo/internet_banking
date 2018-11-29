@@ -14,6 +14,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema banco
 -- -----------------------------------------------------
+
 CREATE SCHEMA IF NOT EXISTS `banco`;
 USE `banco` ;
 
@@ -260,3 +261,13 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO pessoa(id, nome) VALUES(1, 'Kao');
+INSERT INTO tipo_conta(id, descricao) VALUES(1, 'conta corrente');
+INSERT INTO tipo_transacao(id, descricao) VALUES(1, 'saque');
+INSERT INTO tipo_transacao(id, descricao) VALUES(2, 'deposito');
+INSERT INTO conta(id, numero, agencia, saldo, tipo_conta_id, pessoa_id) VALUES(1, 123, 456, 1000, 1, 1);
+
+SELECT * FROM trasacao;
+SELECT * FROM pessoa;
+

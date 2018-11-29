@@ -11,13 +11,13 @@ export class ContaCorrenteSaqueComponent {
     constructor(private webService : WebService, public snackBar: MatSnackBar){}
 
     saque = {
-        id_tipo_transacao: 1,
+        tipo_transacao_id: 1,
         valor: 0
     }
     async ngOnInit(){
 
         //recebe do servidor
-        var response = await this.webService.getLogin(2);
+        var response = await this.webService.getLogin(1);
         console.log(response.json());
   
         //vai mostrar la em cima cooresponte
