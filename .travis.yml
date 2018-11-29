@@ -2,19 +2,23 @@ language: csharp
 mono: none
 dotnet: 2.1.500
 
+solution: BackEnd/BackEnd.csproj
+
 install:
   - dotnet tool install --global dotnet-sonarscanner
+  - dotnet restore BackEnd/BackEnd.csproj
+  - dotnet restore Project.Tests/Project.Tests.csproj
 
 before_script:
   - export PATH="$PATH:$HOME/.dotnet/tools"
 
 script:
-  - cd BackEnd/
-  - dotnet sonarscanner begin /k:"BackEnd" /n:"BackEnd" /v:"1.0.0" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml" || true
-  - dotnet build
+  - dotnet sonarscanner begin /k:"BackEnd" /n:"BackEnd" /v:"#.#.#" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$SONAR_TOKEN" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="lcov.opencover.xml" || true
+  - dotnet build BackEnd/BackEnd.csproj
   - dotnet sonarscanner end /d:sonar.login="$SONAR_TOKEN" || true
 
 cache:
-  directories:	
-    - '$HOME/.nuget/packages'	
-    - '$HOME/.local/share/NuGet/Cache'	
+  directories:
+    - '$HOME/.nuget/packages'
+    - '$HOME/.local/share/NuGet/Cache'
+    - '$HOME/.sonar/cache'
