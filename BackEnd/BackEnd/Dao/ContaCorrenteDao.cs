@@ -39,6 +39,40 @@ namespace BackEnd.Dao
             }
         }
 
+        public Conta Alterar(Transacao t)
+        {
+            Conexao conexao = new Conexao();
+
+            try
+            {
+                string comando = "update conta set saldo = saldo + @valor where id_pessoa = 2;";
+                conexao.Comando.CommandText = comando;
+                if (t.id_tipo_transacao == 2)
+                    conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
+                else
+                    conexao.Comando.Parameters.AddWithValue("@valor", -t.valor);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+
+                    return null;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
         public Conta BuscarPorId(int id)
         {
             Conexao conexao = new Conexao();
@@ -80,6 +114,45 @@ namespace BackEnd.Dao
             }
         }
 
+        public Conta BuscarPorId(Pessoa p)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from conta where id_pessoa = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", p.id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    Conta conta = new Conta()
+                    {
+                        id = Convert.ToInt32(reader["id"]),
+                        id_tipo_conta = Convert.ToInt32(reader["id_tipo_conta"]),
+                        id_pessoa = p,
+                        saldo = (float)Convert.ToDouble(reader["saldo"])
+
+                    };
+
+                    return conta;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
         public Conta Deletar(Conta t)
         {
             throw new NotImplementedException();
@@ -93,6 +166,28 @@ namespace BackEnd.Dao
         public List<Conta> ListarTodos()
         {
             throw new NotImplementedException();
+        }
+
+        public double GetSaldo()
+        {
+            Conexao conexao = new Conexao();
+
+            try
+            {
+                string comando = "select saldo from conta where id_pessoa = 2;";
+                conexao.Comando.CommandText = comando;
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                reader.Read();
+                return Convert.ToDouble(reader["saldo"].ToString());
+            }
+            catch (MySqlException e)
+            {
+                return 0;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
     }
 }
