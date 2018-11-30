@@ -30,7 +30,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string sql = "insert into trasacao (data, hora, valor, tipo_transacao_id, conta_id1) values (now(), now(), @valor, @tipo, 1);";
+                string sql = "insert into trasacao (data, hora, valor, tipo_transacao_id, conta_id1) values (now(), now(), @valor, @tipo, 7);";
                 conexao.Comando.CommandText = sql;
                 conexao.Comando.Parameters.AddWithValue("@tipo", t.tipo_transacao_id);
                 conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
