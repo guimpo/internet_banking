@@ -24,18 +24,20 @@ namespace BackEnd.Dao
             throw new NotImplementedException();
         }
 
-        public ContaContabil Inserir(ContaContabil c)
+        public ContaContabil Inserir(ContaContabil t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ContaContabil InserirContaContabilInvestimento(ContaContabil c)
         {
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO conta_contabil(pessoa_id, produto_id, data, hora, tipo_transacao_id, saldo) VALUES (@idPessoa, @idProduto, now(), now(), @idTipoTransacao, @saldo);";
+                string comand = "INSERT INTO conta_contabil_investimento(valor) VALUES (@valor);";
 
                 conexao.Comando.CommandText = comand;
-                conexao.Comando.Parameters.AddWithValue("@idPessoa", c.Pessoa.id);
-                conexao.Comando.Parameters.AddWithValue("@idProduto", c.Produto.Id);
-                conexao.Comando.Parameters.AddWithValue("@idTipoTransacao", c.TipoTransacao);
-                conexao.Comando.Parameters.AddWithValue("@saldo", c.Saldo);
+                conexao.Comando.Parameters.AddWithValue("@valor", c.Valor);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
