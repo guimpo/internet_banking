@@ -22,10 +22,24 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ContaComponent } from './conta.component';
 import { ContaCorrenteComponent } from './contaCorrente/conta-corrente.component';
+
 import { ContaCorrenteExtratoComponent } from './contaCorrente/conta-corrente-extrato.component';
 import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-deposito.component';
 import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saque.component';
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
+
+// investimento
+import { ContaCorrenteInvestimentoComponent } from './contaCorrente/conta-corrente-investimento.component';
+import { PopancaAplicarComponent } from './contaCorrente/investimento/popanca-aplicar.component';
+import { PopancaResgatarComponent } from './contaCorrente/investimento/popanca-resgatar.component';
+
+
+// Emprestimo
+import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
+import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
+import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
+
+//Débito automatico
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 
@@ -103,10 +117,16 @@ import { HttpClientModule } from '@angular/common/http';
     // MenssageComponent,
     // NewMenssageComponent,
     ContaComponent,
- 
+   
     DebitoCadastrarComponent,
     DebitoConsultarComponent,
     ContaCorrenteComponent,
+    ContaCorrenteInvestimentoComponent,
+    PopancaAplicarComponent,
+    PopancaResgatarComponent,
+    ContaCorrenteEmprestimoComponent, 
+    EmprestimoRealizarComponent,
+    EmprestimoPagarComponent,
     ContaCorrenteExtratoComponent,
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,

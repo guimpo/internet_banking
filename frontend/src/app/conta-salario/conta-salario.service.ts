@@ -10,7 +10,7 @@ export class ContaSalarioService {
 
   private readonly API = 'http://localhost:3000/contasalario';
 
-  private readonly API2 = 'https://localhost:44397/api/contasalario/2';
+  private readonly API2 = 'https://localhost:44397/api/contasalario/5';
 
   private readonly SACAR = 'https://localhost:44397/api/contasalario/saque';
 
