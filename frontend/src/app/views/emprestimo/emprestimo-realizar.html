@@ -1,4 +1,4 @@
-<mat-card style="text-align: center;"> 
+<mat-card > 
     <div >
         <h1>Seu Saldo: R$ {{ conta.saldo | number:'1.2-2'}}</h1>
         <h4>Digite valor que deseja emprestar:</h4>
@@ -18,8 +18,8 @@
         </mat-form-field>
         <mat-card-actions>
             <button  mat-raised-button color="primary">Voltar</button>
-            <button  mat-raised-button color="primary">Simular</button>
+            <button  routerLink="emprestimo-simular" mat-raised-button color="primary">Simular</button>
         </mat-card-actions>
-        
     </mat-card-content>
 </mat-card>
+<router-outlet></router-outlet>

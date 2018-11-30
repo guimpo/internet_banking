@@ -7,42 +7,39 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Dao
 {
-    public class ContaContabilDao : IDao<ContaContabil>
+    public class EmprestimoDAO : IDao<Emprestimo>
     {
-        public ContaContabil Alterar(ContaContabil t)
+        public Emprestimo Alterar(Emprestimo t)
         {
             throw new NotImplementedException();
         }
 
-        public ContaContabil BuscarPorId(int id)
+        public Emprestimo BuscarPorId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public ContaContabil Deletar(ContaContabil t)
+        public Emprestimo Deletar(Emprestimo t)
         {
             throw new NotImplementedException();
         }
 
-        public ContaContabil Inserir(ContaContabil t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ContaContabil InserirContaContabil(ContaContabil c, int tipo)//1 pra investimento e 2 pra emprestimo?
+        public Emprestimo Inserir(Emprestimo t)
         {
             Conexao conexao = new Conexao();
             try
             {
-                string comand = (tipo == 1) ? "INSERT INTO conta_contabil_investimento(valor) VALUES (@valor);" : "INSERT INTO conta_contabil_emprestimo(valor) VALUES (@valor);";              
+                string comand = "INSERT INTO emprestimo(valor, data_solicitacao, tipo_emprestimo_id, conta_contabil_emprestimo_id, conta_id) VALUES (@valor, now(), @tipo, @conta_contabil, 7);";
 
                 conexao.Comando.CommandText = comand;
-                conexao.Comando.Parameters.AddWithValue("@valor", c.Valor);
+                conexao.Comando.Parameters.AddWithValue("@valor", t.Valor);
+                conexao.Comando.Parameters.AddWithValue("@tipo", t.TipoEmprestimo);
+                conexao.Comando.Parameters.AddWithValue("@conta_contabil", t.ContaContabil.Id);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
-                    c.Id = Convert.ToInt32(conexao.Comando.LastInsertedId.ToString());
-                    return c;
+                    t.Id = Convert.ToInt32(conexao.Comando.LastInsertedId.ToString());
+                    return t;
                 }
                 return null;
             }
@@ -57,7 +54,7 @@ namespace BackEnd.Dao
             return null;
         }
 
-        public List<ContaContabil> ListarTodos()
+        public List<Emprestimo> ListarTodos()
         {
             throw new NotImplementedException();
         }

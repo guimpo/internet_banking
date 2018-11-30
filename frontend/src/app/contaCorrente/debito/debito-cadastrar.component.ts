@@ -2,14 +2,6 @@ import { Component } from '@angular/core'
 import { WebService } from '../../web.service';
 import {MatSnackBar} from '@angular/material';
 
-// export interface Conta{
-//     id:number,
-//     numero:number,
-//     agencia: string,
-//     saldo:number,
-//     tipo_conta_id:number,
-//     pessoa_id:number
-// } 
 
 @Component({
     selector: 'debito-cadastrar',
@@ -17,29 +9,14 @@ import {MatSnackBar} from '@angular/material';
     styleUrls: ['../../views/css/debito-cadastrar.css'],
 })
 
-// const Conta: Conta[] = this.conta;
 export class DebitoCadastrarComponent {
 
     constructor(private webService : WebService,  public snackBar: MatSnackBar){}
 
-    // async ngOnInit(){
-
-    //     //recebe do servidor
-    //     var response = await this.webService.getLogin(1);
-       
-  
-    //     //vai mostrar la em cima cooresponte
-    //     this.conta = response.json();
-    //     console.log(this.conta);
-        
-
-       
-
-    // }
-    // conta = [];
+   
     servicos: string [] = [ 'Gás'  , 'luz' , 'água' , 'telefone' ]; 
     contaCadastrado = {
-        Conta: 1,
+        Conta: 7,
         descricao: "",
         codigo: ""
 

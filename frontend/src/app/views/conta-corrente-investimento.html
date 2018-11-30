@@ -1,18 +1,24 @@
-<mat-card style="text-align: center;"> 
-    <div >
-        <h1>Popança</h1>
-        <h3>Seu Saldo: R$ </h3>
-        <h3>Investimento: R$ </h3>
-        <h3>Rendabilidade: R$ </h3>
+<mat-card > 
+
+    <h1 style="text-align: center;">Popança</h1>
+
+    <div style="padding:10px; width: 500px; height: 200px; margin: 0 auto; background-color:#f7f7f7;" >
+        
+        <h3>Seu Saldo: R$ {{ aplicacao.saldo | number:'1.2-2'}}</h3>
+        <h3>Valor Investido: R$ {{ aplicacao.investimento | number:'1.2-2'}}</h3>
+        <h3>Liquidez: R$ {{aplicacao.liquidez}}</h3>
+        <h3>Rendabilidade: R$ {{ aplicacao.rendabilidade | number:'1.2-2'}}</h3>
     </div>
- 
+    
+    <br />
    
-        <mat-card-content>
-                <mat-card-actions>
-                    <button routerLink="popanca-aplicar" mat-raised-button color="primary">Aplicar</button>
-                    <button routerLink="popanca-resgatar" mat-raised-button color="primary">Resgatar</button>
-                </mat-card-actions>
-        </mat-card-content>
+    <mat-card-content style="text-align: center;">
+            <mat-card-actions>
+                <button routerLink="popanca-aplicar" mat-raised-button color="primary">Aplicar</button>
+                <button routerLink="popanca-resgatar" mat-raised-button color="primary">Resgatar</button>
+            </mat-card-actions>
+    </mat-card-content>
+    
 </mat-card>
 
 <router-outlet>
