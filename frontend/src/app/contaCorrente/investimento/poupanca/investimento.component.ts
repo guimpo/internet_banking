@@ -4,7 +4,7 @@ import { WebService } from '../../../web.service';
 
 @Component({
     selector: 'investimento',
-    templateUrl: '../../views/investimento/poupanca/poupanca.html',
+    templateUrl: '../../../views/investimento/poupanca/poupanca.html',
 })
 
 export class InvestimentoComponent {

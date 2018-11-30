@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ContaComponent } from './conta.component';
 
-
+import { InvestimentoComponent } from './contaCorrente/investimento/poupanca/investimento.component';
 import { ContaCorrenteComponent } from './contaCorrente/conta-corrente.component';
 import { ContaCorrenteExtratoComponent } from './contaCorrente/conta-corrente-extrato.component';
 import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-deposito.component';
@@ -23,6 +23,7 @@ import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
 import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
 import { ContaSalarioSaqueComponent } from './conta-salario/conta-salario-saque.component';
 import { ContaSalarioDepositoComponent } from './conta-salario/conta-salario-deposito.component';
+
 
 export const ROUTES : Routes = [
     { path: '', component: ContaComponent } ,
@@ -67,7 +68,7 @@ export const ROUTES : Routes = [
     { path: 'conta-salario-deposito', component: ContaSalarioDepositoComponent },
 
     // INVESTIMENTO
-    { path: '/investimento/poupanca/investimento', component: DebitoConsultarComponent }
+    { path: 'investimento/poupanca/investimento', component: InvestimentoComponent }
 
 
 
