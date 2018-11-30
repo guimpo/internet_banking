@@ -27,14 +27,14 @@ namespace BackEnd.Controllers
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
-            return Json(new ContaSalarioDao().BuscarPorId(id));
+            return Json(new ContaDao().BuscarPorId(id));
         }
 
         // POST api/<controller>
         [HttpPost("saque")]
         public JsonResult Post([FromBody] SaqueDto saque)
         {
-            var conta = new ContaSalario() { Id = saque.IdContaSalario};
+            var conta = new Conta() { Id = saque.IdContaSalario};
             return Json(new ContaSalarioService().Saque(conta, saque.Valor));
         }
 
@@ -42,7 +42,7 @@ namespace BackEnd.Controllers
         [HttpPost("deposito")]
         public JsonResult Post([FromBody] DepositoDto saque)
         {
-            var conta = new ContaSalario() { Id = saque.IdContaSalario };
+            var conta = new Conta() { Id = saque.IdContaSalario };
             return Json(new ContaSalarioService().Deposito(conta, saque.Valor));
         }
 
@@ -62,8 +62,8 @@ namespace BackEnd.Controllers
         [HttpPost("transferencia")]
         public JsonResult Transferencia([FromBody] TransferenciaDto t)
         {
-            var salario = new ContaSalario() { Id = t.ContaSalarioId };
-            var corrente = new Conta() { id = t.ContaCorrenteId };
+            var salario = new Conta() { Id = t.ContaSalarioId };
+            var corrente = new Conta() { Id = t.ContaCorrenteId };
             // idContaSalario = 2
             // idContaCorrente = 1
             // valor 2

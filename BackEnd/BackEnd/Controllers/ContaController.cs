@@ -16,12 +16,12 @@ namespace BackEnd.Controllers
     public class ContaController 
     {
       
-        public ContaCadastro Alterar(ContaCadastro t)
+        public DebitoAutomatico Alterar(DebitoAutomatico t)
         {
             throw new NotImplementedException();
         }
 
-        public ContaCadastro BuscarPonrId(int id)
+        public DebitoAutomatico BuscarPonrId(int id)
         {
             throw new NotImplementedException();
         }
@@ -54,16 +54,16 @@ namespace BackEnd.Controllers
             }
         }
 
-        public string Inserir(ContaCadastro t)
+        public string Inserir(DebitoAutomatico t)
         {
             Conexao conecxao = new Conexao();
             try
             {
                 string sql = "insert into conta_cadastrada (  id_conta, descricao, numero_conta ) values ( @id_conta, @descricao,  @numero);";
                 conecxao.Comando.CommandText = sql;
-                conecxao.Comando.Parameters.AddWithValue("@id_conta", t.id_conta);
-                conecxao.Comando.Parameters.AddWithValue("@descricao", t.descricao);
-                conecxao.Comando.Parameters.AddWithValue("@numero", t.codigo);
+                conecxao.Comando.Parameters.AddWithValue("@id_conta", t.Conta.Id);
+                conecxao.Comando.Parameters.AddWithValue("@descricao", t.Descricao);
+                conecxao.Comando.Parameters.AddWithValue("@numero", t.Codigo);
 
                 if (conecxao.Comando.ExecuteNonQuery() > 0)
                 {
@@ -87,13 +87,13 @@ namespace BackEnd.Controllers
             }
         }
 
-        public List<ContaCadastro> ListarToDos()
+        public List<DebitoAutomatico> ListarToDos()
         {
             Conexao conecxao = new Conexao();
             try
             {
 
-                List<Models.ContaCadastro> contas = new List<Models.ContaCadastro> { };
+                List<Models.DebitoAutomatico> contas = new List<Models.DebitoAutomatico> { };
 
 
                 string comando = "select * from conta_cadastrada ;";
@@ -104,12 +104,12 @@ namespace BackEnd.Controllers
 
                     while (reader.Read())
                     {
-                        ContaCadastro t = new Models.ContaCadastro
+                        DebitoAutomatico t = new Models.DebitoAutomatico
                         {
-                            id = Convert.ToInt32(reader["id"]),
-                            id_conta = Convert.ToInt32(reader["id_conta"]),
-                            descricao = reader["descricao"].ToString(),
-                            codigo = reader["numero_conta"].ToString()
+                            Id = Convert.ToInt32(reader["id"]),
+                            //Conta = Convert.ToInt32(reader["id_conta"]),
+                            Descricao = reader["descricao"].ToString(),
+                            Codigo = Convert.ToInt32(reader["codigo"])
                         };
                         contas.Add(t);
                     }
@@ -130,14 +130,14 @@ namespace BackEnd.Controllers
 
         // GET popular
         [HttpGet]
-        public IEnumerable<Models.ContaCadastro> Get()
+        public IEnumerable<Models.DebitoAutomatico> Get()
         {
             return ListarToDos();
         }
 
         //adiciona dado
         [HttpPost]
-        public Bool Post([FromBody] Models.ContaCadastro conta)
+        public Bool Post([FromBody] Models.DebitoAutomatico conta)
         {
             Bool b = new Bool();
             string s = Inserir(conta);
