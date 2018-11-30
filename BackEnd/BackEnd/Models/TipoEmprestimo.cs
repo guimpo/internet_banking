@@ -7,7 +7,9 @@ namespace BackEnd.Models
 {
     public class TipoEmprestimo
     {
-        public const int PESSOAL = 1;
-
+        public int Id { get; set; }
+        public string Descricao { get; set; }
+        public double Juros_Total { get; set; }
+        public double Juros_Atrasado { get; set; }
     }
 }
