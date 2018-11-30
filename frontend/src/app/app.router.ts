@@ -9,8 +9,8 @@ import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-d
 import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saque.component';
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
 import { ContaCorrenteInvestimentoComponent } from './contaCorrente/conta-corrente-investimento.component';
-import { PopancaAplicarComponent } from './contaCorrente/investimento/popanca-aplicar.component';
-import { PopancaResgatarComponent } from './contaCorrente/investimento/popanca-resgatar.component';
+import { PopancaAplicarComponent } from './contaCorrente/investimento/poupanca/popanca-aplicar.component';
+import { PopancaResgatarComponent } from './contaCorrente/investimento/poupanca/popanca-resgatar.component';
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
 import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
@@ -64,5 +64,11 @@ export const ROUTES : Routes = [
     { path: 'conta-salario', component: ContaSalarioComponent },
     { path: 'conta-salario-extrato', component: ContaSalarioExtratoComponent },
     { path: 'conta-salario-saque', component: ContaSalarioSaqueComponent },
-    { path: 'conta-salario-deposito', component: ContaSalarioDepositoComponent }
+    { path: 'conta-salario-deposito', component: ContaSalarioDepositoComponent },
+
+    // INVESTIMENTO
+    { path: '/investimento/poupanca/investimento', component: DebitoConsultarComponent }
+
+
+
 ]
