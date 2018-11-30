@@ -14,6 +14,7 @@ import { PopancaResgatarComponent } from './contaCorrente/investimento/popanca-r
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
 import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
+import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestimo-simular.component';
 
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
@@ -39,7 +40,12 @@ export const ROUTES : Routes = [
 
     { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
     { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent }, 
-    { path: 'conta-corrente-emprestimo/emprestimo-realizar', component: EmprestimoRealizarComponent }, 
+    { path: 'conta-corrente-emprestimo/emprestimo-realizar', component: EmprestimoRealizarComponent,
+    children: [
+        { path: 'emprestimo-simular', component: EmprestimoSimularComponent  }
+       
+      ]
+    }, 
 
 
 

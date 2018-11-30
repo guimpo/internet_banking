@@ -1,11 +1,12 @@
-<mat-card style="text-align: center;"> 
+<mat-card > 
     <div >
-        <h1>Seu Saldo: </h1>
+        <h1>Empréstimo</h1>
+        <h3>Seu Saldo: {{ emprestado.saldo | number:'1.2-2'}}</h3>
         <h4>Digite valor que deseja emprestar:</h4>
     </div>
     <mat-card-content>
         <mat-form-field>
-            <input  matInput placeholder="Digite valor" type="number" >
+            <input  [(ngModel)]=" emprestado.valor" matInput placeholder="Digite valor" type="number" min=0 step=50>
         </mat-form-field>
        
     </mat-card-content>
@@ -14,12 +15,12 @@
     </div>
     <mat-card-content>
         <mat-form-field>
-            <input  matInput placeholder="Digite valor" type="number" >
+            <input   [(ngModel)]=" emprestado.parcelas" matInput placeholder="Digite valor" type="number" >
         </mat-form-field>
         <mat-card-actions>
             <button  mat-raised-button color="primary">Voltar</button>
-            <button  mat-raised-button color="primary">Simular</button>
+            <button  routerLink="emprestimo-simular" mat-raised-button color="primary">Simular</button>
         </mat-card-actions>
-        
     </mat-card-content>
 </mat-card>
+<router-outlet></router-outlet>
