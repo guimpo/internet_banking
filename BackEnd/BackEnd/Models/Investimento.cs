@@ -12,5 +12,6 @@ namespace BackEnd.Models
         public double Valor { get; set; }
         public TipoInvestimento TipoInvestimento { get; set; }
         public ContaContabil ContaContabil { get; set; }
+        public Conta Conta { get; set; }
     }
 }
