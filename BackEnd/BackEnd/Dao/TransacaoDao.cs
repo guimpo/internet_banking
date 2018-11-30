@@ -66,7 +66,7 @@ namespace BackEnd.Dao
                 List<Models.Transacao> transacoes = new List<Models.Transacao> { };
 
 
-                string comando = "select * from trasacao where conta_id1 = 7;";
+                string comando = "select t.*, tt.descricao tipo_transacao_descricao from trasacao t join tipo_transacao tt ON t.tipo_transacao_id = tt.id where conta_id1 = 7;";  
                 conexao.Comando.CommandText = comando;
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
@@ -78,6 +78,7 @@ namespace BackEnd.Dao
                         {
                             id = Convert.ToInt32(reader["id"]),
                             tipo_transacao_id = Convert.ToInt32(reader["tipo_transacao_id"]),
+                            tipo_transacao_descricao = (reader["tipo_transacao_descricao"].ToString()),
                             data = Convert.ToDateTime(reader["data"]),
                             //hora = Convert.ToDateTime(reader["hora"]),
                             hora = DateTime.ParseExact((reader["hora"]).ToString(), "HH:mm:ss", CultureInfo.InvariantCulture),

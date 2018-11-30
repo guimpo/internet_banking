@@ -10,6 +10,6 @@ namespace BackEnd.Models
         public int Id { get; set; }
         public string Descricao { get; set; }
         public int Codigo { get; set; }
-        public Conta Conta { get; set; }
+        public int Conta { get; set; }
     }
 }
