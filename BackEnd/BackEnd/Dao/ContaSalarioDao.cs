@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Dao
 {
-    public class ContaSalarioDao : IDao<ContaSalario>
+    public class ContaDao : IDao<Conta>
     {
-        public ContaSalario Alterar(ContaSalario c)
+        public Conta Alterar(Conta c)
         {
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "UPDATE conta_salario SET saldo = @saldo WHERE id = @id";
+                string comand = "UPDATE conta SET saldo = @saldo WHERE id = @id";
 
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@id", c.Id);
@@ -39,7 +39,7 @@ namespace BackEnd.Dao
             }
         }
 
-        public ContaSalario BuscarPorId(int id)
+        public Conta BuscarPorId(int id)
         {
             Conexao conexao = new Conexao();
             try
@@ -57,12 +57,12 @@ namespace BackEnd.Dao
                         nome = reader["nome"].ToString()
                     };
 
-                    ContaSalario contaSalario = new ContaSalario()
+                    Conta contaSalario = new Conta()
                     {
                         Id = Convert.ToInt32(reader["id"]),
                         Numero = Convert.ToInt32(reader["numero"]),
                         Agencia = reader["agencia"].ToString(),
-                        TipoConta = Convert.ToInt32(reader["id_tipo_conta"]),
+                        TipoConta = Convert.ToInt32(reader["tipo_conta_id"]),
                         Pessoa = pessoa,
                         Saldo = (float) Convert.ToDouble(reader["saldo"])
                     };
@@ -84,17 +84,17 @@ namespace BackEnd.Dao
             return null;
         }
 
-        public ContaSalario Deletar(ContaSalario t)
+        public Conta Deletar(Conta t)
         {
             throw new NotImplementedException();
         }
 
-        public ContaSalario Inserir(ContaSalario t)
+        public Conta Inserir(Conta t)
         {
             throw new NotImplementedException();
         }
 
-        public List<ContaSalario> ListarTodos()
+        public List<Conta> ListarTodos()
         {
             throw new NotImplementedException();
         }

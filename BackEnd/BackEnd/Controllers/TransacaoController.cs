@@ -104,7 +104,7 @@ namespace BackEnd.Controllers
             Conexao conexao = new Conexao();
             try
             {
-                string comando = "select * from conta where id_pessoa = @id";
+                string comando = "select * from conta where pessoa_id = @id";
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id", pessoa.id);
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
@@ -113,13 +113,12 @@ namespace BackEnd.Controllers
                     reader.Read();
                     Conta conta = new Conta()
                     {
-                        id = Convert.ToInt32(reader["id"]),
-                        id_tipo_conta = Convert.ToInt32(reader["id_tipo_conta"]),
-                        id_pessoa = pessoa,
-                        saldo = (float) Convert.ToDouble(reader["saldo"])
+                        Id = Convert.ToInt32(reader["id"]),
+                        TipoConta = Convert.ToInt32(reader["tipo_conta_id"]),
+                        Pessoa = pessoa,
+                        Saldo = Convert.ToDouble(reader["saldo"])
 
                     };
-
                     return conta;
                 }
                 else

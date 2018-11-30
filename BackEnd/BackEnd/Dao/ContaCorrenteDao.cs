@@ -17,8 +17,8 @@ namespace BackEnd.Dao
                 string comand = "UPDATE conta SET saldo = @saldo WHERE id = @id";
 
                 conexao.Comando.CommandText = comand;
-                conexao.Comando.Parameters.AddWithValue("@id", c.id);
-                conexao.Comando.Parameters.AddWithValue("@saldo", c.saldo);
+                conexao.Comando.Parameters.AddWithValue("@id", c.Id);
+                conexao.Comando.Parameters.AddWithValue("@saldo", c.Saldo);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
@@ -59,13 +59,13 @@ namespace BackEnd.Dao
 
                         Conta conta = new Conta()
                         {
-                            id = Convert.ToInt32(reader["id"]),
-                            id_tipo_conta = Convert.ToInt32(reader["id_tipo_conta"]),
-                            id_pessoa = pessoa,
-                            saldo = (float) Convert.ToDouble(reader["saldo"])
+                            Id = Convert.ToInt32(reader["id"]),
+                            TipoConta = Convert.ToInt32(reader["tipo_conta_id"]),
+                            Pessoa = pessoa,
+                            Saldo = Convert.ToDouble(reader["saldo"])
                         };
                         return conta;
-                    } 
+                    }
                 }
                 return null;
             }

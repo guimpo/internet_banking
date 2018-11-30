@@ -7,6 +7,6 @@ namespace BackEnd.Services
 {
     public interface ITransferencia<T>
     {
-        T Transferir(T origem, T destino, float valor);
+        T Transferir(T origem, T destino, double valor);
     }
 }
