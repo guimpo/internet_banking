@@ -9,6 +9,7 @@ namespace BackEnd.Models
     {
         public int id { get; set; }
         public int tipo_transacao_id { get; set; }
+        public string tipo_transacao_descricao { get; set; }
         public DateTime data { get; set; }
         public DateTime hora { get; set; }
         public double valor { get; set; }
