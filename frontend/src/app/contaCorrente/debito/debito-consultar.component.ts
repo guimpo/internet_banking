@@ -3,12 +3,6 @@ import { WebService } from '../../web.service';
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
 import {MatSnackBar} from '@angular/material';
 
-export interface PeriodicElement {
-    id: number ;
-    descricao: string;
-    codigo: string;
-}
-
 @Component({
     selector: 'debito-excluir',
     templateUrl: '../../views/debito/debito-consultar.html',
