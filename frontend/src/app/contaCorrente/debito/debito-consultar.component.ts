@@ -13,7 +13,6 @@ export class DebitoConsultarComponent {
     constructor(private webService : WebService, public snackBar: MatSnackBar) {}
     displayedColumns: string[] = ['id', 'descricao', 'codigo','botao'];
     dataSource = new MatTableDataSource();
-   
 
     async ngOnInit(){
 
