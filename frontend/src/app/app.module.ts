@@ -38,6 +38,7 @@ import { InvestimentoComponent } from './contaCorrente/investimento/poupanca/inv
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
 import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
+import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestimo-simular.component';
 
 //Débito automatico
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
@@ -130,6 +131,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContaCorrenteEmprestimoComponent, 
     EmprestimoRealizarComponent,
     EmprestimoPagarComponent,
+    EmprestimoSimularComponent,
     ContaCorrenteExtratoComponent,
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,
@@ -152,7 +154,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatTableModule,
     CdkTableModule,
-    
+    MatRadioModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
