@@ -6,4 +6,12 @@ import { Component } from '@angular/core';
     templateUrl: '../../views/emprestimo/emprestimo-realizar.html',
 })
 
-export class EmprestimoRealizarComponent {}
+export class EmprestimoRealizarComponent {
+
+    emprestado = {
+        saldo: 0,
+        valor: 0,
+        parcelas:0
+
+    }
+}
