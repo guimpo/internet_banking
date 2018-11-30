@@ -34,6 +34,20 @@ import {Router} from '@angular/router';
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card>
+            <mat-card style="margin:18px;">   
+                <mat-card-content>
+                    <mat-card-actions>
+                        <button routerLink="/conta-corrente-investimento" mat-button color="primary">Investimento</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+            <mat-card style="margin:18px;">   
+                <mat-card-content>
+                    <mat-card-actions>
+                        <button routerLink="/conta-corrente-emprestimo" mat-button color="primary">Empréstimo</button>
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
               `,
   })
   export class ContaCorrenteComponent {

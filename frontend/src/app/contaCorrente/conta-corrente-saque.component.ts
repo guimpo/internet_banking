@@ -1,4 +1,4 @@
-import { Component,  Output, EventEmitter  } from '@angular/core'
+import { Component,  Output, EventEmitter  } from '@angular/core';
 import { WebService } from '../web.service';
 import {MatSnackBar} from '@angular/material';
 

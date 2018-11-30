@@ -8,7 +8,12 @@ import { ContaCorrenteExtratoComponent } from './contaCorrente/conta-corrente-ex
 import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-deposito.component';
 import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saque.component';
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
-
+import { ContaCorrenteInvestimentoComponent } from './contaCorrente/conta-corrente-investimento.component';
+import { PopancaAplicarComponent } from './contaCorrente/investimento/popanca-aplicar.component';
+import { PopancaResgatarComponent } from './contaCorrente/investimento/popanca-resgatar.component';
+import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
+import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
+import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
 
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
@@ -24,6 +29,20 @@ export const ROUTES : Routes = [
     { path: 'conta-corrente-deposito', component: ContaCorrenteDepositoComponent },
     { path: 'conta-corrente-extrato', component: ContaCorrenteExtratoComponent }, 
     { path: 'conta-corrente-saque', component: ContaCorrenteSaqueComponent }, 
+    { path: 'conta-corrente-investimento', component: ContaCorrenteInvestimentoComponent,
+        children: [
+            { path: 'popanca-aplicar', component: PopancaAplicarComponent },
+            { path: 'popanca-resgatar', component: PopancaResgatarComponent }
+           
+          ]
+    }, 
+
+    { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
+    { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent }, 
+    { path: 'conta-corrente-emprestimo/emprestimo-realizar', component: EmprestimoRealizarComponent }, 
+
+
+
 
     // { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent, 
     //     children: [
