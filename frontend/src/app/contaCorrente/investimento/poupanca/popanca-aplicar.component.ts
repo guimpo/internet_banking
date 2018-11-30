@@ -13,8 +13,8 @@ export interface PeriodicElement {
 
 @Component({
     selector: 'investimento-popanca-aplicar',
-    templateUrl: '../../views/investimento/popanca-aplicar.html',
-    styleUrls: ['../../views/css/sort-overview-example.css'],
+    templateUrl: '../../../views/investimento/poupanca/popanca-aplicar.html',
+    styleUrls: ['../../../views/css/sort-overview-example.css'],
 
 })
 
