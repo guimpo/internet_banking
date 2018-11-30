@@ -33,6 +33,17 @@ namespace BackEnd.Controllers
         [HttpPost("poupanca")]
         public Investimento Post([FromBody] Investimento investimento)
         {
+
+            ContaContabilDao daoContabil = new ContaContabilDao();
+            ContaContabil contabil = new ContaContabil();
+            contabil.Valor = investimento.Valor;
+            contabil = daoContabil.InserirContaContabil(contabil, investimento.TipoInvestimento.Id);
+
+            if (contabil == null)
+            {
+                return null;
+            }
+
             InvestimentoDao daoInvestimento = new InvestimentoDao();
             investimento = daoInvestimento.Inserir(investimento);
 
@@ -40,10 +51,12 @@ namespace BackEnd.Controllers
             {
                 return null;
             }
+            else
+            {
+                return investimento;
+            }
 
-            ContaContabilDao daoContabil = new ContaContabilDao();
-            // aguardar
-            return null;
+            
         }
 
         // PUT: api/Investimento/5
