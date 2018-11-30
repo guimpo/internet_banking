@@ -4,7 +4,7 @@ import { WebService } from '../web.service';
 
 export interface PeriodicElement {
   id:number;
-  id_tipo_transacao: string;
+  tipo_transacao_id: string;
   data: Date;
   hora: Date;
   valor: number;
