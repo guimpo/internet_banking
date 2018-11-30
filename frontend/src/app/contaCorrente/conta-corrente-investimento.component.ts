@@ -8,18 +8,18 @@ import {Router} from '@angular/router';
             <mat-card style="margin:18px;"> 
                 <mat-card-content>
                     <mat-card-actions>
-                        <button routerLink="/investimento/poupanca/conta-corrente-investimento" mat-button color="primary">Poupanca</button>
+                        <button  routerLink="/investimento/poupanca/investimento" mat-button color="primary">POUPANCA</button>
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card>
             <mat-card style="margin:18px;"> 
                 <mat-card-content>
                     <mat-card-actions>
-                        <button  routerLink="/conta-corrente-extrato" mat-button color="primary">Extrato</button>
+                        <button  routerLink="/conta-corrente-extrato" mat-button color="primary">SELIC</button>
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card> 
-              `,
+    `,
   })
   export class ContaCorrenteInvestimentoComponent {
     constructor( ){
