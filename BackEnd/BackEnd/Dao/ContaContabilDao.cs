@@ -29,12 +29,12 @@ namespace BackEnd.Dao
             throw new NotImplementedException();
         }
 
-        public ContaContabil InserirContaContabilInvestimento(ContaContabil c)
+        public ContaContabil InserirContaContabil(ContaContabil c, int tipo)//1 pra investimento e 2 pra emprestimo?
         {
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO conta_contabil_investimento(valor) VALUES (@valor);";
+                string comand = (tipo == 1) ? "INSERT INTO conta_contabil_investimento(valor) VALUES (@valor);" : "INSERT INTO conta_contabil_emprestimo(valor) VALUES (@valor);";              
 
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@valor", c.Valor);
