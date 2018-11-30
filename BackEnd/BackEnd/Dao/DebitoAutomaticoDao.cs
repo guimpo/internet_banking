@@ -52,7 +52,7 @@ namespace BackEnd.Dao
             Conexao conecxao = new Conexao();
             try
             {
-                string sql = "insert into debito_automatico ( descricao, codigo, conta_id  ) values ( @descricao,  @numero,  @id_conta);";
+                string sql = "insert into debito_automatico ( descricao, numero_conta, conta_id  ) values ( @descricao,  @numero,  @id_conta);";
                 conecxao.Comando.CommandText = sql;
                 conecxao.Comando.Parameters.AddWithValue("@descricao", t.Descricao);
                 conecxao.Comando.Parameters.AddWithValue("@numero", t.Codigo);
@@ -101,7 +101,7 @@ namespace BackEnd.Dao
                         {
                             Id = Convert.ToInt32(reader["id"]),
                             Descricao = reader["descricao"].ToString(),
-                            Codigo = Convert.ToInt32(reader["codigo"])
+                            Codigo = Convert.ToInt32(reader["numero_conta"])
                         };
                         contas.Add(t);
                     }

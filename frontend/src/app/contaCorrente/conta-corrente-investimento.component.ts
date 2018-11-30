@@ -8,6 +8,11 @@ import { WebService } from '../web.service';
 })
 
 export class ContaCorrenteInvestimentoComponent {
-
+    aplicacao = {
+        saldo: 0,
+        investimento: 0,
+        liquidez: 0 ,
+        rendabilidade: 0
+    }
 
 }
