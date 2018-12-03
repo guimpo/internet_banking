@@ -8,19 +8,19 @@ import { WebService } from '../../web.service';
 
 export class EmprestimoRealizarComponent {
     constructor(private webService : WebService){}
-
-    conta;
+    loadComponent = false;
     emprestimo = {
-        valor: 100,
-        parcelas: 12
+        valor: 1000,
+        parcelas: 12,
+        id: 1,
+        metodoPagamento: 0
     }
 
     async ngOnInit() {
-        //recebe do servidor
-        var response = await this.webService.getLogin(1);
-        console.log(response.json());
-  
-        //vai mostrar la em cima cooresponte
-        this.conta = response.json();
+    
+    }
+
+    async post() {
+        this.loadComponent = true;
     }
 }

@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
 import { WebService } from '../../web.service';
 
-
+export interface Parcela {
+    dataVencimento: Date;
+    valor: number;
+  }
 
 @Component({
     selector: 'emprestimo-simular',
@@ -14,16 +17,20 @@ import { WebService } from '../../web.service';
 export class EmprestimoSimularComponent {
     constructor(private webService : WebService){}
 
+    @Input() emprestimo; 
+    aux;
 
-    displayedColumns: string[] = ['id', 'tipo_transacao', 'data', 'hora','valor'];
+    displayedColumns: string[] = ['dataVencimento', 'valor'];
     dataSource = new MatTableDataSource();
   
-    async ngOnInit() {
-  
-      var response = await this.webService.getTransacao();
-      console.log(response.json());
-  
-      this.dataSource = response.json(); 
-    } 
+    async ngOnInit() {  
+        this.aux = this.emprestimo;     
+        var response = await this.webService.simular(this.emprestimo);
+        this.dataSource = response.json();
+    }
+    
+    post() {
+        this.webService.postEmprestimo(this.aux)
+    }
    
 }

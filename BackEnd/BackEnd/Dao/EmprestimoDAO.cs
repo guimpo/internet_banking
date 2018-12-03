@@ -29,12 +29,14 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO emprestimo(valor, data_solicitacao, tipo_emprestimo_id, conta_contabil_emprestimo_id, conta_id) VALUES (@valor, now(), @tipo, @conta_contabil, 7);";
+                string comand = "INSERT INTO emprestimo(valor, data_solicitacao, tipo_emprestimo_pessoal_id, conta_contabil_emprestimo_id, conta_id, parcelas, metodo_pagamento) VALUES (@valor, now(), @tipo, @conta_contabil, 7, @parcelas, @pagamento);";
 
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@valor", t.Valor);
-                conexao.Comando.Parameters.AddWithValue("@tipo", t.TipoEmprestimo);
-                conexao.Comando.Parameters.AddWithValue("@conta_contabil", t.ContaContabil.Id);
+                conexao.Comando.Parameters.AddWithValue("@parcelas", t.Parcelas);
+                conexao.Comando.Parameters.AddWithValue("@pagamento", t.MetodoPagamento);
+                conexao.Comando.Parameters.AddWithValue("@tipo", 1);
+                conexao.Comando.Parameters.AddWithValue("@conta_contabil", 1);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {

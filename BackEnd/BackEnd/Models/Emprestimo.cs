@@ -9,6 +9,8 @@ namespace BackEnd.Models
     {
         public int Id { get; set; }
         public double Valor { get; set; }
+        public int Parcelas { get; set; }
+        public int MetodoPagamento { get; set; }
         public DateTime DataSolicitacao { get; set; }
         public TipoEmprestimo TipoEmprestimo { get; set; }
         public ContaContabil ContaContabil { get; set; }

@@ -70,5 +70,14 @@ export class WebService {
     getSelic(){
         return this.http.get(this.BASE_URL + '/investimento/selic').toPromise();
     }
+
+    //EMPRESTIMO -----
+    postEmprestimo(emprestimo) {
+        return this.http.post(this.BASE_URL + '/emprestimo', emprestimo).toPromise();
+    }
+
+    simular(emprestimo) {
+        return this.http.post(this.BASE_URL + '/emprestimo/simular', emprestimo).toPromise();
+    }
     
 }
