@@ -19,7 +19,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comando = "SELECT i.id, i.data_aplicacao, i.valor, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.quantidade, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.tipo_investimento_id = ti.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
+                string comando = "SELECT i.id, i.data_aplicacao, i.valor, count(i.id) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic,  tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.tipo_investimento_id = ti.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
 
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
