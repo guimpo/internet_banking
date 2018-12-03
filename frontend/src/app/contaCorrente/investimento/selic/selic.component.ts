@@ -16,17 +16,20 @@ export class SelicComponent {
 
         var response = await this.webService.getSelic();
         console.log(response.json());
-        this.investimemto  = response.json();
-          
+        
+        this.investimemto  = response.json();          
         
         var response = await this.webService.getLogin(1);
         this.conta = response.json();
         this.aplicacao.saldo = this.conta['saldo'];
         
-    } 
+    }
+
     conta=[];
     investimemto = [];
+    
     aplicacao = {
+
         saldo: 0,
         investimento: 0,
        
