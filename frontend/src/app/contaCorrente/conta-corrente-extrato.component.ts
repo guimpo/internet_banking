@@ -2,13 +2,7 @@ import {Component, OnInit, ViewChild, Output, EventEmitter} from '@angular/core'
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
 import { WebService } from '../web.service';
 
-export interface PeriodicElement {
-  id:number;
-  tipo_transacao_id: string;
-  data: Date;
-  hora: Date;
-  valor: number;
-}
+
 // const ELEMENT_DATA: PeriodicElement[] = [
 //   {id : 1, tipo_transacao: 'Hydrogen', data:new Date, hora: new Date, valor: 1.5 },
 //   {id : 2, tipo_transacao: 'Hydrogen', data:new Date, hora: new Date, valor: 2.5 },
@@ -39,7 +33,7 @@ export class ContaCorrenteExtratoComponent  {
     var response = await this.webService.getTransacao();
     console.log(response.json());
 
-    this.dataSource = response.json(); 
+    this.dataSource.data = response.json(); 
   } 
 
 }

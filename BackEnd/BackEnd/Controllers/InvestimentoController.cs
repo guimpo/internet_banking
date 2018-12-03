@@ -28,6 +28,8 @@ namespace BackEnd.Controllers
             return "value";
         }
 
+
+
         // POST: api/Investimento/Poupanca
         [HttpPost]
         [HttpPost("poupanca")]
@@ -69,6 +71,13 @@ namespace BackEnd.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        //GET: api/investimento/popança
+        [HttpGet("poupanca")]
+        public TipoInvestimento getPopanca()
+        {
+            return (new TipoInvestimentoDao().BuscarPorId(1));
         }
     }
 }
