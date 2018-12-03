@@ -1,0 +1,10 @@
+
+***** LUCAS ***** 
+
+CREATE TABLE `banco`.`tipo_investimento_selic` ( `id` INT NOT NULL AUTO_INCREMENT , `tipo_investimento_id` INT NOT NULL , `quantidade` INT NOT NULL , `vencimento` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `tipo_investimento_selic` ADD CONSTRAINT `fk_tipo_investimento_investimento_tipo` FOREIGN KEY (`tipo_investimento_id`) REFERENCES `tipo_investimento`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+***** MARCELO ***** 
+
+ALTER TABLE `emprestimo` ADD `parcelas` INT NOT NULL AFTER `data_solicitacao`;
+ALTER TABLE `emprestimo` ADD `metodo_pagamento` INT NOT NULL AFTER `parcelas`;
