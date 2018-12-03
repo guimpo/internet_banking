@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
             <mat-card style="margin:18px;"> 
                 <mat-card-content>
                     <mat-card-actions>
-                        <button   routerLink="/conta-corrente-investimento-poupanca" mat-button color="primary">POUPANCA</button>
+                        <button   routerLink="/conta-corrente-investimento-poupanca" mat-button color="primary">POUPANÇA</button>
                     </mat-card-actions>
                 </mat-card-content>
             </mat-card>

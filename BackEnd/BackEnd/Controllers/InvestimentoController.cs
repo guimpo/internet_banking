@@ -79,5 +79,12 @@ namespace BackEnd.Controllers
         {
             return (new TipoInvestimentoDao().BuscarPorId(1));
         }
+
+        //GET: api/investimento/popança
+        [HttpGet("selic")]
+        public TipoInvestimento getSelic()
+        {
+            return (new TipoInvestimentoDao().BuscarPorId(2));
+        }
     }
 }

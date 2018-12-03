@@ -14,7 +14,7 @@ export class SelicComponent {
    
     async ngOnInit() {
 
-        var response = await this.webService.getPopanca();
+        var response = await this.webService.getSelic();
         console.log(response.json());
         this.investimemto  = response.json();
           

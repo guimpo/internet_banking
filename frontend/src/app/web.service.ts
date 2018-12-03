@@ -66,5 +66,9 @@ export class WebService {
     getPopanca(){
         return this.http.get(this.BASE_URL + '/investimento/poupanca').toPromise();
     }
+
+    getSelic(){
+        return this.http.get(this.BASE_URL + '/investimento/selic').toPromise();
+    }
     
 }

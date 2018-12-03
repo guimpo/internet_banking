@@ -37,6 +37,7 @@ export const ROUTES : Routes = [
     { path: 'conta-corrente-extrato', component: ContaCorrenteExtratoComponent }, 
     { path: 'conta-corrente-saque', component: ContaCorrenteSaqueComponent }, 
     
+    // INVESTIMENTO
     { path: 'conta-corrente-investimento', component: ContaCorrenteInvestimentoComponent},
     { path: 'conta-corrente-investimento-poupanca', component: PoupancaComponent,
         children: [
@@ -53,6 +54,7 @@ export const ROUTES : Routes = [
       ]
     }, 
 
+    // EMPRESTIMO
     { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
     { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent }, 
     { path: 'conta-corrente-emprestimo/emprestimo-realizar', component: EmprestimoRealizarComponent,
@@ -61,16 +63,7 @@ export const ROUTES : Routes = [
        
       ]
     }, 
-
-
-
-
-    // { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent, 
-    //     children: [
-    //     { path: 'debito-excluir', component: DebitoExcluirComponent },
-    //     { path: 'debito-cadastrar', component: DebitoCadastrarComponent },
-    //     { path: 'debito-consultar', component: DebitoConsultarComponent }
-    //   ] }, 
+ 
     { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent },
  
     { path: 'conta-corrente-debito/debito-cadastrar', component: DebitoCadastrarComponent },
@@ -81,7 +74,7 @@ export const ROUTES : Routes = [
     { path: 'conta-salario-saque', component: ContaSalarioSaqueComponent },
     { path: 'conta-salario-deposito', component: ContaSalarioDepositoComponent },
 
-    // INVESTIMENTO
+    
    
 
 
