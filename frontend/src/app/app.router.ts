@@ -18,6 +18,8 @@ import { SelicComponent } from './contaCorrente/investimento/selic/selic.compone
 import { SelicAplicarComponent } from './contaCorrente/investimento/selic/selic-aplicar.component';
 import { SelicResgatarComponent } from './contaCorrente/investimento/selic/selic-resgatar.component';
 
+//import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
+
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
 import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
@@ -25,12 +27,6 @@ import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestim
 
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
-
-import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
-import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
-import { ContaSalarioSaqueComponent } from './conta-salario/conta-salario-saque.component';
-import { ContaSalarioDepositoComponent } from './conta-salario/conta-salario-deposito.component';
-
 
 export const ROUTES : Routes = [
     { path: '', component: ContaComponent } ,
@@ -53,7 +49,15 @@ export const ROUTES : Routes = [
         { path: 'aplicar', component: SelicAplicarComponent },
         { path: 'resgatar', component: SelicResgatarComponent }
       ]
-    }, 
+    },
+
+    // { path: 'conta-corrente-investimento-tesouro-prefixado-ltn', component: TesouroPrefixadoLtnComponent,
+    // children: [
+    //     { path: 'aplicar', component: PoupancaAplicarComponent },
+    //     { path: 'resgatar', component: PoupancaResgatarComponent }
+       
+    //   ]
+    // },
 
     // EMPRESTIMO
     { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
@@ -68,16 +72,5 @@ export const ROUTES : Routes = [
     { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent },
  
     { path: 'conta-corrente-debito/debito-cadastrar', component: DebitoCadastrarComponent },
-    { path: 'conta-corrente-debito/debito-consultar', component: DebitoConsultarComponent },
-
-    { path: 'conta-salario', component: ContaSalarioComponent },
-    { path: 'conta-salario-extrato', component: ContaSalarioExtratoComponent },
-    { path: 'conta-salario-saque', component: ContaSalarioSaqueComponent },
-    { path: 'conta-salario-deposito', component: ContaSalarioDepositoComponent },
-
-    
-   
-
-
-
+    { path: 'conta-corrente-debito/debito-consultar', component: DebitoConsultarComponent }
 ]
