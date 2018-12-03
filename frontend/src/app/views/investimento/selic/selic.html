@@ -2,7 +2,7 @@
 
     <h1 style="text-align: center;">TESOURO SELIC</h1>
 
-    <div style="padding:10px;   margin: 0 auto; background-color:#f7f7f7;" >
+    <div style="padding:10px; margin: 0 auto; background-color:#f7f7f7;" >
         
         <h3>Seu Saldo: R$ {{ aplicacao.saldo | number:'1.2-2'}}</h3>
         <h3>Valor Investido: R$ {{ aplicacao.investimento | number:'1.2-2'}}</h3>
@@ -10,6 +10,8 @@
         <h3>Descrição: {{investimemto.descricao}}</h3>
         <h3>Liquidez: {{investimemto.liquidez}}</h3>
         <h3>Rendabilidade:{{ investimemto.rentabilidade }}</h3>
+        <h3>Data vencimento:{{ investimemto.data_vencimento }}</h3>
+        <h3>Quantidade:{{ investimemto.quantidade }}</h3>
         
        
     </div>
