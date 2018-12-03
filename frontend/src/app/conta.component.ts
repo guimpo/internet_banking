@@ -10,14 +10,6 @@ import { Component } from '@angular/core'
             </mat-card-actions>
         </mat-card-content>
     </mat-card>
-
-    <mat-card style="margin:18px;"> 
-        <mat-card-content>
-            <mat-card-actions>
-                <button routerLink="/conta-salario" mat-button color="primary">Conta Salário</button>
-            </mat-card-actions>
-        </mat-card-content>
-    </mat-card>
     `,
 })
 export class ContaComponent {

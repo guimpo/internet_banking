@@ -49,12 +49,6 @@ import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestim
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 
-//contasalario
-import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
-import { ContaSalarioSaqueComponent } from './conta-salario/conta-salario-saque.component';
-import { ContaSalarioDepositoComponent } from './conta-salario/conta-salario-deposito.component';
-
-
 //coisa de comunicacao ao servidor
 import { WebService } from './web.service';
 import { HttpModule } from '@angular/http';
@@ -112,8 +106,8 @@ import {
 
 } from '@angular/material';
 
-import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
 
 //o que importa em cima tem que copiar para abaixo tambem, Component no declarations
 //Module no imports, WebService no providers
@@ -145,10 +139,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,
     ContaCorrenteDebitoComponent,
-    ContaSalarioComponent,
-    ContaSalarioSaqueComponent,
-    ContaSalarioExtratoComponent,
-    ContaSalarioDepositoComponent
+    TesouroPrefixadoLtnComponent
   ],
   imports: [
     BrowserModule,
