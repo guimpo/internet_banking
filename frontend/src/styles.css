@@ -3,10 +3,10 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body{
-    /* background: #eeeeee; */
+    background: #eeeeee;
     background-image: url(img/background.jpg);
     background-repeat: no-repeat;
-    background-size: 105%;
+    background-size: cover;
     font-family: Roboto, Arial, sans-serif;
     margin: 0;
 
