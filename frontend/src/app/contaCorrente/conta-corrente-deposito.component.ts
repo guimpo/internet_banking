@@ -15,7 +15,6 @@ export class ContaCorrenteDepositoComponent {
     deposito = {
         tipo_transacao_id: 2,
         valor: 0
-
     }
     async ngOnInit(){
 
@@ -25,9 +24,6 @@ export class ContaCorrenteDepositoComponent {
   
         //vai mostrar la em cima cooresponte
         this.conta = response.json();
-        
-
-       
 
     }
     conta = [ ];
