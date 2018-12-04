@@ -1,0 +1,70 @@
+<mat-card style="margin-top:18px;"> 
+        <div >
+           
+            <h4>Digite valor que deseja Aplicar:</h4>
+        </div>
+        <mat-card-content>
+            <mat-form-field>
+                <input  matInput placeholder="Digite valor" type="number" >
+            </mat-form-field>
+            
+            <mat-card-actions >
+                
+                <button (click)="Torendimento()" mat-raised-button color="primary">Confirmar</button>
+            </mat-card-actions>
+            
+        </mat-card-content>
+</mat-card>
+<mat-card id="rendimento" style="margin-top:18px;display: none;" > 
+    <div style="padding:50px;">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="tipo_transacao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo transação </th>
+            <td mat-cell *matCellDef="let element"> {{element.id_tipo_transacao == 1 ? 'Débito': 'Crédito'}} </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+            <td mat-cell *matCellDef="let element" > {{element.data | date: "d/M/yy"}} </td>
+          </ng-container>
+          
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="hora">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora </th>
+            <td mat-cell *matCellDef="let element"> {{element.hora | date: "HH:mm:ss"}} </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="valor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+            <td mat-cell *matCellDef="let element"> {{element.valor | number:'1.2-2'}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="botao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+            <td mat-cell *matCellDef="let element"> 
+                <button (click)="delete(element.id)" mat-raised-button color="warn" >
+                  Gerar Boleto
+                </button>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</mat-card>
+<br />
+<br />
+<br />
+<br />
