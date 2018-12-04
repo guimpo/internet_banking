@@ -1,27 +1,9 @@
--- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: 04-Dez-2018 às 17:14
--- Versão do servidor: 10.1.36-MariaDB
--- versão do PHP: 7.0.32
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `banco`
 --
-
+create database banco;
+use banco;
 -- --------------------------------------------------------
 
 --
@@ -608,8 +590,6 @@ ALTER TABLE `tipo_investimento_selic`
 ALTER TABLE `trasacao`
   ADD CONSTRAINT `fk_trasacao_conta1` FOREIGN KEY (`conta_id1`) REFERENCES `conta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_trasacao_tipo_transacao1` FOREIGN KEY (`tipo_transacao_id`) REFERENCES `tipo_transacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+COMMIT;
