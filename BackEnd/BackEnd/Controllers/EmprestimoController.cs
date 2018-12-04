@@ -19,7 +19,15 @@ namespace BackEnd.Controllers
         {
             EmprestimoDAO emprestimoDao = new EmprestimoDAO();
             ParcelaDAO parcelaDao = new ParcelaDAO();
+            ContaContabilDao ccDao = new ContaContabilDao();
 
+            ContaContabil cc = new ContaContabil
+            {
+                Valor = -emprestimo.Valor
+            };
+            cc = ccDao.InserirContaContabil(cc, 2);
+
+            emprestimo.ContaContabil = cc;
             emprestimo = emprestimoDao.Inserir(emprestimo);
 
             double valorParcela = (emprestimo.Valor / emprestimo.Parcelas) * 1.045;
