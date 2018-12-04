@@ -13,7 +13,7 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatSelectModule,
-  MatTableModule
+  MatTableModule,
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 
@@ -108,7 +108,7 @@ import {
 
 import { HttpClientModule } from '@angular/common/http';
 import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
-
+import { ComponentesModule } from  './componentes/componentes.module';
 //o que importa em cima tem que copiar para abaixo tambem, Component no declarations
 //Module no imports, WebService no providers
 @NgModule({
@@ -155,12 +155,12 @@ import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesou
     MatTableModule,
     CdkTableModule,
     MatRadioModule,
+    MatGridListModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES)   
-    
-
+    ComponentesModule,
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [WebService],
   bootstrap: [AppComponent],
@@ -204,7 +204,7 @@ import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesou
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    ScrollingModule,
+    ScrollingModule
   ]
 })
 export class AppModule { }
