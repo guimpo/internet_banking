@@ -56,5 +56,48 @@ namespace BackEnd.Controllers
 
             return parcelas;
         }
+
+        [HttpGet]
+        public IEnumerable<Models.Parcela> Get()
+        {
+            return new ParcelaDAO().ListarTodosID();
+        }
+
+        [Route("boleto")]
+        [HttpPost]
+        public Double Boleto([FromBody] Parcela parcela)
+        {
+            ParcelaDAO parceladao = new ParcelaDAO();
+            int i = 0;
+            DateTime aux = parcela.DataVencimento;
+
+            while (aux <= DateTime.Now)
+            {
+                aux = aux.AddMonths(1);
+                i++;
+            }
+
+            // teria que chamar o juros do tipo_emprestimo
+
+
+            return (parcela.Valor * i * 0.06);
+        }
+
+        [Route("codigo")]
+        [HttpPost]
+        public String Codigo([FromBody] Parcela parcela)
+        {
+            int aux = parcela.Id;
+
+            //algum jeito de gera código
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var result = new string(
+                Enumerable.Repeat(chars, 12)
+                          .Select(s => s[random.Next(s.Length)])
+                          .ToArray());
+            return result;
+
+        }
     }
 }

@@ -20,6 +20,7 @@ import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
 import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
 import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestimo-simular.component';
+import { EmprestimoBoletoComponent} from './contaCorrente/emprestimo/emprestimo-boleto.component'
 
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
@@ -56,7 +57,12 @@ export const ROUTES : Routes = [
 
     // EMPRESTIMO
     { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
-    { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent }, 
+    { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent,
+    children: [
+        { path: 'emprestimo-boleto', component: EmprestimoBoletoComponent  }
+       
+      ]
+    }, 
     { path: 'conta-corrente-emprestimo/emprestimo-realizar', component: EmprestimoRealizarComponent,
     children: [
         { path: 'emprestimo-simular', component: EmprestimoSimularComponent  }

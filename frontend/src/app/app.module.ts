@@ -40,6 +40,7 @@ import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
 import { EmprestimoRealizarComponent } from './contaCorrente/emprestimo/emprestimo-realizar.component';
 import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestimo-simular.component';
+import { EmprestimoBoletoComponent} from './contaCorrente/emprestimo/emprestimo-boleto.component';
 
 //Débito automatico
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
@@ -135,6 +136,7 @@ import { HttpClientModule } from '@angular/common/http';
     EmprestimoRealizarComponent,
     EmprestimoPagarComponent,
     EmprestimoSimularComponent,
+    EmprestimoBoletoComponent,
     ContaCorrenteExtratoComponent,
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,

@@ -91,7 +91,7 @@ namespace BackEnd.Dao
                 List<Models.Parcela> parcelas = new List<Models.Parcela> { };
 
 
-                string comando = "SELECT p.data_vencimento AS data_vencimento, p.valor AS valor, p.status as status FROM parcela p inner JOIN emprestimo e ON p.emprestimo_id = e.id where e.conta_id = 7";
+                string comando = "SELECT p.Id AS Id, p.data_vencimento AS data_vencimento, p.valor AS valor, p.status as status FROM parcela p inner JOIN emprestimo e ON p.emprestimo_id = e.id where e.conta_id = 7";
                 conexao.Comando.CommandText = comando;
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
@@ -101,6 +101,7 @@ namespace BackEnd.Dao
                     {
                         Parcela p = new Models.Parcela
                         {
+                            Id = Convert.ToInt32(reader["Id"]),
                             DataVencimento = Convert.ToDateTime(reader["data_vencimento"]),
                             Status = (reader["status"].ToString().Equals("1")) ? true : false,
                             Valor = Convert.ToDouble(reader["valor"])
