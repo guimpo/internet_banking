@@ -57,7 +57,7 @@ export const ROUTES : Routes = [
 
     // EMPRESTIMO
     { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
-    { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent }, 
+    { path: 'conta-corrente-emprestimo/emprestimo-pagar', component: EmprestimoPagarComponent,}, 
     { path: 'conta-corrente-emprestimo/emprestimo-realizar', component: EmprestimoRealizarComponent,
     children: [
         { path: 'emprestimo-simular', component: EmprestimoSimularComponent  }

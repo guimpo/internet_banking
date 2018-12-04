@@ -84,4 +84,15 @@ export class WebService {
         return this.http.post(this.BASE_URL + '/emprestimo/simular', emprestimo).toPromise();
     }
     
+    getParcelas(){
+        return this.http.get(this.BASE_URL + '/emprestimo').toPromise();
+    }
+
+    boleto(parcela){
+        return this.http.post(this.BASE_URL + '/emprestimo/boleto', parcela).toPromise();
+    }
+
+    codigo(parcela){
+        return this.http.post(this.BASE_URL + '/emprestimo/codigo', parcela).toPromise();
+    }
 }

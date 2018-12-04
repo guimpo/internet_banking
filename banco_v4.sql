@@ -591,5 +591,6 @@ ALTER TABLE `trasacao`
   ADD CONSTRAINT `fk_trasacao_conta1` FOREIGN KEY (`conta_id1`) REFERENCES `conta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_trasacao_tipo_transacao1` FOREIGN KEY (`tipo_transacao_id`) REFERENCES `tipo_transacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+INSERT INTO `tipo_transacao` (`id`, `descricao`) VALUES (4, 'emprestimo');
 
 COMMIT;
