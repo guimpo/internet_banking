@@ -77,7 +77,10 @@ namespace BackEnd.Controllers
                 i++;
             }
 
+            int p = parceladao.BuscarIdEmprestimo(parcela.Id);
             // teria que chamar o juros do tipo_emprestimo
+
+            TipoEmprestimoDAO tipoemprestimodao = new TipoEmprestimoDAO();
 
 
             return (parcela.Valor * i * 0.06);
