@@ -36,7 +36,7 @@ namespace BackEnd.Dao
                 conexao.Comando.Parameters.AddWithValue("@parcelas", t.Parcelas);
                 conexao.Comando.Parameters.AddWithValue("@pagamento", t.MetodoPagamento);
                 conexao.Comando.Parameters.AddWithValue("@tipo", 1);
-                conexao.Comando.Parameters.AddWithValue("@conta_contabil", 1);
+                conexao.Comando.Parameters.AddWithValue("@conta_contabil", t.ContaContabil.Id);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {

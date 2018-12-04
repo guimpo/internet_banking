@@ -47,7 +47,7 @@ namespace BackEnd.Dao
             {
                 string comando = "update conta set saldo = saldo + @valor where pessoa_id = 1;";
                 conexao.Comando.CommandText = comando;
-                if (t.tipo_transacao_id == 2)
+                if (t.tipo_transacao_id == 2 || t.tipo_transacao_id == 4)
                     conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
                 else
                     conexao.Comando.Parameters.AddWithValue("@valor", -t.valor);
