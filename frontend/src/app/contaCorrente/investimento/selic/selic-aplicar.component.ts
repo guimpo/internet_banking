@@ -38,8 +38,9 @@ export class SelicAplicarComponent {
                 duration:3000,
             });
         }
+        
         else if(aux) {
-            this.snackBar.open("Depósito realizado com sucesso!", "Ok", {
+            this.snackBar.open("Investimento realizado com sucesso!", "Ok", {
                 duration:3000,
             }); 
         } else {
