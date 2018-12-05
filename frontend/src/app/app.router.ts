@@ -41,8 +41,8 @@ export const ROUTES : Routes = [
     { path: 'conta-corrente-investimento', component: ContaCorrenteInvestimentoComponent},
     { path: 'conta-corrente-investimento-poupanca', component: PoupancaComponent,
         children: [
-            { path: 'aplicar', component: PoupancaAplicarComponent },
-            { path: 'resgatar', component: PoupancaResgatarComponent }
+            // { path: 'aplicar', component: PoupancaAplicarComponent },
+            // { path: 'resgatar', component: PoupancaResgatarComponent }
            
           ]
     }, 
