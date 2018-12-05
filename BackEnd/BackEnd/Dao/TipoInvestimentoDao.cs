@@ -62,7 +62,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comando = "SELECT i.id, i.data_aplicacao, i.valor, count(i.id) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic,  tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.tipo_investimento_id = ti.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
+                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, count(i.id) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
 
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -108,9 +108,37 @@ namespace BackEnd.Dao
             }
         }
 
-        public TipoInvestimento Deletar(TipoInvestimento t)
+        public Boolean AplicarSelic(TipoInvestimentoSelic aplicacao)
         {
-            throw new NotImplementedException();
+            Conexao conexao = new Conexao();
+            try
+            {
+
+                double valor = aplicacao.Quantidade * 100;
+
+                string comand = "UPDATE `investimento` SET `valor` = @valor WHERE id = 2";
+
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                //conexao.Comando.Parameters.AddWithValue("@saldo", c.Saldo);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)

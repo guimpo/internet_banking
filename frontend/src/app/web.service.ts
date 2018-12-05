@@ -79,6 +79,10 @@ export class WebService {
         return this.http.get(this.BASE_URL + '/investimento/selic').toPromise();
     }
 
+    postAplicacaoSelic(aplicacao) {
+        return this.http.post(this.BASE_URL + '/investimento/aplicar-selic',aplicacao).toPromise();
+    }
+
     //EMPRESTIMO -----
     postEmprestimo(emprestimo) {
         return this.http.post(this.BASE_URL + '/emprestimo', emprestimo).toPromise();
@@ -88,4 +92,15 @@ export class WebService {
         return this.http.post(this.BASE_URL + '/emprestimo/simular', emprestimo).toPromise();
     }
     
+    getParcelas(){
+        return this.http.get(this.BASE_URL + '/emprestimo').toPromise();
+    }
+
+    boleto(parcela){
+        return this.http.post(this.BASE_URL + '/emprestimo/boleto', parcela).toPromise();
+    }
+
+    codigo(parcela){
+        return this.http.post(this.BASE_URL + '/emprestimo/codigo', parcela).toPromise();
+    }
 }

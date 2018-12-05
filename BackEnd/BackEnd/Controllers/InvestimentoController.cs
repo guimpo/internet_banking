@@ -12,7 +12,7 @@ namespace BackEnd.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
-    public class InvestimentoController : ControllerBase
+    public class InvestimentoController : Controller
     {
         // GET: api/Investimento
         [HttpGet]
@@ -118,5 +118,14 @@ namespace BackEnd.Controllers
             
             return (new TipoInvestimentoDao().BuscarPorId(7));
         }
+
+        // POST api/<controller>
+        [HttpPost("aplicar-selic")]
+        public JsonResult Post([FromBody] TipoInvestimentoSelic aplicacao)
+        {
+            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao));
+        }
+
+
     }
 }

@@ -1,35 +1,57 @@
 import { Component } from '@angular/core';
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
-
-
-export interface PeriodicElement {
-    id:number;
-    id_tipo_transacao: string;
-    data: Date;
-    hora: Date;
-    valor: number;
-}
+import {MatSnackBar} from '@angular/material';
+import { WebService } from '../../../web.service';
 
 
 @Component({
-    selector: 'investimento-poupanca-aplicar',
-    templateUrl: '../../../views/investimento/poupanca/poupanca-aplicar.html',
+    selector: 'investimento-selic-aplicar',
+    templateUrl: '../../../views/investimento/selic/selic-aplicar.html',
     styleUrls: ['../../../views/css/sort-overview-example.css'],
-
 })
 
-export class PoupancaAplicarComponent {
+export class SelicAplicarComponent {
 
-    constructor() { }
+    constructor(private webService : WebService, public snackBar: MatSnackBar){}
 
-    displayedColumns: string[] = ['id', 'tipo_transacao', 'data', 'hora','valor','botao'];
-    dataSource = new MatTableDataSource();
+    aplicacao = {
+        quantidade:1,
+        valor: 0
+    }
+
+    valor(){
+        this.aplicacao.valor = this.aplicacao.quantidade * 100;
+        return this.aplicacao.valor;
+    }
 
     async ngOnInit() {
-
-       
-    } 
-    Torendimento(){
-        document.getElementById("rendimento").style.display= "block";
+        
     }
+
+    async post(){
+        // console.log(this.deposito);
+        var response = await this.webService.postAplicacaoSelic(this.aplicacao);
+        var aux = response;
+
+        if(this.aplicacao.valor < 0) {
+            this.snackBar.open("Valor invalido!", "Ok", {
+                duration:3000,
+            });
+        }
+        else if(aux) {
+            this.snackBar.open("Depósito realizado com sucesso!", "Ok", {
+                duration:3000,
+            }); 
+        } else {
+            this.snackBar.open("falhou!", "Ok", {
+                duration:3000,
+            });
+        }
+       
+    }
+
+    // Torendimento(){
+    //     document.getElementById("rendimento").style.display= "block";
+    // }
+
 }

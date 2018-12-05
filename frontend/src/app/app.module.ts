@@ -30,10 +30,14 @@ import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-deb
 
 // investimento
 import { ContaCorrenteInvestimentoComponent } from './contaCorrente/conta-corrente-investimento.component';
+
+import { PoupancaComponent } from './contaCorrente/investimento/poupanca/poupanca.component';
 import { PoupancaAplicarComponent } from './contaCorrente/investimento/poupanca/poupanca-aplicar.component';
 import { PoupancaResgatarComponent } from './contaCorrente/investimento/poupanca/poupanca-resgatar.component';
-import { PoupancaComponent } from './contaCorrente/investimento//poupanca/poupanca.component';
-import { SelicComponent } from './contaCorrente/investimento//selic/selic.component';
+
+import { SelicComponent } from './contaCorrente/investimento/selic/selic.component';
+import { SelicAplicarComponent } from './contaCorrente/investimento/selic/selic-aplicar.component';
+import { SelicResgatarComponent } from './contaCorrente/investimento/selic/selic-resgatar.component';
 
 // Emprestimo
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
@@ -130,6 +134,8 @@ import { HttpClientModule } from '@angular/common/http';
     PoupancaComponent,
 
     SelicComponent,
+    SelicAplicarComponent,
+    SelicResgatarComponent,
 
     ContaCorrenteEmprestimoComponent, 
     EmprestimoRealizarComponent,
