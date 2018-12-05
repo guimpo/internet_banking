@@ -123,7 +123,8 @@ namespace BackEnd.Controllers
         [HttpPost("aplicar-selic")]
         public JsonResult Post([FromBody] TipoInvestimentoSelic aplicacao)
         {
-            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao));
+
+            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao,7));
         }
 
 

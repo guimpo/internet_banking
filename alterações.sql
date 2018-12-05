@@ -1,0 +1,1 @@
+ALTER TABLE `tipo_investimento_selic` ADD `quantidade` INT NOT NULL AFTER `vencimento`;
