@@ -55,7 +55,7 @@ namespace BackEnd.Dao
                 {
                     reader.Read();
 
-                    int Id = Convert.ToInt32(reader["id"]);
+                    int Id = Convert.ToInt32(reader["emprestimo_id"]);
 
                     return Id;
                 }

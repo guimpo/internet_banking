@@ -16,7 +16,39 @@ namespace BackEnd.Dao
 
         public Emprestimo BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from emprestimo where id = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    Emprestimo emprestimo = new Emprestimo()
+                    {
+                        Id = Convert.ToInt32(reader["id"]),
+                        Valor = Convert.ToDouble(reader["valor"]),
+                        DataSolicitacao = Convert.ToDateTime(reader["data_solicitacao"])
+                    };
+
+                    return emprestimo;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
         public Emprestimo Deletar(Emprestimo t)
