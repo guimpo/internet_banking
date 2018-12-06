@@ -16,6 +16,11 @@ namespace BackEnd.Dao
 
         public Emprestimo BuscarPorId(int id)
         {
+            throw new NotImplementedException();
+        }
+
+        public int BuscarIdTipoEmprestimo(int id)
+        {
             Conexao conexao = new Conexao();
             try
             {
@@ -26,24 +31,20 @@ namespace BackEnd.Dao
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    Emprestimo emprestimo = new Emprestimo()
-                    {
-                        Id = Convert.ToInt32(reader["id"]),
-                        Valor = Convert.ToDouble(reader["valor"]),
-                        DataSolicitacao = Convert.ToDateTime(reader["data_solicitacao"])
-                    };
 
-                    return emprestimo;
+                    int Id = Convert.ToInt32(reader["tipo_emprestimo_pessoal_id"]);
+
+                    return Id;
                 }
                 else
                 {
-                    return null;
+                    return 0;
                 }
             }
             catch (MySqlException e)
             {
 
-                return null;
+                return 0;
             }
             finally
             {

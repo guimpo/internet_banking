@@ -42,7 +42,7 @@ export class EmprestimoPagarComponent {
     async get(parcela) {
         this.parcela = parcela;
         var response = await this.webService.boleto(this.parcela);
-    
+
         this.i = response.json();
 
         var res = await this.webService.codigo(this.parcela);
