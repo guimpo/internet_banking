@@ -18,7 +18,7 @@ import { SelicComponent } from './contaCorrente/investimento/selic/selic.compone
 import { SelicAplicarComponent } from './contaCorrente/investimento/selic/selic-aplicar.component';
 import { SelicResgatarComponent } from './contaCorrente/investimento/selic/selic-resgatar.component';
 
-//import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
+import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
 
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
@@ -51,13 +51,13 @@ export const ROUTES : Routes = [
       ]
     },
 
-    // { path: 'conta-corrente-investimento-tesouro-prefixado-ltn', component: TesouroPrefixadoLtnComponent,
-    // children: [
-    //     { path: 'aplicar', component: PoupancaAplicarComponent },
-    //     { path: 'resgatar', component: PoupancaResgatarComponent }
+    { path: 'conta-corrente-investimento-tesouro-prefixado-ltn', component: TesouroPrefixadoLtnComponent,
+    children: [
+        { path: 'aplicar', component: PoupancaAplicarComponent },
+        { path: 'resgatar', component: PoupancaResgatarComponent }
        
-    //   ]
-    // },
+      ]
+    },
 
     // EMPRESTIMO
     { path: 'conta-corrente-emprestimo', component: ContaCorrenteEmprestimoComponent }, 
