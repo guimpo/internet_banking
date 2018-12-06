@@ -148,6 +148,7 @@ namespace BackEnd.Dao
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
