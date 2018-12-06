@@ -24,8 +24,12 @@ export class PoupancaComponent {
         this.conta = response.json();
         this.investimento.Conta = this.conta;
         var response = await this.webService.getPopanca(this.conta['id']);
-        console.log(response.json());
-        this.investimento.TipoInvestimento = response.json();
+        this.tipo = response.json();
+        this.investimento.TipoInvestimento =  this.tipo; 
+        
+
+        console.log(this.tipo['valor']);
+       
 
     } 
     
@@ -43,4 +47,7 @@ export class PoupancaComponent {
         this.loadResgatarComponent = true;
     }
     conta=[];
+    tipo=[];
+    juro=[];
+    
 }

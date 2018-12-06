@@ -67,6 +67,13 @@ export class WebService {
     // getValorInvestido(id){
     //     return this.http.get(this.BASE_URL + '/investimento/investido/'+id).toPromise();
     // }
+
+    putResgatar(investimento){
+        return this.http.put(this.BASE_URL + '/investimento/resgatar/',investimento).toPromise();
+    }
+    getBloqueado(id){
+        return this.http.get(this.BASE_URL + '/investimento/bloqueado/'+id).toPromise();
+    }
     postInvestido(investimento){
         return this.http.post(this.BASE_URL + '/investimento/poupanca/', investimento).toPromise();
     }

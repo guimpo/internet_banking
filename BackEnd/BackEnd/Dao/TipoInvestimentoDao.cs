@@ -19,7 +19,7 @@ namespace BackEnd.Dao
             try
             {
 
-                string comando = "SELECT i.id, i.data_aplicacao, sum(i.valor) valor, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade" +
+                string comando = "SELECT i.id, i.data_aplicacao, i.valor, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade" +
                    " FROM `investimento` i" +
                    " JOIN tipo_investimento ti" +
                    " ON ti.id = i.tipo_investimento_id" +
@@ -32,7 +32,8 @@ namespace BackEnd.Dao
                     reader.Read();
                     TipoInvestimento tipo = new TipoInvestimento()
                     {
-                        Id_tipo_investimento = Convert.ToInt32(reader["id"]),
+                        Id = Convert.ToInt32(reader["id"]),
+                        Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
                         Descricao = reader["descricao"].ToString(),
                         Liquidez = reader["liquidez"].ToString(),
                         Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
@@ -42,11 +43,52 @@ namespace BackEnd.Dao
                 }
                 else
                 {
-                    return null;
+                    conexao.Fechar();
+                    return buscarTipo(1);
                 }
 
             }
             catch (Exception e )
+            {
+
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+        
+        public TipoInvestimento buscarTipo(int tipo)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "SELECT * FROM tipo_investimento WHERE id= @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", tipo);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    TipoInvestimento inves = new TipoInvestimento()
+                    {
+                        Id_tipo_investimento = Convert.ToInt32(reader["id"]),
+                        Descricao = reader["descricao"].ToString(),
+                        Liquidez = reader["liquidez"].ToString(),
+                        Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
+
+                    };
+                    return inves;
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
             {
 
                 System.Diagnostics.Debug.WriteLine(e);

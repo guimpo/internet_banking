@@ -66,5 +66,35 @@ namespace BackEnd.Dao
         {
             throw new NotImplementedException();
         }
+        public double valorBloqueado(int id)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from tipo_investimento_poupanca where investimento_id = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    double bloqueado = 0;
+                    bloqueado = Convert.ToDouble(reader["valor_bloqueado"]);
+                    if (bloqueado == null)
+                        return 0;
+                    else
+                        return bloqueado;
+                }
+                return 0;
+            }
+            catch (Exception e )
+            {
+                return 0;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
     }
 }

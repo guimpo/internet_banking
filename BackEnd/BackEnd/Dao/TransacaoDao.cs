@@ -66,7 +66,7 @@ namespace BackEnd.Dao
                 List<Models.Transacao> transacoes = new List<Models.Transacao> { };
 
 
-                string comando = "select t.*, tt.descricao tipo_transacao_descricao from trasacao t join tipo_transacao tt ON t.tipo_transacao_id = tt.id where conta_id1 = 7;";  
+                string comando = "select t.*, tt.descricao tipo_transacao_descricao from trasacao t join tipo_transacao tt ON t.tipo_transacao_id = tt.id where conta_id1 = 7 ORDER BY id DESC;";  
                 conexao.Comando.CommandText = comando;
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
