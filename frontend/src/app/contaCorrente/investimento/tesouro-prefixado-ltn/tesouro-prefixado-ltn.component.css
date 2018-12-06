@@ -1,0 +1,14 @@
+p {
+    word-wrap: break-word;
+}
+
+mat-card {
+    position: relative;
+    margin: 15px;
+}
+
+.main {
+    margin-top: 40px; /* Add a top margin to avoid content overlay */
+}
+
+

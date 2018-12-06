@@ -1,15 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
-
-
-export interface PeriodicElement {
-    id:number;
-    id_tipo_transacao: string;
-    data: Date;
-    hora: Date;
-    valor: number;
-}
-
+import { WebService } from '../../../web.service';
 
 @Component({
     selector: 'investimento-poupanca-aplicar',
@@ -20,16 +11,16 @@ export interface PeriodicElement {
 
 export class PoupancaAplicarComponent {
 
-    constructor() { }
+    constructor(private webService : WebService) { }
+    @Input() investimento;
 
-    displayedColumns: string[] = ['id', 'tipo_transacao', 'data', 'hora','valor','botao'];
-    dataSource = new MatTableDataSource();
 
     async ngOnInit() {
-
+        console.log(this.investimento);
        
     } 
-    Torendimento(){
-        document.getElementById("rendimento").style.display= "block";
+    async Torendimento(){
+        var response = await this.webService.postInvestido(this.investimento);
+        location.reload();
     }
 }

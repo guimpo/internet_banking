@@ -13,7 +13,7 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatSelectModule,
-  MatTableModule
+  MatTableModule,
 } from '@angular/material';
 import {CdkTableModule} from '@angular/cdk/table';
 
@@ -48,12 +48,6 @@ import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestim
 //Débito automatico
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
-
-//contasalario
-import { ContaSalarioExtratoComponent } from './conta-salario/conta-salario-extrato.component';
-import { ContaSalarioSaqueComponent } from './conta-salario/conta-salario-saque.component';
-import { ContaSalarioDepositoComponent } from './conta-salario/conta-salario-deposito.component';
-
 
 //coisa de comunicacao ao servidor
 import { WebService } from './web.service';
@@ -112,9 +106,9 @@ import {
 
 } from '@angular/material';
 
-import { ContaSalarioComponent } from './conta-salario/conta-salario.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
+import { ComponentesModule } from  './componentes/componentes.module';
 //o que importa em cima tem que copiar para abaixo tambem, Component no declarations
 //Module no imports, WebService no providers
 @NgModule({
@@ -145,10 +139,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,
     ContaCorrenteDebitoComponent,
-    ContaSalarioComponent,
-    ContaSalarioSaqueComponent,
-    ContaSalarioExtratoComponent,
-    ContaSalarioDepositoComponent
+    TesouroPrefixadoLtnComponent
   ],
   imports: [
     BrowserModule,
@@ -164,12 +155,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     CdkTableModule,
     MatRadioModule,
+    MatGridListModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(ROUTES)   
-    
-
+    ComponentesModule,
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [WebService],
   bootstrap: [AppComponent],
@@ -213,7 +204,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    ScrollingModule,
+    ScrollingModule
   ]
 })
 export class AppModule { }

@@ -9,6 +9,44 @@ namespace BackEnd.Dao
 {
     public class InvestimentoDao : IDao<Investimento>
     {
+        public Double ValorInvestido(int id_conta)
+        {
+            Double valor = 0;
+            Conexao conexao = new Conexao();
+            try
+            {
+   
+    
+
+    
+
+    
+
+               
+                //conexao.Comando.CommandText = comando;
+                //conexao.Comando.Parameters.AddWithValue("@id", id_conta);
+                //MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                //if (reader.HasRows)
+                //{
+                //    reader.Read();
+                //    valor = Convert.ToDouble(reader["valor"]);
+                //}
+                //return valor;
+            }
+            catch (Exception e)
+            {
+
+                System.Diagnostics.Debug.WriteLine(e);
+                return valor;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+            return valor;
+        }
+
+
         public Investimento Alterar(Investimento t)
         {
             throw new NotImplementedException();
@@ -29,14 +67,11 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO investimento(data_aplicacao, valor, tipo_investimento_id, conta_contabil_investimento_id, conta_id) VALUES (@data_aplicacao, @valor, @tipo_investimento, @conta_contabil_investimento_id, @conta_id);";
+                string comand = "INSERT INTO investimento(data_aplicacao, valor, tipo_investimento_id,  conta_id) VALUES (now(), @valor, @tipo_investimento, @conta_id);";
 
                 conexao.Comando.CommandText = comand;
-                // (@data_aplicacao, @valor, @tipo_investimento, @conta_contabil_investimento_id, @conta_id)
-                conexao.Comando.Parameters.AddWithValue("@data_aplicacao", t.DataAplicacao);
                 conexao.Comando.Parameters.AddWithValue("@valor", t.Valor);
-                conexao.Comando.Parameters.AddWithValue("@tipo_investimento", t.TipoInvestimento.Id);
-                conexao.Comando.Parameters.AddWithValue("@conta_contabil_investimento_id", t.ContaContabil.Id);
+                conexao.Comando.Parameters.AddWithValue("@tipo_investimento", t.TipoInvestimento.Id_tipo_investimento);
                 conexao.Comando.Parameters.AddWithValue("@conta_id", t.Conta.Id);
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)

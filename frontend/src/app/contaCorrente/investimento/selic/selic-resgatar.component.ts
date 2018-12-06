@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 
 @Component({
-    selector: 'investimento-poupanca-Resgatar',
+    selector: 'investimento-selic-resgatar',
     templateUrl: '../../../views/investimento/selic/selic-resgatar.html',
 })
 
