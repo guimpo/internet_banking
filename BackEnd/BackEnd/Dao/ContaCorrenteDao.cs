@@ -45,17 +45,18 @@ namespace BackEnd.Dao
 
             try
             {
-                string comando = "update conta set saldo = saldo + @valor where pessoa_id = 1;";
+                string comando = "update conta set saldo = saldo + @valor where id = @id;";
                 conexao.Comando.CommandText = comando;
                 if (t.tipo_transacao_id == 2 || t.tipo_transacao_id == 4)
                     conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
                 else
                     conexao.Comando.Parameters.AddWithValue("@valor", -t.valor);
 
+                conexao.Comando.Parameters.AddWithValue("@id", t.Conta.Id);
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
-
-                    return null;
+                    Conta conta = new Conta();
+                    return conta;
                 }
                 else
                 {
