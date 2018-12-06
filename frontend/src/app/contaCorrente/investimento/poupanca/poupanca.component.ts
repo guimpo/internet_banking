@@ -1,6 +1,11 @@
 import { Component,  Output, EventEmitter  } from '@angular/core'
 import { WebService } from '../../../web.service';
 
+export interface Investimento{
+    valor: number;
+    Conta:Object;
+    TipoInvestimento:Object;
+}
 
 @Component({
     selector: 'investimento',
@@ -10,26 +15,39 @@ import { WebService } from '../../../web.service';
 export class PoupancaComponent {
 
     constructor(private webService : WebService){}
-
+    loadAplicarComponent = false;
+    loadResgatarComponent = false;
    
     async ngOnInit() {
 
-        var response = await this.webService.getPopanca();
-        console.log(response.json());
-        this.investimemto  = response.json();
-          
-        
         var response = await this.webService.getLogin(1);
         this.conta = response.json();
-        this.aplicacao.saldo = this.conta['saldo'];
+        this.investimento.Conta = this.conta;
+        var response = await this.webService.getPopanca(this.conta['id']);
+        this.tipo = response.json();
+        this.investimento.TipoInvestimento =  this.tipo; 
         
-    } 
-    conta=[];
-    investimemto = [];
-    aplicacao = {
-        saldo: 0,
-        investimento: 0,
-       
-    } 
 
+        console.log(this.tipo['valor']);
+       
+
+    } 
+    
+    investimento:Investimento = {
+        valor:0,
+        TipoInvestimento: 0,
+        Conta:0
+    }
+    async aplicar() {
+        this.loadAplicarComponent = true;
+        this.loadResgatarComponent = false;
+    }
+    async resgatar() {
+        this.loadAplicarComponent = false;
+        this.loadResgatarComponent = true;
+    }
+    conta=[];
+    tipo=[];
+    juro=[];
+    
 }

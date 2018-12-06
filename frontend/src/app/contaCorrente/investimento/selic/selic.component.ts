@@ -11,7 +11,6 @@ export class SelicComponent {
 
     constructor(private webService : WebService){}
 
-   
     async ngOnInit() {
 
         var response = await this.webService.getSelic();

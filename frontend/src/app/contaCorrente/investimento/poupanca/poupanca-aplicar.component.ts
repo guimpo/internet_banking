@@ -1,15 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {MatSort, MatTableDataSource, FloatLabelType} from '@angular/material';
-
-
-export interface PeriodicElement {
-    id:number;
-    id_tipo_transacao: string;
-    data: Date;
-    hora: Date;
-    valor: number;
-}
-
+import { WebService } from '../../../web.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
     selector: 'investimento-poupanca-aplicar',
@@ -20,16 +12,30 @@ export interface PeriodicElement {
 
 export class PoupancaAplicarComponent {
 
-    constructor() { }
+    constructor(private webService : WebService, public snackBar: MatSnackBar) { }
+    @Input() investimento;
 
-    displayedColumns: string[] = ['id', 'tipo_transacao', 'data', 'hora','valor','botao'];
-    dataSource = new MatTableDataSource();
 
     async ngOnInit() {
-
+       
        
     } 
-    Torendimento(){
-        document.getElementById("rendimento").style.display= "block";
+    async Torendimento(){
+        if(this.investimento.Conta.saldo >= this.investimento.valor){
+            var axu = this.webService.postInvestido(this.investimento);
+            if(axu){
+                location.reload();
+                this.snackBar.open("valor ap[licado com sucesso!", "Ok", {
+                    duration:3000,
+                }); 
+            }
+            
+        }else{
+            this.snackBar.open("saldo insuficiente", "", {
+                duration:3000,
+            });
+        }
+
+        
     }
 }

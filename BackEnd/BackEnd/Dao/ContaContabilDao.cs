@@ -34,7 +34,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comand = (tipo == 1) ? "INSERT INTO conta_contabil_investimento(valor) VALUES (@valor);" : "INSERT INTO conta_contabil_emprestimo(valor) VALUES (@valor);";              
+                string comand = (tipo == 1) ? "INSERT INTO conta_contabil_investimento_poupanca(valor) VALUES (@valor);" : "INSERT INTO conta_contabil_emprestimo_selic(valor) VALUES (@valor);";              
 
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@valor", c.Valor);

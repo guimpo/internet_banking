@@ -1,5 +1,0 @@
-RENAME TABLE conta_contabil_imprestimo TO conta_contabil_imvestimento_selic;
-ALTER TABLE `tipo_investimento_selic` DROP `quantidade`;
-
-ALTER TABLE `investimento` DROP `conta_contabil_investimento_id`;
-

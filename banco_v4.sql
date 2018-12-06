@@ -248,6 +248,7 @@ INSERT INTO `tipo_investimento` (`id`, `descricao`, `liquidez`, `rentabilidade`)
 
 CREATE TABLE `tipo_investimento_poupanca` (
   `id` int(11) NOT NULL,
+  `valor_bloqueado` double DEFAULT NULL,  
   `investimento_id` int(11) NOT NULL,
   `contacontabil_investimento_poupanca_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
