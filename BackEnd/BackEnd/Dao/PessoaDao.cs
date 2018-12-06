@@ -42,7 +42,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally

@@ -31,6 +31,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -64,7 +65,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -99,7 +100,7 @@ namespace BackEnd.Dao
             }
             catch (Exception e)
             {
-                
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -137,7 +138,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -175,6 +176,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
