@@ -338,38 +338,38 @@ namespace BackEnd.Dao
 
         }
 
-        public Boolean resgatarSelic(int id_conta, Double valor)
-        {
-            for ()
-            {
+        //public Boolean resgatarSelic(int id_conta, Double valor)
+        //{
+        //    for ()
+        //    {
 
-            }
-        }  
+        //    }
+        //}  
         
-        public Boolean realizarResgateSelic()
-        {
-            Conexao conexao = new Conexao();
-            try
-            {
-                string comand = "";
-                conexao.Comando.CommandText = comand;
-                conexao.Comando.Parameters.AddWithValue("@valor", valor);
-                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
-                if (conexao.Comando.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
-        }
+        //public Boolean realizarResgateSelic()
+        //{
+        //    Conexao conexao = new Conexao();
+        //    try
+        //    {
+        //        string comand = "";
+        //        conexao.Comando.CommandText = comand;
+        //        conexao.Comando.Parameters.AddWithValue("@valor", valor);
+        //        conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+        //        if (conexao.Comando.ExecuteNonQuery() > 0)
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return false;
+        //    }
+        //    finally
+        //    {
+        //        conexao.Fechar();
+        //    }
+        //}
 
 
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
