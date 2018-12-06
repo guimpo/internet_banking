@@ -194,8 +194,14 @@ namespace BackEnd.Controllers
         [HttpPost("aplicar-selic")]
         public JsonResult Post([FromBody] TipoInvestimentoSelic aplicacao)
         {
-
             return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao,7));
+        }
+
+        // POST api/<controller>
+        [HttpPost("resgatar-selic")]
+        public JsonResult PostResgate([FromBody] TipoInvestimentoSelic aplicacao)
+        {
+            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao, 7));
         }
 
 

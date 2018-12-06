@@ -43,6 +43,7 @@ export class SelicAplicarComponent {
             this.snackBar.open("Investimento realizado com sucesso!", "Ok", {
                 duration:3000,
             }); 
+            window.location.reload();            
         } else {
             this.snackBar.open("falhou!", "Ok", {
                 duration:3000,
