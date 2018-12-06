@@ -22,6 +22,13 @@ import { Injectable } from '@angular/core';
                         <button  routerLink="/conta-corrente-investimento-selic" mat-button color="primary">SELIC</button>
                     </mat-card-actions>
                 </mat-card-content>
+            </mat-card>
+            <mat-card style="margin:18px;"> 
+                <mat-card-content>
+                    <mat-card-actions>
+                        <button  routerLink="/conta-corrente-investimento-tesouro-prefixado-ltn" mat-button color="primary">Tesouro Prefixado (LTN)</button>
+                    </mat-card-actions>
+                </mat-card-content>
             </mat-card> 
     `,
   })
