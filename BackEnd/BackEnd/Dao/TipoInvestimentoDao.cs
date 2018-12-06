@@ -77,14 +77,14 @@ namespace BackEnd.Dao
 
             int dias = (DateTime.Now - data_aplicacao).Days;
 
-            taxajuros = taxajuros * dias;
+            taxajuros = (taxajuros/12) * dias;
 
             Double valorComJuros = valor * taxajuros;
 
             return valorComJuros;
 
         }
-
+         
         public Double getSaldo(int id_conta)
         {
             Conexao conexao = new Conexao();
@@ -178,12 +178,20 @@ namespace BackEnd.Dao
 
                 if(getSaldo(id_conta) > valor)
                 {
-                    int id_investimento = createInvestimento(id_conta, valor);
-
-                    if (id_investimento > 0)
+                    if(descontaSaldo(id_conta,valor))
                     {
-                        if (createInvestimentoSelic(id_investimento, aplicacao.Quantidade)){
-                            return true;
+                        int id_investimento = createInvestimento(id_conta, valor);
+
+                        if (id_investimento > 0)
+                        {
+                            if (createInvestimentoSelic(id_investimento, aplicacao.Quantidade))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
                         else
                         {
@@ -193,7 +201,8 @@ namespace BackEnd.Dao
                     else
                     {
                         return false;
-                    } 
+                    }
+                    
                 }
                 else
                 {
@@ -205,6 +214,35 @@ namespace BackEnd.Dao
                 return false;
             }
 
+        }
+
+        private Boolean descontaSaldo(int id_conta, double valor)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand_2 = "UPDATE conta Set saldo = (saldo-@valor) WHERE id = @id_conta";
+                conexao.Comando.CommandText = comand_2;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
         public TipoInvestimento Inserir(TipoInvestimento t)
