@@ -104,7 +104,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, count(i.id) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
+                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
 
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -114,31 +114,39 @@ namespace BackEnd.Dao
                 {
                     reader.Read();
 
-                    Double valor = Convert.ToDouble(reader["valor"]);
-                    DateTime data_aplicacao = Convert.ToDateTime(reader["data_aplicacao"]);
-                    Double juros = Convert.ToDouble(reader["rentabilidade"]);
-                    Double valor_liquido = calculoJutosSelic(valor,data_aplicacao,juros);
-
-                    TipoInvestimentoSelic tipoinvestimentoSelic = new TipoInvestimentoSelic()
+                    try
                     {
-                        //investimento
-                        Id = Convert.ToInt32(reader["id"]),
-                        DataAplicacao = Convert.ToDateTime(reader["data_aplicacao"]),
-                        Valor = Convert.ToDouble(reader["valor"]),
-                        //tipo investimento
-                        Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
-                        Descricao = reader["descricao"].ToString(),
-                        Liquidez = reader["liquidez"].ToString(),
-                        Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
-                        //tipo investimento selic
-                        Id_tipo_investimento_selic = Convert.ToInt32(reader["id_tipo_investimento_selic"]),
-                        Quantidade = Convert.ToInt32(reader["quantidade"]),
-                        Vencimento = Convert.ToDateTime(reader["vencimento"]),
-                        Valor_liquido = valor_liquido
+                        Double valor = Convert.ToDouble(reader["valor"]);
+                        DateTime data_aplicacao = Convert.ToDateTime(reader["data_aplicacao"]);
+                        Double juros = Convert.ToDouble(reader["rentabilidade"]);
+                        Double valor_liquido = calculoJutosSelic(valor, data_aplicacao, juros);
 
-                    };
+                        TipoInvestimentoSelic tipoinvestimentoSelic = new TipoInvestimentoSelic()
+                        {
+                            //investimento
+                            Id = Convert.ToInt32(reader["id"]),
+                            DataAplicacao = Convert.ToDateTime(reader["data_aplicacao"]),
+                            Valor = Convert.ToDouble(reader["valor"]),
+                            //tipo investimento
+                            Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
+                            Descricao = reader["descricao"].ToString(),
+                            Liquidez = reader["liquidez"].ToString(),
+                            Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
+                            //tipo investimento selic
+                            Id_tipo_investimento_selic = Convert.ToInt32(reader["id_tipo_investimento_selic"]),
+                            Quantidade = Convert.ToInt32(reader["quantidade"]),
+                            Vencimento = Convert.ToDateTime(reader["vencimento"]),
+                            Valor_liquido = valor_liquido
 
-                    return tipoinvestimentoSelic;
+                        };
+
+                        return tipoinvestimentoSelic;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    
 
                 }
                 else
@@ -160,13 +168,13 @@ namespace BackEnd.Dao
         private double calculoJutosSelic(double valor, DateTime data_aplicacao, Double taxajuros)
         {
 
-            int dias = (DateTime.Now - data_aplicacao).Days;
+            //int dias = (DateTime.Now - data_aplicacao).Days;
 
-            taxajuros = (taxajuros/12) * dias;
+            taxajuros = 0.001;
 
-            Double valorComJuros = valor * taxajuros;
+            valor += valor * taxajuros;
 
-            return valorComJuros;
+            return valor;
 
         }
          
@@ -255,6 +263,35 @@ namespace BackEnd.Dao
 
         }
 
+        private Boolean descontaSaldo(int id_conta, double valor)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand_2 = "UPDATE conta Set saldo = (saldo-@valor) WHERE id = @id_conta";
+                conexao.Comando.CommandText = comand_2;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
         public Boolean AplicarSelic(TipoInvestimentoSelic aplicacao, int id_conta)
         {
             try
@@ -301,36 +338,42 @@ namespace BackEnd.Dao
 
         }
 
-        private Boolean descontaSaldo(int id_conta, double valor)
-        {
-            Conexao conexao = new Conexao();
-            try
-            {
-                string comand_2 = "UPDATE conta Set saldo = (saldo-@valor) WHERE id = @id_conta";
-                conexao.Comando.CommandText = comand_2;
-                conexao.Comando.Parameters.AddWithValue("@valor", valor);
-                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+        //public Boolean resgatarSelic(int id_conta, Double valor)
+        //{
+        //    for ()
+        //    {
 
-                if (conexao.Comando.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
-        }
+        //    }
+        //}  
+        
+        //public Boolean realizarResgateSelic()
+        //{
+        //    Conexao conexao = new Conexao();
+        //    try
+        //    {
+        //        string comand = "";
+        //        conexao.Comando.CommandText = comand;
+        //        conexao.Comando.Parameters.AddWithValue("@valor", valor);
+        //        conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+        //        if (conexao.Comando.ExecuteNonQuery() > 0)
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return false;
+        //    }
+        //    finally
+        //    {
+        //        conexao.Fechar();
+        //    }
+        //}
+
 
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
+
         {
             Conexao conexao = new Conexao();
             try
