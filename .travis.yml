@@ -8,3 +8,4 @@ script:
   - cd BackEnd
   - pwd
   - dotnet build ./BackEnd/BackEnd.csproj
+  - dotnet test
