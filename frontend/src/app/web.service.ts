@@ -117,4 +117,8 @@ export class WebService {
     codigo(parcela){
         return this.http.post(this.BASE_URL + '/emprestimo/codigo', parcela).toPromise();
     }
+
+    getSaldoPoupanca() {
+        return this.http.get(this.BASE_URL + '/emprestimo/poupanca').toPromise();
+    }
 }

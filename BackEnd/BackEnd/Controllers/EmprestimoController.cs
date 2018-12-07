@@ -20,6 +20,7 @@ namespace BackEnd.Controllers
             EmprestimoDAO emprestimoDao = new EmprestimoDAO();
             ParcelaDAO parcelaDao = new ParcelaDAO();
             ContaContabilDao ccDao = new ContaContabilDao();
+            TipoInvestimentoDao tiDao = new TipoInvestimentoDao();
 
             ContaContabil cc = new ContaContabil
             {
@@ -30,7 +31,7 @@ namespace BackEnd.Controllers
             emprestimo.ContaContabil = cc;
             emprestimo = emprestimoDao.Inserir(emprestimo);
 
-            double valorParcela = (emprestimo.Valor / emprestimo.Parcelas) * 1.045;
+            double valorParcela = CalculaParcela(emprestimo);
 
             DateTime date = DateTime.Now;
             for (int i = 1; i <= emprestimo.Parcelas; i++)
@@ -42,6 +43,7 @@ namespace BackEnd.Controllers
                 p.Emprestimo = emprestimo;
                 parcelaDao.Inserir(p);
             }
+            tiDao.Bloqueia();
         }
 
         [Route("simular")]
@@ -50,7 +52,7 @@ namespace BackEnd.Controllers
         {
             List<Parcela> parcelas = new List<Parcela>();
 
-            double valorParcela = (emprestimo.Valor / emprestimo.Parcelas) * 1.045;
+            double valorParcela = CalculaParcela(emprestimo);
 
             DateTime date = DateTime.Now;
             for (int i = 1; i <= emprestimo.Parcelas; i++)
@@ -118,6 +120,33 @@ namespace BackEnd.Controllers
                           .ToArray());
             return result;
 
+        }
+
+        [Route("poupanca")]
+        [HttpGet]
+        public Investimento GetSaldoPoupanca()
+        {
+            Investimento investimento = new Investimento();
+            InvestimentoDao investimentoDao = new InvestimentoDao();
+            investimento.Valor = investimentoDao.ValorInvestido(7, 1);
+            return investimento;
+        }
+
+        public double CalculaParcela(Emprestimo emprestimo)
+        {
+            TipoEmprestimoDAO teDao = new TipoEmprestimoDAO();
+            emprestimo.TipoEmprestimo = teDao.BuscarPorId(1);
+            double juros = emprestimo.TipoEmprestimo.Juros_Total;
+            double aux = emprestimo.Garantia / emprestimo.Valor;
+
+            juros = juros - (3 * aux);
+            if (juros < 1.5)
+                juros = 1.5;
+
+            aux = (juros / 100) + 1;
+            double valorParcela = (emprestimo.Valor / emprestimo.Parcelas) * aux;
+
+            return valorParcela;
         }
     }
 }
