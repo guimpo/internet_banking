@@ -53,7 +53,8 @@ namespace BackEnd.Dao
                 else
                     conexao.Comando.Parameters.AddWithValue("@valor", -t.valor);
 
-                conexao.Comando.Parameters.AddWithValue("@id", t.Conta.Id);
+                //conexao.Comando.Parameters.AddWithValue("@id", t.Conta.Id);
+                conexao.Comando.Parameters.AddWithValue("@id", 7);
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
                     Conta conta = new Conta();
