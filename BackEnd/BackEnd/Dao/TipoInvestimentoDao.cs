@@ -344,61 +344,13 @@ namespace BackEnd.Dao
 
         }
 
-<<<<<<< HEAD
 
-        private Boolean descontaSaldo(int id_conta, double valor)
-        {
-            Conexao conexao = new Conexao();
-            try
-            {
-                string comand_2 = "UPDATE conta Set saldo = (saldo-@valor) WHERE id = @id_conta";
-                conexao.Comando.CommandText = comand_2;
-                conexao.Comando.Parameters.AddWithValue("@valor", valor);
-                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
-=======
-        //public Boolean resgatarSelic(int id_conta, Double valor)
-        //{
-        //    for ()
-        //    {
-
-        //    }
-        //}  
-        
-        //public Boolean realizarResgateSelic()
-        //{
-        //    Conexao conexao = new Conexao();
-        //    try
-        //    {
-        //        string comand = "";
-        //        conexao.Comando.CommandText = comand;
-        //        conexao.Comando.Parameters.AddWithValue("@valor", valor);
-        //        conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
-        //        if (conexao.Comando.ExecuteNonQuery() > 0)
-        //        {
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return false;
-        //    }
-        //    finally
-        //    {
-        //        conexao.Fechar();
-        //    }
-        //}
->>>>>>> 5a59422f356e5f82ed060118d21377191b4b30fb
-
-
-<<<<<<< HEAD
      
 
-        public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
-=======
+
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
 
->>>>>>> 5a59422f356e5f82ed060118d21377191b4b30fb
+
         {
             Conexao conexao = new Conexao();
             try
