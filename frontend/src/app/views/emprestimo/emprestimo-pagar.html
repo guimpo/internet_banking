@@ -30,7 +30,7 @@
       <ng-container matColumnDef="botao">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
         <td mat-cell *matCellDef="let element"> 
-            <button (click)="get(element)" routerLink="emprestimo-boleto" mat-raised-button color="warn" >
+            <button (click)="get(element)" mat-raised-button color="warn" >
               Gerar Boleto
             </button>
         </td>
@@ -48,7 +48,7 @@
                       <div>
                               <p>ID da parcela: {{parcela.id}}</p>
                               <p>Data de vencimento : {{parcela.dataVencimento | date: "d/M/yy"}} </p>
-                              <p>Quantia a ser paga(+ juros): {{parcela.valor}}(+ {{i}})</p>
+                              <p>Quantia a ser paga(+ juros): R{{parcela.valor | currency}}(+ R{{i | currency}}) = R{{parcela.valor + i | currency}}</p>
                               <p>Código para pagamento: {{codigo}}</p>
                               <mat-card-actions>
                                   <button (click)="fecha()" mat-raised-button color="primary">Fechar</button>

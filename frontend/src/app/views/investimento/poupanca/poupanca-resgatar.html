@@ -5,12 +5,12 @@
         </div>
         <mat-card-content>
             <mat-form-field>
-                <input  matInput placeholder="Digite valor" type="number" >
+                <input  [(ngModel)]="resgatar" matInput placeholder="Digite valor" type="number"  min=0 step=50>
             </mat-form-field>
             
             <mat-card-actions>
                 
-                <button  mat-raised-button color="primary">Confirmar</button>
+                <button  (click)="valorResgatar()" mat-raised-button color="primary">Confirmar</button>
             </mat-card-actions>
             
         </mat-card-content>

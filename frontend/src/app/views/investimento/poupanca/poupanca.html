@@ -5,11 +5,14 @@
     <div style="padding:10px;   margin: 0 auto; background-color:#f7f7f7;" >
         
         <h3>Seu Saldo: R$ {{ investimento.Conta.saldo | number:'1.2-2'}}</h3>
-        <h3>Valor Investido: R$ {{ investimento.TipoInvestimento.valor | number:'1.2-2'}}</h3>
+        <h3>Valor Investido: R$ 
+            {{ investimento.TipoInvestimento==null ? 0: 
+                investimento.TipoInvestimento.valor  | number:'1.2-2'}}</h3>
+        <!-- <h3>Investido c/ juros R$: {{ juro | number:'1.2-2'}}</h3> -->
         <hr>
-        <h3>Descrição: {{investimento.TipoInvestimento.descricao}}</h3>
-        <h3>Liquidez: {{investimento.TipoInvestimento.liquidez}}</h3>
-        <h3>Rendabilidade:{{ investimento.TipoInvestimento.rentabilidade }}%</h3>
+        <h3>Descrição: {{poupanca.descricao}}</h3>
+        <h3>Liquidez: {{poupanca.liquidez}}</h3>
+        <h3>Rendabilidade:{{ poupanca.rentabilidade }}%</h3>
         
        
     </div>
@@ -19,7 +22,7 @@
     <mat-card-content style="text-align: center;">
             <mat-card-actions>
                 <button (click)="aplicar()"  mat-raised-button color="primary">Aplicar</button>
-                <button (click)="resgatar()" mat-raised-button color="primary">Resgatar</button>
+                <button (click)="resgatar()"  mat-raised-button color="primary">Resgatar</button>
             </mat-card-actions>
     </mat-card-content>
     

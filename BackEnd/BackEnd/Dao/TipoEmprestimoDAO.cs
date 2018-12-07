@@ -29,7 +29,7 @@ namespace BackEnd.Dao
                     TipoEmprestimo tipoemprestimo = new TipoEmprestimo()
                     {
                         Id = Convert.ToInt32(reader["id"]),
-                        Juros_Atrasado = Convert.ToDouble(reader["juros_atrasado"]),
+                        Juros_Atrasado = Convert.ToDouble(reader["juros_atraso"]),
                         Juros_Total = Convert.ToDouble(reader["juros_total"])
 
                     };
@@ -43,7 +43,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -65,6 +65,36 @@ namespace BackEnd.Dao
         public List<TipoEmprestimo> ListarTodos()
         {
             throw new NotImplementedException();
+        }
+        public bool valorBloqueado(int id)
+        {
+            Conexao conexao = new Conexao();
+            bool bloqueado = false;
+            try
+            {
+
+                string comando = "select * from tipo_investimento_poupanca where investimento_id = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    
+                    bloqueado = Convert.ToBoolean(reader["bloqueado"]);
+                    
+                    return bloqueado;
+                }
+                return bloqueado;
+            }
+            catch (Exception e )
+            {
+                return bloqueado;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
     }
 }

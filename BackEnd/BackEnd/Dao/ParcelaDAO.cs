@@ -42,6 +42,39 @@ namespace BackEnd.Dao
             throw new NotImplementedException();
         }
 
+        public int BuscarIdEmprestimo(int id)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from parcela where id = @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    int Id = Convert.ToInt32(reader["emprestimo_id"]);
+
+                    return Id;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (MySqlException e)
+            {
+
+                return 0;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
         public Parcela Deletar(Parcela t)
         {
             throw new NotImplementedException();
@@ -115,6 +148,7 @@ namespace BackEnd.Dao
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally

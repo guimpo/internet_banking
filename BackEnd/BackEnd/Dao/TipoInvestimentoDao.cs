@@ -19,7 +19,7 @@ namespace BackEnd.Dao
             try
             {
 
-                string comando = "SELECT i.id, i.data_aplicacao, sum(i.valor) valor, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade" +
+                string comando = "SELECT i.id, i.data_aplicacao, i.valor, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade" +
                    " FROM `investimento` i" +
                    " JOIN tipo_investimento ti" +
                    " ON ti.id = i.tipo_investimento_id" +
@@ -32,7 +32,8 @@ namespace BackEnd.Dao
                     reader.Read();
                     TipoInvestimento tipo = new TipoInvestimento()
                     {
-                        Id_tipo_investimento = Convert.ToInt32(reader["id"]),
+                        Id = Convert.ToInt32(reader["id"]),
+                        Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
                         Descricao = reader["descricao"].ToString(),
                         Liquidez = reader["liquidez"].ToString(),
                         Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
@@ -42,11 +43,52 @@ namespace BackEnd.Dao
                 }
                 else
                 {
-                    return null;
+                    conexao.Fechar();
+                    return buscarTipo(1);
                 }
 
             }
             catch (Exception e )
+            {
+
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+        
+        public TipoInvestimento buscarTipo(int tipo)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "SELECT * FROM tipo_investimento WHERE id= @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", tipo);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    TipoInvestimento inves = new TipoInvestimento()
+                    {
+                        Id_tipo_investimento = Convert.ToInt32(reader["id"]),
+                        Descricao = reader["descricao"].ToString(),
+                        Liquidez = reader["liquidez"].ToString(),
+                        Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
+
+                    };
+                    return inves;
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
             {
 
                 System.Diagnostics.Debug.WriteLine(e);
@@ -62,7 +104,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, count(i.id) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
+                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta and i.status = 1";
 
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -72,31 +114,39 @@ namespace BackEnd.Dao
                 {
                     reader.Read();
 
-                    Double valor = Convert.ToDouble(reader["valor"]);
-                    DateTime data_aplicacao = Convert.ToDateTime(reader["data_aplicacao"]);
-                    Double juros = Convert.ToDouble(reader["rentabilidade"]);
-                    Double valor_liquido = calculoJutosSelic(valor,data_aplicacao,juros);
-
-                    TipoInvestimentoSelic tipoinvestimentoSelic = new TipoInvestimentoSelic()
+                    try
                     {
-                        //investimento
-                        Id = Convert.ToInt32(reader["id"]),
-                        DataAplicacao = Convert.ToDateTime(reader["data_aplicacao"]),
-                        Valor = Convert.ToDouble(reader["valor"]),
-                        //tipo investimento
-                        Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
-                        Descricao = reader["descricao"].ToString(),
-                        Liquidez = reader["liquidez"].ToString(),
-                        Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
-                        //tipo investimento selic
-                        Id_tipo_investimento_selic = Convert.ToInt32(reader["id_tipo_investimento_selic"]),
-                        Quantidade = Convert.ToInt32(reader["quantidade"]),
-                        Vencimento = Convert.ToDateTime(reader["vencimento"]),
-                        Valor_liquido = valor_liquido
+                        Double valor = Convert.ToDouble(reader["valor"]);
+                        DateTime data_aplicacao = Convert.ToDateTime(reader["data_aplicacao"]);
+                        Double juros = Convert.ToDouble(reader["rentabilidade"]);
+                        Double valor_liquido = calculoJutosSelic(valor, data_aplicacao, juros);
 
-                    };
+                        TipoInvestimentoSelic tipoinvestimentoSelic = new TipoInvestimentoSelic()
+                        {
+                            //investimento
+                            Id = Convert.ToInt32(reader["id"]),
+                            DataAplicacao = Convert.ToDateTime(reader["data_aplicacao"]),
+                            Valor = Convert.ToDouble(reader["valor"]),
+                            //tipo investimento
+                            Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
+                            Descricao = reader["descricao"].ToString(),
+                            Liquidez = reader["liquidez"].ToString(),
+                            Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
+                            //tipo investimento selic
+                            Id_tipo_investimento_selic = Convert.ToInt32(reader["id_tipo_investimento_selic"]),
+                            Quantidade = Convert.ToInt32(reader["quantidade"]),
+                            Vencimento = Convert.ToDateTime(reader["vencimento"]),
+                            Valor_liquido = valor_liquido
 
-                    return tipoinvestimentoSelic;
+                        };
+
+                        return tipoinvestimentoSelic;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    
 
                 }
                 else
@@ -118,16 +168,16 @@ namespace BackEnd.Dao
         private double calculoJutosSelic(double valor, DateTime data_aplicacao, Double taxajuros)
         {
 
-            int dias = (DateTime.Now - data_aplicacao).Days;
+            //int dias = (DateTime.Now - data_aplicacao).Days;
 
-            taxajuros = taxajuros * dias;
+            taxajuros = 0.001;
 
-            Double valorComJuros = valor * taxajuros;
+            valor += valor * taxajuros;
 
-            return valorComJuros;
+            return valor;
 
         }
-
+         
         public Double getSaldo(int id_conta)
         {
             Conexao conexao = new Conexao();
@@ -161,7 +211,7 @@ namespace BackEnd.Dao
 
             try
             {
-                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id) VALUES (now(), @valor, 2, @id_conta)";
+                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id, status) VALUES (now(), @valor, 2, @id_conta, 1)";
 
                 conexao.Comando.CommandText = comand_1;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -213,6 +263,35 @@ namespace BackEnd.Dao
 
         }
 
+        private Boolean descontaSaldo(int id_conta, double valor)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand_2 = "UPDATE conta Set saldo = (saldo-@valor) WHERE id = @id_conta";
+                conexao.Comando.CommandText = comand_2;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
         public Boolean AplicarSelic(TipoInvestimentoSelic aplicacao, int id_conta)
         {
             try
@@ -221,22 +300,32 @@ namespace BackEnd.Dao
 
                 if(getSaldo(id_conta) > valor)
                 {
-                    int id_investimento = createInvestimento(id_conta, valor);
-
-                    if (id_investimento > 0)
+                    if(descontaSaldo(id_conta,valor))
                     {
-                        if (createInvestimentoSelic(id_investimento, aplicacao.Quantidade)){
-                            return true;
-                        }
-                        else
+                        for (int i=0;i<aplicacao.Quantidade;i++)
                         {
-                            return false;
+                            int id_investimento = createInvestimento(id_conta, 100);
+                            if (id_investimento > 0)
+                            {
+                                if(!createInvestimentoSelic(id_investimento, 1))
+                                {
+                                    return false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                return false;
+                            }
                         }
+
+                        return true;
                     }
                     else
                     {
                         return false;
-                    } 
+                    }
+                    
                 }
                 else
                 {
@@ -250,7 +339,85 @@ namespace BackEnd.Dao
 
         }
 
+        public Boolean ResgatarSelic(int id_conta, int quantidade)
+        {
+            for (int i = 0; i < quantidade; i++)
+            {
+                if (!realizarResgateSelic(id_conta))
+                {
+                    return false;
+                }
+            }
+
+            double valor = quantidade * 100;
+            if (aplicarSaldo(id_conta, valor))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+
+        }
+
+        public Boolean realizarResgateSelic(int id_conta)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand = "UPDATE investimento set status = 0 WHERE status = 1 and tipo_investimento_id = 2 and conta_id = @id_conta  ORDER by id DESC LIMIT 1";
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
+        private Boolean aplicarSaldo(int id_conta, double valor)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand_2 = "UPDATE conta Set saldo = (saldo+@valor) WHERE id = @id_conta";
+                conexao.Comando.CommandText = comand_2;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (MySqlException e)
+            {
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
+
+
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
+
         {
             Conexao conexao = new Conexao();
             try

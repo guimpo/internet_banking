@@ -1,16 +1,18 @@
 <mat-card style="margin-top:18px;"> 
         <div >
-           
-            <h4>Digite valor que deseja Resgatar:</h4>
+            <h4>Digite valor que deseja Resgatar: (valor minimo R$:100)</h4>
+
+            <h4>valor R$: {{valor()| currency}} </h4>
         </div>
         <mat-card-content>
+
             <mat-form-field>
-                <input  matInput placeholder="Digite valor" type="number" >
+                <input [(ngModel)]="resgate.quantidade" matInput placeholder="Digite quantidade" type="number" min=1 step=1>
             </mat-form-field>
+    
             
             <mat-card-actions>
-                
-                <button  mat-raised-button color="primary">Confirmar</button>
+                <button (click)="post()" mat-raised-button color="primary">Resgatar</button>
             </mat-card-actions>
             
         </mat-card-content>

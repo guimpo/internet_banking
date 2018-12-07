@@ -89,8 +89,20 @@ namespace BackEnd.Controllers
 
             // teria que chamar o juros do tipo_emprestimo
 
+            EmprestimoDAO emprestimodao = new EmprestimoDAO();
+            TipoEmprestimoDAO tipoemprestimodao = new TipoEmprestimoDAO();
 
-            return (parcela.Valor * i * 0.06);
+            //acha primeiro id do emprestimo, depois pega o tipo_emprestimo_pessoal_id, e o conta_id
+            //(uma chamada cada, pq é objeto), depois procura infos do cara usando o conta_id, e infos do juros usando
+            //o tipo_emprestimo_id
+
+
+            TipoEmprestimo juros = tipoemprestimodao.BuscarPorId(emprestimodao.BuscarIdTipoEmprestimo(parceladao.BuscarIdEmprestimo(parcela.Id)));
+
+            
+            
+
+            return (parcela.Valor * i * (juros.Juros_Atrasado/100));
         }
 
         [Route("codigo")]

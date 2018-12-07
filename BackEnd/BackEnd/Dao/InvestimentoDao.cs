@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Dao
 {
-    public class InvestimentoDao : IDao<Investimento>
+    public class InvestimentoDao 
     {
         public Double ValorInvestido(int id_conta)
         {
@@ -46,8 +46,8 @@ namespace BackEnd.Dao
             return valor;
         }
 
-        public double ValorInvestido(int id_conta, int id_tipo_investimento)
-        {
+        public double ValorInvestido(int id_conta, int id_tipo_investimento) 
+        { 
             Conexao conexao = new Conexao();
             try
             {
@@ -68,21 +68,75 @@ namespace BackEnd.Dao
                 {
                     return 0;
                 }
+                return total;
             }
             catch (MySqlException e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
+                return 0;
             }
             finally
             {
                 conexao.Fechar();
             }
-            return 0;
+        }
+        
+        public bool AlterarResgatar(int id, double valor)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "update investimento set valor = valor - @valor where id = @id;";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
-        public Investimento Alterar(Investimento t)
+        public bool  AlterarAplicar(int id, double valor)
         {
-            throw new NotImplementedException();
+            Conexao conexao = new Conexao();
+            
+            try
+            {
+                string comando = "update investimento set data_aplicacao = now(), valor = valor + @valor where id = @id;";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id", id); 
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e )
+            {
+
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+            
+
         }
 
         public Investimento BuscarPorId(int id)
@@ -124,7 +178,33 @@ namespace BackEnd.Dao
             }
             return null;
         }
+        public bool verificarNoInvesPoupanca(int conta)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "SELECT * FROM investimento WHERE tipo_investimento_id = 1 and conta_id= @id";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", conta);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    return true;
+                }
 
+                return false;
+            }
+            catch (Exception e)
+            {
+
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
         public List<Investimento> ListarTodos()
         {
             throw new NotImplementedException();
