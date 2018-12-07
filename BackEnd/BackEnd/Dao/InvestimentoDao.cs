@@ -36,7 +36,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "SELECT SUM(valor) FROM investimento WHERE tipo_investimento_id = @tipo_id AND conta_id = @conta_id;";
+                string comand = "SELECT SUM(valor) FROM investimento WHERE tipo_investimento_id = @tipo_id AND conta_id = @conta_id AND status = false;";
 
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@tipo_id", id_tipo_investimento);
@@ -45,8 +45,17 @@ namespace BackEnd.Dao
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
                 {
+                    double total;
                     reader.Read();
-                    double total = Convert.ToDouble(reader["SUM(valor)"]);
+                    Object value = reader["SUM(valor)"];
+
+                    if(value != DBNull.Value)
+                    {
+                        total = Convert.ToDouble(reader["SUM(valor)"]);
+                    } else
+                    {
+                        return 0;
+                    }
                     return total;
                 }
                 else
@@ -169,6 +178,27 @@ namespace BackEnd.Dao
         public List<Investimento> ListarTodos()
         {
             throw new NotImplementedException();
+        }
+
+        public void Bloqueia()
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand = "UPDATE investimento SET status = true WHERE conta_id = 7 AND tipo_investimento_id = 1";
+
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.ExecuteNonQuery();
+
+            }
+            catch (MySqlException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
     }
 }

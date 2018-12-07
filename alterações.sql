@@ -8,3 +8,4 @@ UPDATE `tipo_transacao` SET `descricao` = 'resgate de investimento' WHERE `tipo_
 
 ALTER TABLE `emprestimo` ADD garantia double DEFAULT NULL;
 UPDATE `tipo_emprestimo` SET `juros_total` = 4.5, `juros_atraso` = 6 WHERE `id` = 1;
+INSERT INTO `tipo_transacao` (`id`, `descricao`) VALUES (6, 'emprestimo');

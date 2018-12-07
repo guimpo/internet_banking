@@ -57,6 +57,34 @@ namespace BackEnd.Dao
             return null;
         }
 
+        public ContaContabil InserirContaContabil(ContaContabil c)//Inserir conta contábil de empréstimo
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand = "INSERT INTO conta_contabil_emprestimo(valor) VALUES (@valor);";
+
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.Parameters.AddWithValue("@valor", c.Valor);
+
+                if (conexao.Comando.ExecuteNonQuery() > 0)
+                {
+                    c.Id = Convert.ToInt32(conexao.Comando.LastInsertedId.ToString());
+                    return c;
+                }
+                return null;
+            }
+            catch (MySqlException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+            return null;
+        }
+
         public List<ContaContabil> ListarTodos()
         {
             throw new NotImplementedException();

@@ -21,7 +21,7 @@ export class EmprestimoSimularComponent {
     aux;
 
     transacao = {
-        tipo_transacao_id: 4,
+        tipo_transacao_id: 6,
         valor: 0
     }
 

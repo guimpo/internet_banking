@@ -20,13 +20,13 @@ namespace BackEnd.Controllers
             EmprestimoDAO emprestimoDao = new EmprestimoDAO();
             ParcelaDAO parcelaDao = new ParcelaDAO();
             ContaContabilDao ccDao = new ContaContabilDao();
-            TipoInvestimentoDao tiDao = new TipoInvestimentoDao();
+            InvestimentoDao investimentoDao = new InvestimentoDao();
 
             ContaContabil cc = new ContaContabil
             {
                 Valor = -emprestimo.Valor
             };
-            cc = ccDao.InserirContaContabil(cc, 2);
+            cc = ccDao.InserirContaContabil(cc);
 
             emprestimo.ContaContabil = cc;
             emprestimo = emprestimoDao.Inserir(emprestimo);
@@ -43,7 +43,7 @@ namespace BackEnd.Controllers
                 p.Emprestimo = emprestimo;
                 parcelaDao.Inserir(p);
             }
-            tiDao.Bloqueia();
+            investimentoDao.Bloqueia();
         }
 
         [Route("simular")]
