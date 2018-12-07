@@ -9,8 +9,7 @@ namespace BackEnd.Dao
 {
     public class InvestimentoDao 
     {
-<<<<<<< HEAD
-=======
+
         public Double ValorInvestido(int id_conta)
         {
             Double valor = 0;
@@ -18,22 +17,6 @@ namespace BackEnd.Dao
             try
             {
    
-    
-
-    
-
-    
-
-               
-                //conexao.Comando.CommandText = comando;
-                //conexao.Comando.Parameters.AddWithValue("@id", id_conta);
-                //MySqlDataReader reader = conexao.Comando.ExecuteReader();
-                //if (reader.HasRows)
-                //{
-                //    reader.Read();
-                //    valor = Convert.ToDouble(reader["valor"]);
-                //}
-                //return valor;
             }
             catch (Exception e)
             {
@@ -70,7 +53,7 @@ namespace BackEnd.Dao
                 {
                     return 0;
                 }
-                return total;
+                
             }
             catch (MySqlException e)
             {
@@ -140,7 +123,7 @@ namespace BackEnd.Dao
             
 
         }
->>>>>>> d293b6c750f2bc79f89a92814ed0c9ad89eb915d
+
 
         public Investimento BuscarPorId(int id)
         {
