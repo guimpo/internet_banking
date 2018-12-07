@@ -75,10 +75,10 @@ namespace BackEnd.Controllers
         }
 
         [HttpGet("bloqueado/{id}")]
-        public double getInvestido(int id)
-        {
-            return (new TipoEmprestimoDAO().valorBloqueado(id));
-        }
+        //public double getInvestido(int id)
+        //{
+        //    return (new TipoEmprestimoDAO().valorBloqueado(id));
+        //}
 
         // POST: api/Investimento/Poupanca
         [HttpPost]
@@ -128,7 +128,7 @@ namespace BackEnd.Controllers
             {
                 //alterar investimento- valor
                 investimento.Id = investimento.TipoInvestimento.Id;
-                investimento = daoInvestimento.AlterarAplicar(investimento);
+                //investimento = daoInvestimento.AlterarAplicar(investimento);
             }
             else
             {
