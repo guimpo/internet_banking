@@ -9,6 +9,7 @@ namespace BackEnd.Models
     {
         public int Id { get; set; }
         public double Valor { get; set; }
+        public double Garantia { get; set; }
         public int Parcelas { get; set; }
         public int MetodoPagamento { get; set; }
         public DateTime DataSolicitacao { get; set; }

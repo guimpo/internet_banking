@@ -46,6 +46,39 @@ namespace BackEnd.Dao
             return valor;
         }
 
+        public double ValorInvestido(int id_conta, int id_tipo_investimento)
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand = "SELECT SUM(valor) FROM investimento WHERE tipo_investimento_id = @tipo_id AND conta_id = @conta_id;";
+
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.Parameters.AddWithValue("@tipo_id", id_tipo_investimento);
+                conexao.Comando.Parameters.AddWithValue("@conta_id", id_conta);
+
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    double total = Convert.ToDouble(reader["SUM(valor)"]);
+                    return total;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (MySqlException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+            return 0;
+        }
 
         public Investimento Alterar(Investimento t)
         {

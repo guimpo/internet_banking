@@ -282,5 +282,30 @@ namespace BackEnd.Dao
         {
             throw new NotImplementedException();
         }
+
+        public void Bloqueia()
+        {
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comand = "UPDATE tipo_investimento_poupanca " +
+                    "SET bloqueado = true " +
+                    "FROM tipo_investimento t JOIN investimento i " +
+                    "ON t.investimento_id = i.id " +
+                    "WHERE i.conta_id = 7";
+
+                conexao.Comando.CommandText = comand;
+                conexao.Comando.ExecuteNonQuery();
+
+            }
+            catch (MySqlException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
+        }
     }
 }
