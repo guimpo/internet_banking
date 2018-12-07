@@ -17,7 +17,45 @@ namespace BackEnd.Dao
 
         public Transacao BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            Conexao conexao = new Conexao();
+            try
+            {
+                string comando = "select * from trasacao where id = @id;";
+                conexao.Comando.CommandText = comando;
+                conexao.Comando.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = conexao.Comando.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var data = DateTime.Parse(reader["data"].ToString());
+                        var hora = DateTime.Parse(reader["hora"].ToString());
+                        var conta = new Conta();
+                        conta.Id = Convert.ToInt32(reader["conta_id1"]);
+
+                        Transacao transacao = new Transacao()
+                        {
+                            id = Convert.ToInt32(reader["id"]),
+                            data = data,
+                            hora = hora,
+                            valor = Convert.ToDouble(reader["valor"]),
+                            tipo_transacao_id = Convert.ToInt32(reader["tipo_transacao_id"]),
+                            Conta = conta
+                        };
+                        return transacao;
+                    }
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+            finally
+            {
+                conexao.Fechar();
+            }
         }
 
         public Transacao Deletar(Transacao t)
