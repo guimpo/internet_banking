@@ -76,28 +76,27 @@ namespace BackEnd.Dao
 
         }
 
-        public Investimento AlterarAplicar(Investimento t)
+        public bool  AlterarAplicar(int id, double valor)
         {
             Conexao conexao = new Conexao();
             
             try
             {
-                string comando = "update investimento set data_aplicacao = now(), valor = valor + @valor where tipo_investimento_id = @tipo and conta_id = @conta;";
+                string comando = "update investimento set data_aplicacao = now(), valor = valor + @valor where id = @id;";
                 conexao.Comando.CommandText = comando;
-                conexao.Comando.Parameters.AddWithValue("@valor", t.Valor);
-                conexao.Comando.Parameters.AddWithValue("@tipo", t.TipoInvestimento.Id_tipo_investimento);
-                conexao.Comando.Parameters.AddWithValue("@conta", t.Conta.Id);
+                conexao.Comando.Parameters.AddWithValue("@valor", valor);
+                conexao.Comando.Parameters.AddWithValue("@id", id); 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
-                    return t;
+                    return true;
                 }
-                return null;
+                return false;
             }
             catch (Exception e )
             {
 
                 System.Diagnostics.Debug.WriteLine(e);
-                return null;
+                return false;
             }
             finally
             {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BackEnd.Models
 {
-    public class Investimento
+    public class Investimento 
     {
         public int Id { get; set; }
         public DateTime DataAplicacao { get; set; }
