@@ -37,8 +37,6 @@ namespace BackEnd.Dao
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
-
-
                     return t;
                 }
                 else
