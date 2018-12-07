@@ -1,5 +1,7 @@
 p {
     word-wrap: break-word;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 mat-card {
