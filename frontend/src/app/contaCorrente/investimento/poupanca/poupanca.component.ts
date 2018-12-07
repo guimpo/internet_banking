@@ -7,6 +7,14 @@ export interface Investimento{
     TipoInvestimento:Object;
 }
 
+export interface Poupanca{
+    id: number;
+    descricao:string;
+    liquidez:string;
+    rentabilidade:number
+}
+
+
 @Component({
     selector: 'investimento',
     templateUrl: '../../../views/investimento/poupanca/poupanca.html',
@@ -23,12 +31,19 @@ export class PoupancaComponent {
         var response = await this.webService.getLogin(1);
         this.conta = response.json();
         this.investimento.Conta = this.conta;
-        var response = await this.webService.getPopanca(this.conta['id']);
+
+        var response = await this.webService.getInvestido(this.conta['id']);
         this.tipo = response.json();
         this.investimento.TipoInvestimento =  this.tipo; 
-        
+ 
+        var response = await this.webService.getPoupanca();
+        this.poupanca = response.json();
 
-        console.log(this.tipo['valor']);
+        if(this.investimento.TipoInvestimento== null){
+            this.investimento.TipoInvestimento= this.poupanca;
+        }
+
+        console.log(this.investimento.TipoInvestimento);
        
 
     } 
@@ -37,6 +52,12 @@ export class PoupancaComponent {
         valor:0,
         TipoInvestimento: 0,
         Conta:0
+    }
+    poupanca:Poupanca = {
+        id: 0,
+        descricao:"",
+        liquidez:"",
+        rentabilidade:0
     }
     async aplicar() {
         this.loadAplicarComponent = true;

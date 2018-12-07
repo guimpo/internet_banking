@@ -17,17 +17,15 @@ export class PoupancaResgatarComponent {
     bloqueo:number;
     async ngOnInit() {
         
-        var response = await this.webService
-            .getBloqueado(this.investimento.TipoInvestimento.id);
-        this.bloqueo =  response.json();  
+      
         this.resgatar = 0;
        
     }
     
     async valorResgatar(){
-        
-        this.investimento.valor = this.resgatar;
-        if(this.resgatar <= this.investimento.TipoInvestimento.valor - this.bloqueo ){
+    
+        if(this.investimento.TipoInvestimento.valor >= this.resgatar){
+            this.investimento.valor = this.resgatar;
             var response = await this.webService
                 .putResgatar(this.investimento);
 
@@ -44,7 +42,7 @@ export class PoupancaResgatarComponent {
                 });
             }
         }else{
-            this.snackBar.open("valor bloqueado ou valor investido insuficiente", "", {
+            this.snackBar.open("valor insuficiente", "", {
                 duration:3000,
             });
         }

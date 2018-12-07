@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MenuService } from './menu.service';
+import { Conta } from './conta';
 
 @Component({
   selector: 'app-menu',
@@ -7,18 +9,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  @Input()
-  numero: number
+  conta: Conta
 
-  @Input()
-  agencia: string
+  constructor(private service: MenuService) { 
 
-  constructor() { 
-    this.numero = 123456
-    this.agencia = '654321-x'
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.conta = await this.service.getConta()
+    console.log(this.conta)
   }
 
 }

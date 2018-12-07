@@ -31,6 +31,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -65,7 +66,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -100,7 +101,7 @@ namespace BackEnd.Dao
             }
             catch (Exception e)
             {
-                
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -124,6 +125,8 @@ namespace BackEnd.Dao
                     Conta conta = new Conta()
                     {
                         Id = Convert.ToInt32(reader["id"]),
+                        Numero = Convert.ToInt32(reader["numero"]),
+                        Agencia = (reader["agencia"].ToString()),
                         TipoConta = Convert.ToInt32(reader["tipo_conta_id"]),
                         Saldo = Convert.ToDouble(reader["saldo"])
                         
@@ -138,7 +141,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -176,6 +179,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
