@@ -7,12 +7,12 @@
         <mat-card-content>
 
             <mat-form-field>
-                <input [(ngModel)]="aplicacao.quantidade" matInput placeholder="Digite quantidade" type="number" min=1 step=1>
+                <input [(ngModel)]="resgate.quantidade" matInput placeholder="Digite quantidade" type="number" min=1 step=1>
             </mat-form-field>
     
             
             <mat-card-actions>
-                <button (click)="post()" mat-raised-button color="primary">Aplicar</button>
+                <button (click)="post()" mat-raised-button color="primary">Resgatar</button>
             </mat-card-actions>
             
         </mat-card-content>

@@ -94,6 +94,10 @@ export class WebService {
     postAplicacaoSelic(aplicacao) {
         return this.http.post(this.BASE_URL + '/investimento/aplicar-selic',aplicacao).toPromise();
     }
+    
+    postResgatarcaoSelic(resgate) {
+        return this.http.post(this.BASE_URL + '/investimento/resgatar-selic',resgate).toPromise();
+    }
 
     //EMPRESTIMO -----
     postEmprestimo(emprestimo) {

@@ -31,25 +31,23 @@ export class SelicAplicarComponent {
     async post(){
         // console.log(this.deposito);
         var response = await this.webService.postAplicacaoSelic(this.aplicacao);
-        var aux = response;
+        var aux = response.json();
 
         if(this.aplicacao.valor < 0) {
             this.snackBar.open("Valor invalido!", "Ok", {
                 duration:3000,
             });
         }
-        
-        else if(aux) {
+        else if(aux == true) {
             this.snackBar.open("Investimento realizado com sucesso!", "Ok", {
                 duration:3000,
             }); 
             window.location.reload();            
-        } else {
-            this.snackBar.open("falhou!", "Ok", {
+        }else {
+            this.snackBar.open("falhou! saldo insuficiente...", "Ok", {
                 duration:3000,
             });
         }
-       
     }
 
     // Torendimento(){
