@@ -28,8 +28,8 @@ namespace BackEnd.Controllers
             return "value";
         }
 
-        [HttpPut("resgatar")]
-        public bool putResgatar([FromBody] Investimento inves)
+        [HttpPost("resgatar")]
+        public bool postResgatar([FromBody] Investimento inves)
         {
 
             //inserir no conta contabil

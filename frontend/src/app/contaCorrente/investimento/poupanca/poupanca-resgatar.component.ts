@@ -19,7 +19,7 @@ export class PoupancaResgatarComponent {
         
       
         this.resgatar = 0;
-       
+       console.log(this.investimento);
     }
     
     async valorResgatar(){
@@ -27,7 +27,7 @@ export class PoupancaResgatarComponent {
         if(this.investimento.TipoInvestimento.valor >= this.resgatar){
             this.investimento.valor = this.resgatar;
             var response = await this.webService
-                .putResgatar(this.investimento);
+                .postResgatar(this.investimento);
 
             var aux = response.json();
             console.log(aux);
@@ -37,7 +37,7 @@ export class PoupancaResgatarComponent {
                 }); 
                 location.reload();  
             } else {
-                this.snackBar.open("Falhou", "", {
+                this.snackBar.open("Falha", "", {
                     duration:3000,
                 });
             }

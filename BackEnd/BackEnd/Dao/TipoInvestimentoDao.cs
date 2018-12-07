@@ -20,13 +20,9 @@ namespace BackEnd.Dao
             try
             {
 
-                string comando = "SELECT i.id,ip.bloqueado, i.data_aplicacao, sum(i.valor) as valor, ti.id as id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade" +
-                   " FROM `investimento` i" +
-                   " JOIN tipo_investimento ti" +
-                   " ON ti.id = i.tipo_investimento_id" +
-                   " JOIN tipo_investimento_poupanca ip" +
-                   " ON ip.investimento_id= i.id" +
-                   " WHERE i.tipo_investimento_id = 1 and i.conta_id = @id and ip.bloqueado=false;";
+                string comando = "SELECT id,status, data_aplicacao, sum(valor) as valor, tipo_investimento_id" +
+                   " FROM `investimento` " +
+                   " WHERE tipo_investimento_id = 1 and conta_id = @id and status=false;";
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id", id_conta);
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
@@ -37,10 +33,7 @@ namespace BackEnd.Dao
                     TipoInvestimento tipo = new TipoInvestimento()
                     {
                         Id = Convert.ToInt32(reader["id"]),
-                        Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
-                        Descricao = reader["descricao"].ToString(),
-                        Liquidez = reader["liquidez"].ToString(),
-                        Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),                
+                        Id_tipo_investimento = Convert.ToInt32(reader["tipo_investimento_id"]),
                         Valor = Convert.ToDouble(reader["valor"])
                     };
                     return tipo;
@@ -356,10 +349,10 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO tipo_investimento_poupanca(investimento_id, bloqueado, contacontabil_investimento_poupanca_id) VALUES (@inves,@bloqueado, @contabil);";
+                string comand = "INSERT INTO tipo_investimento_poupanca(investimento_id,  contacontabil_investimento_poupanca_id) VALUES (@inves, @contabil);";
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@inves", t.Investimento.Id);
-                conexao.Comando.Parameters.AddWithValue("@bloqueado", false);
+              
                 conexao.Comando.Parameters.AddWithValue("@contabil", t.ContaContabil.Id);
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {

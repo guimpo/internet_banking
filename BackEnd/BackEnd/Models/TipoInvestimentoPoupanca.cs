@@ -8,7 +8,6 @@ namespace BackEnd.Models
     public class TipoInvestimentoPoupanca
     {
         public int Id { get; set; }
-        public Boolean bloqueado { get; set; }
         public Investimento Investimento { get; set; }
         public ContaContabil ContaContabil { get; set; }
     }

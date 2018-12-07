@@ -25,10 +25,11 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO investimento(data_aplicacao, valor, tipo_investimento_id,  conta_id) VALUES (now(), @valor, @tipo_investimento, @conta_id);";
+                string comand = "INSERT INTO investimento(data_aplicacao, valor,status,  tipo_investimento_id,  conta_id) VALUES (now(), @valor,@status, @tipo_investimento, @conta_id);";
 
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@valor", t.Valor);
+                conexao.Comando.Parameters.AddWithValue("@status", false);
                 conexao.Comando.Parameters.AddWithValue("@tipo_investimento", t.TipoInvestimento.Id_tipo_investimento);
                 conexao.Comando.Parameters.AddWithValue("@conta_id", t.Conta.Id);
 

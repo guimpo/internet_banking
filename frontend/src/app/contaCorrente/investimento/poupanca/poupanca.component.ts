@@ -35,15 +35,15 @@ export class PoupancaComponent {
         var response = await this.webService.getInvestido(this.conta['id']);
         this.tipo = response.json();
         this.investimento.TipoInvestimento =  this.tipo; 
- 
+        
         var response = await this.webService.getPoupanca();
         this.poupanca = response.json();
-
+      
         if(this.investimento.TipoInvestimento== null){
             this.investimento.TipoInvestimento= this.poupanca;
         }
-
-        console.log(this.investimento.TipoInvestimento);
+        console.log(  this.investimento);
+        
        
 
     } 
