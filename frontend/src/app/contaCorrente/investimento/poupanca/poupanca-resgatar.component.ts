@@ -42,7 +42,7 @@ export class PoupancaResgatarComponent {
                 });
             }
         }else{
-            this.snackBar.open("valor insuficiente", "", {
+            this.snackBar.open("valor investido insuficiente", "", {
                 duration:3000,
             });
         }

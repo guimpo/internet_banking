@@ -76,11 +76,6 @@ namespace BackEnd.Controllers
                 return false;
         }
 
-        [HttpGet("bloqueado/{id}")]
-        public bool getInvestido(int id)
-        {
-            return (new TipoEmprestimoDAO().valorBloqueado(id));
-        }
 
         // POST: api/Investimento/Poupanca
         [HttpPost]
