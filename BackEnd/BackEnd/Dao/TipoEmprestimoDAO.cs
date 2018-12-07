@@ -29,7 +29,7 @@ namespace BackEnd.Dao
                     TipoEmprestimo tipoemprestimo = new TipoEmprestimo()
                     {
                         Id = Convert.ToInt32(reader["id"]),
-                        Juros_Atrasado = Convert.ToDouble(reader["juros_atrasado"]),
+                        Juros_Atrasado = Convert.ToDouble(reader["juros_atraso"]),
                         Juros_Total = Convert.ToDouble(reader["juros_total"])
 
                     };
@@ -43,7 +43,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
