@@ -2,6 +2,7 @@
 
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -10,7 +11,7 @@ import { Injectable } from '@angular/core';
 export class WebService {
 
     //url dinamica
-    BASE_URL = 'https://localhost:44397/api';
+    BASE_URL = `${environment.API}`;
 
     constructor(private http : Http){
 
