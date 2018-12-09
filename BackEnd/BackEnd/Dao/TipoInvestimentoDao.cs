@@ -13,44 +13,40 @@ namespace BackEnd.Dao
         {
             throw new NotImplementedException();
         }
+
         public TipoInvestimento PoupancaBuscarPorId(int id_conta)
         {
             Conexao conexao = new Conexao();
             try
             {
 
-                string comando = "SELECT i.id, i.data_aplicacao, i.valor, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade" +
-                   " FROM `investimento` i" +
-                   " JOIN tipo_investimento ti" +
-                   " ON ti.id = i.tipo_investimento_id" +
-                   " WHERE i.tipo_investimento_id = 1 and i.conta_id = @id;";
+                string comando = "SELECT id,status, data_aplicacao, sum(valor) as valor, tipo_investimento_id" +
+                   " FROM `investimento` " +
+                   " WHERE tipo_investimento_id = 1 and conta_id = @id and status=false;";
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id", id_conta);
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
+
                     TipoInvestimento tipo = new TipoInvestimento()
                     {
                         Id = Convert.ToInt32(reader["id"]),
-                        Id_tipo_investimento = Convert.ToInt32(reader["id_tipo_investimento"]),
-                        Descricao = reader["descricao"].ToString(),
-                        Liquidez = reader["liquidez"].ToString(),
-                        Rentabilidade = Convert.ToDouble(reader["rentabilidade"]),
+                        Id_tipo_investimento = Convert.ToInt32(reader["tipo_investimento_id"]),
                         Valor = Convert.ToDouble(reader["valor"])
                     };
                     return tipo;
                 }
                 else
                 {
-                    conexao.Fechar();
-                    return buscarTipo(1);
+
+                    return null;
                 }
 
             }
             catch (Exception e )
             {
-
                 System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
@@ -104,7 +100,7 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta and i.status = 1";
+                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
 
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -156,7 +152,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -196,6 +192,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
@@ -211,7 +208,7 @@ namespace BackEnd.Dao
 
             try
             {
-                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id, status) VALUES (now(), @valor, 2, @id_conta, 1)";
+                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id) VALUES (now(), @valor, 2, @id_conta)";
 
                 conexao.Comando.CommandText = comand_1;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -224,6 +221,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
@@ -254,6 +252,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
             finally
@@ -302,24 +301,23 @@ namespace BackEnd.Dao
                 {
                     if(descontaSaldo(id_conta,valor))
                     {
-                        for (int i=0;i<aplicacao.Quantidade;i++)
+                        int id_investimento = createInvestimento(id_conta, valor);
+
+                        if (id_investimento > 0)
                         {
-                            int id_investimento = createInvestimento(id_conta, 100);
-                            if (id_investimento > 0)
+                            if (createInvestimentoSelic(id_investimento, aplicacao.Quantidade))
                             {
-                                if(!createInvestimentoSelic(id_investimento, 1))
-                                {
-                                    return false;
-                                    break;
-                                }
+                                return true;
                             }
                             else
                             {
                                 return false;
                             }
                         }
-
-                        return true;
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
@@ -334,97 +332,27 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
 
         }
 
-        public Boolean ResgatarSelic(int id_conta, int quantidade)
-        {
-            for (int i = 0; i < quantidade; i++)
-            {
-                if (!realizarResgateSelic(id_conta))
-                {
-                    return false;
-                }
-            }
 
-            double valor = quantidade * 100;
-            if (aplicarSaldo(id_conta, valor))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
-
-        }
-
-        public Boolean realizarResgateSelic(int id_conta)
-        {
-            Conexao conexao = new Conexao();
-            try
-            {
-                string comand = "UPDATE investimento set status = 0 WHERE status = 1 and tipo_investimento_id = 2 and conta_id = @id_conta  ORDER by id DESC LIMIT 1";
-                conexao.Comando.CommandText = comand;
-                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
-                if (conexao.Comando.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
-        }
-
-        private Boolean aplicarSaldo(int id_conta, double valor)
-        {
-            Conexao conexao = new Conexao();
-            try
-            {
-                string comand_2 = "UPDATE conta Set saldo = (saldo+@valor) WHERE id = @id_conta";
-                conexao.Comando.CommandText = comand_2;
-                conexao.Comando.Parameters.AddWithValue("@valor", valor);
-                conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
-
-                if (conexao.Comando.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (MySqlException e)
-            {
-                return false;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
-        }
+     
 
 
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
 
+
         {
             Conexao conexao = new Conexao();
             try
             {
-                string comand = "INSERT INTO tipo_investimento_poupanca(investimento_id, contacontabil_investimento_poupanca_id) VALUES (@inves, @contabil);";
+                string comand = "INSERT INTO tipo_investimento_poupanca(investimento_id,  contacontabil_investimento_poupanca_id) VALUES (@inves, @contabil);";
                 conexao.Comando.CommandText = comand;
                 conexao.Comando.Parameters.AddWithValue("@inves", t.Investimento.Id);
+              
                 conexao.Comando.Parameters.AddWithValue("@contabil", t.ContaContabil.Id);
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {

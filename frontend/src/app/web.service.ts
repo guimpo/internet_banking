@@ -69,12 +69,10 @@ export class WebService {
     //     return this.http.get(this.BASE_URL + '/investimento/investido/'+id).toPromise();
     // }
 
-    putResgatar(investimento){
-        return this.http.put(this.BASE_URL + '/investimento/resgatar/',investimento).toPromise();
+    postResgatar(investimento){
+        return this.http.post(this.BASE_URL + '/investimento/resgatar/',investimento).toPromise();
     }
-    getBloqueado(id){
-        return this.http.get(this.BASE_URL + '/investimento/bloqueado/'+id).toPromise();
-    }
+
     postInvestido(investimento){
         return this.http.post(this.BASE_URL + '/investimento/aplicar/', investimento).toPromise();
     }
@@ -94,7 +92,7 @@ export class WebService {
     postAplicacaoSelic(aplicacao) {
         return this.http.post(this.BASE_URL + '/investimento/aplicar-selic',aplicacao).toPromise();
     }
-    
+
     postResgatarcaoSelic(resgate) {
         return this.http.post(this.BASE_URL + '/investimento/resgatar-selic',resgate).toPromise();
     }
@@ -118,5 +116,9 @@ export class WebService {
 
     codigo(parcela){
         return this.http.post(this.BASE_URL + '/emprestimo/codigo', parcela).toPromise();
+    }
+
+    getSaldoPoupanca() {
+        return this.http.get(this.BASE_URL + '/emprestimo/poupanca').toPromise();
     }
 }

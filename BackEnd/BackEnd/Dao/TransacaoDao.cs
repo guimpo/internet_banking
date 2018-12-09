@@ -75,6 +75,8 @@ namespace BackEnd.Dao
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
+
+
                     return t;
                 }
                 else
@@ -84,7 +86,7 @@ namespace BackEnd.Dao
             }
             catch (Exception e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally
@@ -129,6 +131,7 @@ namespace BackEnd.Dao
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
             finally

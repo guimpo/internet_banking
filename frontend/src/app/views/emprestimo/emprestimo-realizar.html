@@ -16,6 +16,17 @@
         <mat-form-field>
             <input [(ngModel)]=" emprestimo.parcelas"  matInput placeholder="Parcelas" type="number" min=0 step=1>
         </mat-form-field>
+        
+        <div>
+            <h4>Valor disponível na poupança: {{poupanca.valor}}</h4>
+        </div>
+
+        <h4>Deseja utilizar sua poupança como garantia? (taxas de juros menores)</h4>
+        <mat-radio-group [(ngModel)]="emprestimo.garantia">
+          <mat-radio-button value=0>Não</mat-radio-button>
+          <mat-radio-button value={{poupanca.valor}}>Sim</mat-radio-button>
+        </mat-radio-group>
+
         <mat-card-actions>
             <button  mat-raised-button color="primary">Voltar</button>
             <button  (click)="post()" routerLink="emprestimo-simular" mat-raised-button color="primary">Simular</button>

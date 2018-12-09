@@ -28,34 +28,36 @@ namespace BackEnd.Controllers
             return "value";
         }
 
-        [HttpPut("resgatar")]
-        public bool putResgatar([FromBody] Investimento inves)
+        [HttpPost("resgatar")]
+        public bool postResgatar([FromBody] Investimento inves)
         {
 
             //inserir no conta contabil
             ContaContabilDao daoContabil = new ContaContabilDao();
             ContaContabil contabil = new ContaContabil();
             contabil.Valor = -inves.Valor;
-            contabil = daoContabil.InserirContaContabil(contabil, inves.TipoInvestimento.Id_tipo_investimento);
+            contabil = daoContabil.InserirContaContabil(contabil, 1);
 
 
             //preparando transacao
             TransacaoDao t = new TransacaoDao();
             ContaCorrenteDao conta = new ContaCorrenteDao();
-            InvestimentoDao invesDao = new InvestimentoDao();
+           
             Transacao transacao = new Transacao();
-            if (invesDao.AlterarResgatar(inves.TipoInvestimento.Id, inves.Valor))
-            {
-                transacao.Conta = inves.Conta;
-                transacao.tipo_transacao_id = 2;
-                transacao.valor = inves.Valor;
-            }
+            transacao.Conta = inves.Conta;
+            transacao.tipo_transacao_id = 2;
+            transacao.valor = inves.Valor;
             t.Inserir(transacao);
+
+            //inserir investimento
+            InvestimentoDao daoInvestimento = new InvestimentoDao();
+            inves.Valor = -inves.Valor;
+            inves = daoInvestimento.Inserir(inves);
 
             //inserir na table tipo investimento poupanca
             TipoInvestimentoDao dao = new TipoInvestimentoDao();
             TipoInvestimentoPoupanca poupanca = new TipoInvestimentoPoupanca();
-            inves.Id = inves.TipoInvestimento.Id;
+          
             poupanca.ContaContabil = contabil;
             poupanca.Investimento = inves;
             poupanca = dao.Inserir(poupanca);
@@ -64,7 +66,7 @@ namespace BackEnd.Controllers
             {
                 return false;
             }
-           
+
             //alterar saldo da conta ----soma
             Conta c = new Conta();
             c = conta.Alterar(transacao);
@@ -74,15 +76,10 @@ namespace BackEnd.Controllers
                 return false;
         }
 
-        [HttpGet("bloqueado/{id}")]
-        //public double getInvestido(int id)
-        //{
-        //    return (new TipoEmprestimoDAO().valorBloqueado(id));
-        //}
 
         // POST: api/Investimento/Poupanca
         [HttpPost]
-        [HttpPost("poupanca")]
+        [HttpPost("aplicar")]
         public bool Post([FromBody] Investimento investimento)
         {
 
@@ -90,7 +87,7 @@ namespace BackEnd.Controllers
             ContaContabilDao daoContabil = new ContaContabilDao();
             ContaContabil contabil = new ContaContabil();
             contabil.Valor = investimento.Valor;
-            contabil = daoContabil.InserirContaContabil(contabil, investimento.TipoInvestimento.Id_tipo_investimento);
+            contabil = daoContabil.InserirContaContabil(contabil, 1);
 
             if (contabil == null)
             {
@@ -112,53 +109,32 @@ namespace BackEnd.Controllers
 
             //preparando transacao
             TransacaoDao t = new TransacaoDao();
-            InvestimentoDao invesDao = new InvestimentoDao();
             Transacao transacao = new Transacao();
-            if (invesDao.AlterarResgatar(investimento.TipoInvestimento.Id, investimento.Valor))
-            {
-                transacao.Conta = investimento.Conta;
-                transacao.tipo_transacao_id = 3;
-                transacao.valor = investimento.Valor;
-            }
+
+            transacao.Conta = investimento.Conta;
+            transacao.tipo_transacao_id = 3;
+            transacao.valor = investimento.Valor;
             t.Inserir(transacao);
 
-            //verificar se tem dados no investimento e alterar ou inserir
+            //inserir investimento
             InvestimentoDao daoInvestimento = new InvestimentoDao();
-            if (daoInvestimento.verificarNoInvesPoupanca(investimento.Conta.Id))
-            {
-                //alterar investimento- valor
-                investimento.Id = investimento.TipoInvestimento.Id;
-                //investimento = daoInvestimento.AlterarAplicar(investimento);
-            }
-            else
-            {
-                //inserir investimento
-                investimento = daoInvestimento.Inserir(investimento);
-            }
+            investimento = daoInvestimento.Inserir(investimento);
 
-            
+            TipoInvestimentoDao dao = new TipoInvestimentoDao();
+            TipoInvestimentoPoupanca poupanca = new TipoInvestimentoPoupanca();
+            poupanca.ContaContabil = contabil;
+            poupanca.Investimento = investimento;
+            poupanca = dao.Inserir(poupanca);
 
-            if (investimento == null)
+            if (poupanca == null)
             {
                 return false;
             }
             else
             {
-                TipoInvestimentoDao dao = new TipoInvestimentoDao();
-                TipoInvestimentoPoupanca poupanca = new TipoInvestimentoPoupanca();
-                poupanca.ContaContabil = contabil;
-                poupanca.Investimento = investimento;
-                poupanca = dao.Inserir(poupanca);
-
-                if (poupanca == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }   
-            }
+                return true;
+            }   
+          
 
             
         }
@@ -173,6 +149,12 @@ namespace BackEnd.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        [HttpGet("poupanca/tipo")]
+        public TipoInvestimento getTipo(int id_conta)
+        {
+            return (new TipoInvestimentoDao().buscarTipo(1));
         }
 
         //GET: api/investimento/popança/id
@@ -194,43 +176,14 @@ namespace BackEnd.Controllers
         [HttpPost("aplicar-selic")]
         public JsonResult Post([FromBody] TipoInvestimentoSelic aplicacao)
         {
-            Boolean retorno = (new TipoInvestimentoDao().AplicarSelic(aplicacao, 7));
-            if (retorno)
-            {
-                Transacao tr = new Transacao()
-                {
-                    tipo_transacao_id = 3,
-                    valor = (aplicacao.Quantidade * 100)
-                };
-
-                TransacaoDao td = new TransacaoDao();
-                td.Inserir(tr);
-
-            }
-
-            return Json(retorno);
+            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao,7));
         }
 
         // POST api/<controller>
         [HttpPost("resgatar-selic")]
         public JsonResult PostResgate([FromBody] TipoInvestimentoSelic aplicacao)
         {
-
-            Boolean retorno = new TipoInvestimentoDao().ResgatarSelic(7, aplicacao.Quantidade);
-
-            if (retorno)
-            {
-                Transacao tr = new Transacao()
-                {
-                    tipo_transacao_id = 4,
-                    valor = (aplicacao.Quantidade * 100)
-                };
-
-                TransacaoDao td = new TransacaoDao();
-                td.Inserir(tr);
-                
-            }
-            return Json(retorno);
+            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao, 7));
         }
 
 

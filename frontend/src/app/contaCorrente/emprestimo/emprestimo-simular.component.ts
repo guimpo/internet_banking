@@ -21,7 +21,7 @@ export class EmprestimoSimularComponent {
     aux;
 
     transacao = {
-        tipo_transacao_id: 4,
+        tipo_transacao_id: 6,
         valor: 0
     }
 
@@ -40,7 +40,7 @@ export class EmprestimoSimularComponent {
         var response = await this.webService.simular(this.emprestimo);
         this.dataSource = response.json();
     }
-    
+
     post() {
         this.webService.postEmprestimo(this.aux)
         this.webService.postTransacao(this.transacao);
