@@ -170,7 +170,7 @@ namespace BackEnd.Dao
 
             try
             {
-                string comando = "select saldo from conta where id_pessoa = 1;";
+                string comando = "select saldo from conta where pessoa_id = 1;";
                 conexao.Comando.CommandText = comando;
                 MySqlDataReader reader = conexao.Comando.ExecuteReader();
                 reader.Read();
