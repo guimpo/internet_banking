@@ -76,6 +76,14 @@ namespace BackEnd.Controllers
                 return false;
         }
 
+<<<<<<< HEAD
+=======
+        //[HttpGet("bloqueado/{id}")]
+        //public double getInvestido(int id)
+        //{
+        //    return (new TipoEmprestimoDAO().valorBloqueado(id));
+        //}
+>>>>>>> juros composto
 
         // POST: api/Investimento/Poupanca
         [HttpPost]
@@ -118,7 +126,21 @@ namespace BackEnd.Controllers
 
             //inserir investimento
             InvestimentoDao daoInvestimento = new InvestimentoDao();
+<<<<<<< HEAD
             investimento = daoInvestimento.Inserir(investimento);
+=======
+            if (daoInvestimento.verificarNoInvesPoupanca(investimento.Conta.Id))
+            {
+                //alterar investimento- valor
+                investimento.Id = investimento.TipoInvestimento.Id;
+                //investimento = daoInvestimento.AlterarAplicar(investimento);
+            }
+            else
+            {
+                //inserir investimento
+                investimento = daoInvestimento.Inserir(investimento);
+            }
+>>>>>>> juros composto
 
             TipoInvestimentoDao dao = new TipoInvestimentoDao();
             TipoInvestimentoPoupanca poupanca = new TipoInvestimentoPoupanca();
@@ -183,7 +205,25 @@ namespace BackEnd.Controllers
         [HttpPost("resgatar-selic")]
         public JsonResult PostResgate([FromBody] TipoInvestimentoSelic aplicacao)
         {
+<<<<<<< HEAD
             return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao, 7));
+=======
+            Boolean retorno = new TipoInvestimentoDao().ResgatarSelic(7, aplicacao.Quantidade);
+
+            if (retorno)
+            {
+                Transacao tr = new Transacao()
+                {
+                    tipo_transacao_id = 4,
+                    valor = (aplicacao.Quantidade * 100)
+                };
+
+                TransacaoDao td = new TransacaoDao();
+                td.Inserir(tr);
+                
+            }
+            return Json(retorno);
+>>>>>>> juros composto
         }
 
 

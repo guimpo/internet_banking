@@ -8,5 +8,6 @@ namespace BackEnd.Models
         public int Quantidade { get; set; }
         public Double Valor_liquido { get; set; }
         public DateTime Vencimento { get; set; }
+        public String arr_data_aplicacao { get; set; }
     }
 }
