@@ -1,4 +1,3 @@
-
 --
 -- Database: `banco`
 --
@@ -26,7 +25,7 @@ CREATE TABLE `conta` (
 --
 
 INSERT INTO `conta` (`id`, `numero`, `agencia`, `saldo`, `tipo_conta_id`, `pessoa_id`) VALUES
-(7, 233444556, '33', 1000, 3, 1);
+(7, 233444556, '33', 450.14, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -44,25 +43,46 @@ CREATE TABLE `conta_contabil_emprestimo` (
 --
 
 INSERT INTO `conta_contabil_emprestimo` (`id`, `valor`) VALUES
-(1, 100);
+(1, 100),
+(2, -500);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `conta_contabil_imprestimo`
+-- Estrutura da tabela `conta_contabil_investimento_poupanca`
 --
 
-CREATE TABLE `conta_contabil_imprestimo` (
+CREATE TABLE `conta_contabil_investimento_poupanca` (
   `id` int(11) NOT NULL,
   `valor` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Extraindo dados da tabela `conta_contabil_imprestimo`
+-- Extraindo dados da tabela `conta_contabil_investimento_poupanca`
 --
 
-INSERT INTO `conta_contabil_imprestimo` (`id`, `valor`) VALUES
-(1, 100);
+INSERT INTO `conta_contabil_investimento_poupanca` (`id`, `valor`) VALUES
+(1, 100),
+(2, -50),
+(3, -50);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `conta_contabil_investimento_selic`
+--
+
+CREATE TABLE `conta_contabil_investimento_selic` (
+  `id` int(11) NOT NULL,
+  `valor` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `conta_contabil_investimento_selic`
+--
+
+INSERT INTO `conta_contabil_investimento_selic` (`id`, `valor`) VALUES
+(1, 5.569999999999985);
 
 -- --------------------------------------------------------
 
@@ -82,7 +102,8 @@ CREATE TABLE `debito_automatico` (
 --
 
 INSERT INTO `debito_automatico` (`id`, `descricao`, `numero_conta`, `conta_id`) VALUES
-(2, 'debito automático investimento ', 233444556, 7);
+(3, 'luz', 987654, 7),
+(4, 'Gás', 2312312, 7);
 
 -- --------------------------------------------------------
 
@@ -94,6 +115,8 @@ CREATE TABLE `emprestimo` (
   `id` int(11) NOT NULL,
   `valor` double DEFAULT NULL,
   `data_solicitacao` date DEFAULT NULL,
+  `parcelas` int(11) NOT NULL,
+  `metodo_pagamento` int(11) NOT NULL,
   `tipo_emprestimo_pessoal_id` int(11) NOT NULL,
   `conta_contabil_emprestimo_id` int(11) NOT NULL,
   `conta_id` int(11) NOT NULL
@@ -103,8 +126,8 @@ CREATE TABLE `emprestimo` (
 -- Extraindo dados da tabela `emprestimo`
 --
 
-INSERT INTO `emprestimo` (`id`, `valor`, `data_solicitacao`, `tipo_emprestimo_pessoal_id`, `conta_contabil_emprestimo_id`, `conta_id`) VALUES
-(5, 100, '2018-11-06', 1, 1, 7);
+INSERT INTO `emprestimo` (`id`, `valor`, `data_solicitacao`, `parcelas`, `metodo_pagamento`, `tipo_emprestimo_pessoal_id`, `conta_contabil_emprestimo_id`, `conta_id`) VALUES
+(5, 100, '2018-11-06', 0, 0, 1, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -116,8 +139,8 @@ CREATE TABLE `investimento` (
   `id` int(11) NOT NULL,
   `data_aplicacao` date DEFAULT NULL,
   `valor` double DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
   `tipo_investimento_id` int(11) NOT NULL,
-  `conta_contabil_investimento_id` int(11) NOT NULL,
   `conta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -125,8 +148,14 @@ CREATE TABLE `investimento` (
 -- Extraindo dados da tabela `investimento`
 --
 
-INSERT INTO `investimento` (`id`, `data_aplicacao`, `valor`, `tipo_investimento_id`, `conta_contabil_investimento_id`, `conta_id`) VALUES
-(1, '2018-11-30', 100, 1, 1, 7);
+INSERT INTO `investimento` (`id`, `data_aplicacao`, `valor`, `status`, `tipo_investimento_id`, `conta_id`) VALUES
+(24, '2018-12-11', 100, 1, 2, 7),
+(25, '2018-12-11', 100, 1, 2, 7),
+(26, '2018-12-11', 100, 1, 2, 7),
+(27, '2018-12-11', 100, 1, 1, 7),
+(28, '2018-12-11', -50, 0, 1, 7),
+(29, '2018-12-11', -50, 0, 1, 7),
+(30, '2018-12-11', 500, 1, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -216,15 +245,63 @@ CREATE TABLE `tipo_investimento` (
   `id` int(11) NOT NULL,
   `descricao` varchar(45) DEFAULT NULL,
   `liquidez` varchar(45) DEFAULT NULL,
-  `rentabilidade` double DEFAULT NULL
+  `rentabilidade` double DEFAULT NULL,
+  `taxa_administracao` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `tipo_investimento`
 --
 
-INSERT INTO `tipo_investimento` (`id`, `descricao`, `liquidez`, `rentabilidade`) VALUES
-(1, 'poupança', 'D+30', 4.55);
+INSERT INTO `tipo_investimento` (`id`, `descricao`, `liquidez`, `rentabilidade`, `taxa_administracao`) VALUES
+(1, 'poupança', 'D+30', 4.05, 0),
+(2, 'tesouto selic 2023', 'D+1', 6.4, 0.3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipo_investimento_poupanca`
+--
+
+CREATE TABLE `tipo_investimento_poupanca` (
+  `id` int(11) NOT NULL,
+  `valor_bloqueado` double NOT NULL,
+  `investimento_id` int(11) NOT NULL,
+  `contacontabil_investimento_poupanca_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tipo_investimento_poupanca`
+--
+
+INSERT INTO `tipo_investimento_poupanca` (`id`, `valor_bloqueado`, `investimento_id`, `contacontabil_investimento_poupanca_id`) VALUES
+(1, 0, 27, 1),
+(2, 0, 28, 2),
+(3, 0, 29, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `tipo_investimento_selic`
+--
+
+CREATE TABLE `tipo_investimento_selic` (
+  `id` int(11) NOT NULL,
+  `investimento_id` int(11) NOT NULL,
+  `vencimento` date NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  `conta_contabil_investimento_selic_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tipo_investimento_selic`
+--
+
+INSERT INTO `tipo_investimento_selic` (`id`, `investimento_id`, `vencimento`, `quantidade`, `conta_contabil_investimento_selic_id`) VALUES
+(1, 24, '2023-03-01', 1, 1),
+(2, 25, '2023-03-01', 1, 1),
+(3, 26, '2023-03-01', 1, 1),
+(4, 30, '2023-03-01', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -244,7 +321,8 @@ CREATE TABLE `tipo_transacao` (
 INSERT INTO `tipo_transacao` (`id`, `descricao`) VALUES
 (1, 'saque '),
 (2, 'deposito'),
-(3, 'investimento');
+(3, 'aplicação investimento'),
+(4, 'resgate de investimento');
 
 -- --------------------------------------------------------
 
@@ -266,8 +344,16 @@ CREATE TABLE `trasacao` (
 --
 
 INSERT INTO `trasacao` (`id`, `data`, `hora`, `valor`, `tipo_transacao_id`, `conta_id1`) VALUES
-(8, '2018-11-01', '22:18:53', 1000, 2, 7),
-(9, '2018-11-30', '13:18:53', 100, 3, 7);
+(1, '2018-12-11', '15:25:23', 100, 3, 7),
+(2, '2018-12-11', '15:26:48', 100, 3, 7),
+(3, '2018-12-11', '15:27:01', 200, 4, 7),
+(4, '2018-12-11', '15:27:13', 100, 3, 7),
+(5, '2018-12-11', '15:29:41', 100, 3, 7),
+(6, '2018-12-11', '15:29:55', 50, 2, 7),
+(7, '2018-12-11', '15:32:10', 100, 2, 7),
+(8, '2018-12-11', '15:32:27', 50, 1, 7),
+(10, '2018-12-11', '15:35:12', 50, 2, 7),
+(11, '2018-12-11', '15:36:57', 500, 3, 7);
 
 --
 -- Indexes for dumped tables
@@ -288,9 +374,15 @@ ALTER TABLE `conta_contabil_emprestimo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `conta_contabil_imprestimo`
+-- Indexes for table `conta_contabil_investimento_poupanca`
 --
-ALTER TABLE `conta_contabil_imprestimo`
+ALTER TABLE `conta_contabil_investimento_poupanca`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `conta_contabil_investimento_selic`
+--
+ALTER TABLE `conta_contabil_investimento_selic`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -315,7 +407,6 @@ ALTER TABLE `emprestimo`
 ALTER TABLE `investimento`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_investimento_tipo_investimento1_idx` (`tipo_investimento_id`),
-  ADD KEY `fk_investimento_conta_contabil_investimento1_idx` (`conta_contabil_investimento_id`),
   ADD KEY `fk_investimento_conta1_idx` (`conta_id`);
 
 --
@@ -350,6 +441,22 @@ ALTER TABLE `tipo_investimento`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tipo_investimento_poupanca`
+--
+ALTER TABLE `tipo_investimento_poupanca`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `investimento_id` (`investimento_id`),
+  ADD KEY `contacontabil_investimento_poupanca_id` (`contacontabil_investimento_poupanca_id`);
+
+--
+-- Indexes for table `tipo_investimento_selic`
+--
+ALTER TABLE `tipo_investimento_selic`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_investimentoSelic_investimento` (`investimento_id`),
+  ADD KEY `conta_contabil_investimento_selic` (`conta_contabil_investimento_selic_id`);
+
+--
 -- Indexes for table `tipo_transacao`
 --
 ALTER TABLE `tipo_transacao`
@@ -377,19 +484,25 @@ ALTER TABLE `conta`
 -- AUTO_INCREMENT for table `conta_contabil_emprestimo`
 --
 ALTER TABLE `conta_contabil_emprestimo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `conta_contabil_imprestimo`
+-- AUTO_INCREMENT for table `conta_contabil_investimento_poupanca`
 --
-ALTER TABLE `conta_contabil_imprestimo`
+ALTER TABLE `conta_contabil_investimento_poupanca`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `conta_contabil_investimento_selic`
+--
+ALTER TABLE `conta_contabil_investimento_selic`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `debito_automatico`
 --
 ALTER TABLE `debito_automatico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `emprestimo`
@@ -401,7 +514,7 @@ ALTER TABLE `emprestimo`
 -- AUTO_INCREMENT for table `investimento`
 --
 ALTER TABLE `investimento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `parcela`
@@ -431,19 +544,31 @@ ALTER TABLE `tipo_emprestimo`
 -- AUTO_INCREMENT for table `tipo_investimento`
 --
 ALTER TABLE `tipo_investimento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tipo_investimento_poupanca`
+--
+ALTER TABLE `tipo_investimento_poupanca`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tipo_investimento_selic`
+--
+ALTER TABLE `tipo_investimento_selic`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tipo_transacao`
 --
 ALTER TABLE `tipo_transacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `trasacao`
 --
 ALTER TABLE `trasacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -474,9 +599,8 @@ ALTER TABLE `emprestimo`
 -- Limitadores para a tabela `investimento`
 --
 ALTER TABLE `investimento`
-  ADD CONSTRAINT `fk_investimento_conta1` FOREIGN KEY (`conta_id`) REFERENCES `conta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_investimento_conta_contabil_investimento1` FOREIGN KEY (`conta_contabil_investimento_id`) REFERENCES `conta_contabil_imprestimo` (`id`),
-  ADD CONSTRAINT `fk_investimento_tipo_investimento1` FOREIGN KEY (`tipo_investimento_id`) REFERENCES `tipo_investimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_investimento_conta` FOREIGN KEY (`conta_id`) REFERENCES `conta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_investimento_tipo_investimento` FOREIGN KEY (`tipo_investimento_id`) REFERENCES `tipo_investimento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `parcela`
@@ -485,10 +609,34 @@ ALTER TABLE `parcela`
   ADD CONSTRAINT `fk_parcela_emprestimo1` FOREIGN KEY (`emprestimo_id`) REFERENCES `emprestimo` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Limitadores para a tabela `tipo_investimento_poupanca`
+--
+ALTER TABLE `tipo_investimento_poupanca`
+  ADD CONSTRAINT `fk_investimento_conta_contabil_investimento_poupanca` FOREIGN KEY (`contacontabil_investimento_poupanca_id`) REFERENCES `conta_contabil_investimento_poupanca` (`id`),
+  ADD CONSTRAINT `fk_investimento_tipo` FOREIGN KEY (`investimento_id`) REFERENCES `investimento` (`id`);
+
+--
+-- Limitadores para a tabela `tipo_investimento_selic`
+--
+ALTER TABLE `tipo_investimento_selic`
+  ADD CONSTRAINT `fk_investimentoSelic_investimento` FOREIGN KEY (`investimento_id`) REFERENCES `investimento` (`id`),
+  ADD CONSTRAINT `fk_investimento_conta_contabil_investimento_selic` FOREIGN KEY (`conta_contabil_investimento_selic_id`) REFERENCES `conta_contabil_investimento_selic` (`id`);
+
+--
 -- Limitadores para a tabela `trasacao`
 --
 ALTER TABLE `trasacao`
   ADD CONSTRAINT `fk_trasacao_conta1` FOREIGN KEY (`conta_id1`) REFERENCES `conta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_trasacao_tipo_transacao1` FOREIGN KEY (`tipo_transacao_id`) REFERENCES `tipo_transacao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+--
+-- Alterações necessárias para o empréstimo
+--
+ALTER TABLE `emprestimo` ADD garantia double DEFAULT NULL;
+UPDATE `tipo_emprestimo` SET `juros_total` = 4.5, `juros_atraso` = 6 WHERE `id` = 1;
+INSERT INTO `tipo_transacao` (`id`, `descricao`) VALUES (5, 'emprestimo');
+UPDATE `investimento` SET `status` = 0 WHERE `id` = 27;
+INSERT INTO `investimento` (`id`, `data_aplicacao`, `valor`, `tipo_investimento_id`, `conta_id`, `status`) VALUES (31, '2018-11-30', 500, 1, 7, false);
 
 COMMIT;

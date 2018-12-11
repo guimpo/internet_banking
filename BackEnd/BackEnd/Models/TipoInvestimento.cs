@@ -6,5 +6,6 @@
         public string Descricao { get; set; }
         public string Liquidez { get; set; }
         public double Rentabilidade { get; set; }
+        public double Taxa_administracao { get; set; }
     }
 }
