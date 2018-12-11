@@ -177,11 +177,18 @@ namespace BackEnd.Dao
             string[] datas = data_aplicacao.Substring(0).Split(',');
             foreach (string data in datas) WriteLine(data);
 
+            string[] dias;
+
+            //foreach (string data in datas)
+            //{
+            //    DateTime.Now.
+            //}
 
 
-            //int dias = (DateTime.Now - data_aplicacao).Days;
 
-            taxajuros = 0.001;
+                //int dias = ( - data_aplicacao).Days;
+
+                taxajuros = 0.001;
 
             valor += valor * taxajuros;
 
