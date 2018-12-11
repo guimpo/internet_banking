@@ -101,11 +101,8 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-<<<<<<< HEAD
-                string comando = "SELECT i.id, i.data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta";
-=======
+
                 string comando = "SELECT i.id, i.data_aplicacao, GROUP_CONCAT(DISTINCT(i.data_aplicacao)) arr_data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, ti.taxa_administracao, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta and i.status = 1";
->>>>>>> juros composto
 
                 conexao.Comando.CommandText = comando;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -171,29 +168,23 @@ namespace BackEnd.Dao
 
         private double calculoJurosSelic(double valor, String data_aplicacao, Double taxajuros)
         {
+            //string[] datas = data_aplicacao.Substring(0).Split(',');
+            //foreach (string data in datas) WriteLine(data);
 
-
-
-            string[] datas = data_aplicacao.Substring(0).Split(',');
-            foreach (string data in datas) WriteLine(data);
-
-            string[] dias;
+            //string[] dias;
 
             //foreach (string data in datas)
             //{
             //    DateTime.Now.
             //}
 
+            //int dias = ( - data_aplicacao).Days;
 
-
-                //int dias = ( - data_aplicacao).Days;
-
-                taxajuros = 0.001;
+            taxajuros = 0.001;
 
             valor += valor * taxajuros;
 
             return valor;
-
         }
          
         public Double getSaldo(int id_conta)
@@ -230,7 +221,7 @@ namespace BackEnd.Dao
 
             try
             {
-                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id) VALUES (now(), @valor, 2, @id_conta)";
+                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id,status) VALUES (now(), @valor, 2, @id_conta,1)";
 
                 conexao.Comando.CommandText = comand_1;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -360,10 +351,6 @@ namespace BackEnd.Dao
 
         }
 
-<<<<<<< HEAD
-
-     
-=======
         public Boolean ResgatarSelic(int id_conta, int quantidade)
         {
 
@@ -474,8 +461,6 @@ namespace BackEnd.Dao
                 conexao.Fechar();
             }
         }
->>>>>>> juros composto
-
 
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
 

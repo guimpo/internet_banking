@@ -76,14 +76,13 @@ namespace BackEnd.Controllers
                 return false;
         }
 
-<<<<<<< HEAD
-=======
+
         //[HttpGet("bloqueado/{id}")]
         //public double getInvestido(int id)
         //{
         //    return (new TipoEmprestimoDAO().valorBloqueado(id));
         //}
->>>>>>> juros composto
+
 
         // POST: api/Investimento/Poupanca
         [HttpPost]
@@ -126,21 +125,20 @@ namespace BackEnd.Controllers
 
             //inserir investimento
             InvestimentoDao daoInvestimento = new InvestimentoDao();
-<<<<<<< HEAD
+
             investimento = daoInvestimento.Inserir(investimento);
-=======
-            if (daoInvestimento.verificarNoInvesPoupanca(investimento.Conta.Id))
-            {
-                //alterar investimento- valor
-                investimento.Id = investimento.TipoInvestimento.Id;
-                //investimento = daoInvestimento.AlterarAplicar(investimento);
-            }
-            else
-            {
-                //inserir investimento
-                investimento = daoInvestimento.Inserir(investimento);
-            }
->>>>>>> juros composto
+
+            //if (daoInvestimento.verificarNoInvesPoupanca(investimento.Conta.Id))
+            //{
+            //    //alterar investimento- valor
+            //    investimento.Id = investimento.TipoInvestimento.Id;
+            //    //investimento = daoInvestimento.AlterarAplicar(investimento);
+            //}
+            //else
+            //{
+            //    //inserir investimento
+            //    investimento = daoInvestimento.Inserir(investimento);
+            //}
 
             TipoInvestimentoDao dao = new TipoInvestimentoDao();
             TipoInvestimentoPoupanca poupanca = new TipoInvestimentoPoupanca();
@@ -186,11 +184,11 @@ namespace BackEnd.Controllers
             return (new TipoInvestimentoDao().PoupancaBuscarPorId(id_conta));
         }
 
+
         //GET: api/investimento/selic
         [HttpGet("selic")]
         public TipoInvestimento getSelic()
         {
-            
             return (new TipoInvestimentoDao().BuscarPorId(7));
         }
 
@@ -198,16 +196,27 @@ namespace BackEnd.Controllers
         [HttpPost("aplicar-selic")]
         public JsonResult Post([FromBody] TipoInvestimentoSelic aplicacao)
         {
-            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao,7));
+            Boolean retorno = (new TipoInvestimentoDao().AplicarSelic(aplicacao, 7));
+            if (retorno)
+            {
+                Transacao tr = new Transacao()
+                {
+                    tipo_transacao_id = 3,
+                    valor = (aplicacao.Quantidade * 100)
+                };
+
+                TransacaoDao td = new TransacaoDao();
+                td.Inserir(tr);
+
+            }
+
+            return Json(retorno);
         }
 
         // POST api/<controller>
         [HttpPost("resgatar-selic")]
         public JsonResult PostResgate([FromBody] TipoInvestimentoSelic aplicacao)
         {
-<<<<<<< HEAD
-            return Json(new TipoInvestimentoDao().AplicarSelic(aplicacao, 7));
-=======
             Boolean retorno = new TipoInvestimentoDao().ResgatarSelic(7, aplicacao.Quantidade);
 
             if (retorno)
@@ -220,10 +229,9 @@ namespace BackEnd.Controllers
 
                 TransacaoDao td = new TransacaoDao();
                 td.Inserir(tr);
-                
+
             }
             return Json(retorno);
->>>>>>> juros composto
         }
 
 
