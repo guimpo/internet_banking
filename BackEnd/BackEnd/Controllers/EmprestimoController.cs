@@ -43,7 +43,10 @@ namespace BackEnd.Controllers
                 p.Emprestimo = emprestimo;
                 parcelaDao.Inserir(p);
             }
-            investimentoDao.Bloqueia();
+            if(emprestimo.Garantia > 0)
+            {
+                investimentoDao.Bloqueia();
+            }
         }
 
         [Route("simular")]
