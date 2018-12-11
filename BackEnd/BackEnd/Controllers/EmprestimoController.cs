@@ -26,7 +26,7 @@ namespace BackEnd.Controllers
             {
                 Valor = -emprestimo.Valor
             };
-            cc = ccDao.InserirContaContabil(cc);
+            cc = ccDao.InserirContaContabil(cc, 2);
 
             emprestimo.ContaContabil = cc;
             emprestimo = emprestimoDao.Inserir(emprestimo);
@@ -70,7 +70,7 @@ namespace BackEnd.Controllers
         [HttpGet]
         public IEnumerable<Models.Parcela> Get()
         {
-            return new ParcelaDAO().ListarTodosID();
+            return new ParcelaDAO().ListarTodos();
         }
 
         [Route("boleto")]
