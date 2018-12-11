@@ -101,7 +101,6 @@ namespace BackEnd.Dao
             Conexao conexao = new Conexao();
             try
             {
-
                 string comando = "SELECT i.id, i.data_aplicacao, GROUP_CONCAT(DISTINCT(i.data_aplicacao)) arr_data_aplicacao, SUM(i.valor) valor, SUM(tis.quantidade) quantidade, ti.id id_tipo_investimento, ti.descricao, ti.liquidez, ti.rentabilidade, ti.taxa_administracao, tis.id id_tipo_investimento_selic, tis.vencimento FROM `investimento` i JOIN tipo_investimento ti ON ti.id = i.tipo_investimento_id JOIN tipo_investimento_selic tis ON tis.investimento_id = i.id WHERE i.tipo_investimento_id = 2 and i.conta_id = @id_conta and i.status = 1";
 
                 conexao.Comando.CommandText = comando;
@@ -147,7 +146,7 @@ namespace BackEnd.Dao
                     {
                         return null;
                     }
-                    
+
 
                 }
                 else
@@ -157,7 +156,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
+
                 return null;
             }
             finally
@@ -168,25 +167,20 @@ namespace BackEnd.Dao
 
         private double calculoJurosSelic(double valor, String data_aplicacao, Double taxajuros)
         {
+
+
             //string[] datas = data_aplicacao.Substring(0).Split(',');
             //foreach (string data in datas) WriteLine(data);
-
-            //string[] dias;
-
-            //foreach (string data in datas)
-            //{
-            //    DateTime.Now.
-            //}
-
-            //int dias = ( - data_aplicacao).Days;
+            //int dias = (DateTime.Now - data_aplicacao).Days;
 
             taxajuros = 0.001;
 
             valor += valor * taxajuros;
 
             return valor;
+
         }
-         
+
         public Double getSaldo(int id_conta)
         {
             Conexao conexao = new Conexao();
@@ -205,7 +199,6 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
@@ -215,13 +208,13 @@ namespace BackEnd.Dao
 
         }
 
-        public int createInvestimento( int id_conta, Double valor )
+        public int createInvestimento(int id_conta, Double valor)
         {
             Conexao conexao = new Conexao();
 
             try
             {
-                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id,status) VALUES (now(), @valor, 2, @id_conta,1)";
+                string comand_1 = "INSERT INTO investimento (data_aplicacao, valor, tipo_investimento_id, conta_id, status) VALUES (now(), @valor, 2, @id_conta, 1)";
 
                 conexao.Comando.CommandText = comand_1;
                 conexao.Comando.Parameters.AddWithValue("@id_conta", id_conta);
@@ -234,7 +227,6 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
@@ -265,7 +257,6 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
             finally
@@ -310,42 +301,42 @@ namespace BackEnd.Dao
             {
                 double valor = aplicacao.Quantidade * 100;
 
-                if(getSaldo(id_conta) >= valor)
+                if (getSaldo(id_conta) >= valor)
                 {
-                    if(descontaSaldo(id_conta,valor))
+                    if (descontaSaldo(id_conta, valor))
                     {
-                        int id_investimento = createInvestimento(id_conta, valor);
-
-                        if (id_investimento > 0)
+                        for (int i = 0; i < aplicacao.Quantidade; i++)
                         {
-                            if (createInvestimentoSelic(id_investimento, aplicacao.Quantidade))
+                            int id_investimento = createInvestimento(id_conta, 100);
+                            if (id_investimento > 0)
                             {
-                                return true;
+                                if (!createInvestimentoSelic(id_investimento, 1))
+                                {
+                                    return false;
+                                    break;
+                                }
                             }
                             else
                             {
                                 return false;
                             }
                         }
-                        else
-                        {
-                            return false;
-                        }
+
+                        return true;
                     }
                     else
                     {
                         return false;
                     }
-                    
+
                 }
                 else
                 {
                     return false;
-                }                   
+                }
             }
             catch (MySqlException e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
 
@@ -359,20 +350,28 @@ namespace BackEnd.Dao
 
             double juros = tis.Valor_liquido - tis.Valor;
 
-            if(aplicarContaContabil(juros * tis.Taxa_administracao))
+            if ( tis.Valor_liquido >= (quantidade*100)    )
             {
-                for (int i = 0; i < quantidade; i++)
+
+                if (aplicarContaContabil(juros * tis.Taxa_administracao))
                 {
-                    if (!realizarResgateSelic(id_conta))
+                    for (int i = 0; i < quantidade; i++)
+                    {
+                        if (!realizarResgateSelic(id_conta))
+                        {
+                            return false;
+                        }
+                    }
+
+                    double valor = (quantidade * 100) + (juros - (juros * tis.Taxa_administracao));
+                    if (aplicarSaldo(id_conta, valor))
+                    {
+                        return true;
+                    }
+                    else
                     {
                         return false;
                     }
-                }
-
-                double valor = (quantidade * 100) + (juros - (juros * tis.Taxa_administracao));
-                if (aplicarSaldo(id_conta, valor))
-                {
-                    return true;
                 }
                 else
                 {
@@ -383,6 +382,7 @@ namespace BackEnd.Dao
             {
                 return false;
             }
+
         }
 
         private Boolean aplicarContaContabil(double v)
