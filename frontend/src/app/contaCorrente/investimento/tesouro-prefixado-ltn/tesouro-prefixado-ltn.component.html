@@ -1,21 +1,24 @@
 <app-menu></app-menu>
 <div class="main">
-<mat-card> 
+<mat-card *ngIf="loadApresentacao"> 
     <h1 style="text-align: center;">{{ titulo }}</h1>
     <div style="padding:10px; margin: 0 auto; background-color:#f7f7f7;" >
       <p>O Tesouro Prefixado (LTN) é um título prefixado, o que significa que sua rentabilidade é definida no momento da compra, desde que você permaneça com ele até a data de vencimento. A rentabilidade é dada pela diferença entre o preço de compra do título e seu valor na data de vencimento que é sempre igual a R$ 1000,00 por cada unidade de título.</p>      
     </div>
 </mat-card>
 
-<mat-card></mat-card>
+<app-tesouro-prefixado-ltn-simulador *ngIf="loadSimulador"></app-tesouro-prefixado-ltn-simulador>
 
 <mat-card>
-  <mat-card-content style="text-align: center;">
-      <mat-card-actions>
-          <button routerLink="aplicar" mat-raised-button color="primary">Aplicar</button>
-          <button routerLink="resgatar" mat-raised-button color="primary">Resgatar</button>
-          <button routerLink="" mat-raised-button color="primary">Voltar</button>
-      </mat-card-actions>
+    <mat-card-content style="text-align: center;">
+        <mat-card-actions>
+            <button (click)="simularClicked()" mat-raised-button color="primary">{{ btnLabel }}</button>
+            <button mat-raised-button color="primary">Comprar</button>
+            <button mat-raised-button color="primary">Vender</button>
+            <button (click)="backClicked()" mat-raised-button color="primary">Voltar</button>
+        </mat-card-actions>
     </mat-card-content>
 </mat-card>
 </div>
+
+
