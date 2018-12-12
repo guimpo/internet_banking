@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import {
     MatAutocompleteModule,
@@ -36,7 +35,7 @@ import {
     MatSnackBarModule,
     MatToolbarModule,
     MatSelectModule,
-    MatTableModule,
+    MatTableModule
   } from '@angular/material';
   
   @NgModule({
