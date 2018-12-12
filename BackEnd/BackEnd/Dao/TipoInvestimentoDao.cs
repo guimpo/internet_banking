@@ -463,8 +463,6 @@ namespace BackEnd.Dao
         }
 
         public TipoInvestimentoPoupanca Inserir(TipoInvestimentoPoupanca t)
-
-
         {
             Conexao conexao = new Conexao();
             try
