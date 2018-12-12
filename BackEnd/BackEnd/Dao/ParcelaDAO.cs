@@ -65,7 +65,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
