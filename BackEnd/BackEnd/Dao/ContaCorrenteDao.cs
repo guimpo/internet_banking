@@ -11,33 +11,7 @@ namespace BackEnd.Dao
     {
         public Conta Alterar(Conta c)
         {
-            Conexao conexao = new Conexao();
-            try
-            {
-                string comand = "UPDATE conta SET saldo = @saldo WHERE id = @id";
-
-                conexao.Comando.CommandText = comand;
-                conexao.Comando.Parameters.AddWithValue("@id", c.Id);
-                conexao.Comando.Parameters.AddWithValue("@saldo", c.Saldo);
-
-                if (conexao.Comando.ExecuteNonQuery() > 0)
-                {
-                    return c;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (MySqlException e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-                return null;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
+            throw new NotImplementedException();
         }
 
         public Conta Alterar(Transacao t)
@@ -48,7 +22,7 @@ namespace BackEnd.Dao
             {
                 string comando = "update conta set saldo = saldo + @valor where pessoa_id = 1;";
                 conexao.Comando.CommandText = comando;
-                if (t.tipo_transacao_id == 2 || t.tipo_transacao_id == 4)
+                if (t.tipo_transacao_id == 2 || t.tipo_transacao_id == 4 || t.tipo_transacao_id == 5)
                     conexao.Comando.Parameters.AddWithValue("@valor", t.valor);
                 else
                     conexao.Comando.Parameters.AddWithValue("@valor", -t.valor);
@@ -164,27 +138,5 @@ namespace BackEnd.Dao
             throw new NotImplementedException();
         }
 
-        public double GetSaldo()
-        {
-            Conexao conexao = new Conexao();
-
-            try
-            {
-                string comando = "select saldo from conta where id_pessoa = 1;";
-                conexao.Comando.CommandText = comando;
-                MySqlDataReader reader = conexao.Comando.ExecuteReader();
-                reader.Read();
-                return Convert.ToDouble(reader["saldo"].ToString());
-            }
-            catch (MySqlException e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-                return 0;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
-        }
     }
 }

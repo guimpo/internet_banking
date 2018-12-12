@@ -52,12 +52,6 @@ namespace BackEnd.Controllers
             return transacaoDao.Inserir(t);
         }
 
-        public double GetSaldo()
-        {
-            ContaCorrenteDao ccDao = new ContaCorrenteDao();
-            return ccDao.GetSaldo();
-        }
-
         // GET popular
         [HttpGet]
         public IEnumerable<Models.Transacao> Get()
@@ -101,18 +95,5 @@ namespace BackEnd.Controllers
             return b;
         }
 
-        [Route("valida/{valor}")]
-        [HttpGet]
-        public Bool valida(double valor)
-        {
-            Bool b = new Bool();
-            double saldo = GetSaldo();
-            if (valor <= saldo)
-                b.boolean = true;
-            else
-                b.boolean = false;
-
-            return b;
-        }
     }
 }

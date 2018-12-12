@@ -1,40 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
-//tem que importar os elementos do html 
-import {
-  MatButtonModule, 
-  MatCheckboxModule, 
-  MatCardModule,
-  MatInputModule,
-  MatSnackBarModule,
-  MatToolbarModule,
-  MatSelectModule,
-  MatTableModule,
-} from '@angular/material';
-import {CdkTableModule} from '@angular/cdk/table';
+import { BrowserModule } from '@angular/platform-browser';
+import { MaterialModule } from './material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkTableModule } from '@angular/cdk/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkTreeModule } from '@angular/cdk/tree';
 
 //tem que importar os Components 
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+
+// Conta corrente
 import { ContaComponent } from './conta.component';
 import { ContaCorrenteComponent } from './contaCorrente/conta-corrente.component';
-
 import { ContaCorrenteExtratoComponent } from './contaCorrente/conta-corrente-extrato.component';
 import { ContaCorrenteDepositoComponent } from './contaCorrente/conta-corrente-deposito.component';
 import { ContaCorrenteSaqueComponent } from './contaCorrente/conta-corrente-saque.component';
 import { ContaCorrenteDebitoComponent } from './contaCorrente/conta-corrente-debito.component';
 
-// investimento
+// Investimento
 import { ContaCorrenteInvestimentoComponent } from './contaCorrente/conta-corrente-investimento.component';
 
+// Poupanca
 import { PoupancaComponent } from './contaCorrente/investimento/poupanca/poupanca.component';
 import { PoupancaAplicarComponent } from './contaCorrente/investimento/poupanca/poupanca-aplicar.component';
 import { PoupancaResgatarComponent } from './contaCorrente/investimento/poupanca/poupanca-resgatar.component';
 
+// Selic
 import { SelicComponent } from './contaCorrente/investimento/selic/selic.component';
 import { SelicAplicarComponent } from './contaCorrente/investimento/selic/selic-aplicar.component';
 import { SelicResgatarComponent } from './contaCorrente/investimento/selic/selic-resgatar.component';
@@ -53,84 +47,33 @@ import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consulta
 import { WebService } from './web.service';
 import { HttpModule } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 //todos relacionado com routes
 import { RouterModule, Routes} from '@angular/router';
 import { ROUTES } from './app.router';
 
-
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-
-import {CdkTreeModule} from '@angular/cdk/tree';
-
-//tem que importar os elementos do html 
-import {
-
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatBottomSheetModule,
-
-  MatButtonToggleModule,
-
-
-  MatChipsModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatGridListModule,
-  MatIconModule,
-
-  MatListModule,
-  MatMenuModule,
-  MatNativeDateModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
- 
-  MatSortModule,
-  MatStepperModule,
-
-  MatTabsModule,
-
-  MatTooltipModule,
-  MatTreeModule,
-  
-
-} from '@angular/material';
-
-import { HttpClientModule } from '@angular/common/http';
-import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
+// Componentes
 import { ComponentesModule } from  './componentes/componentes.module';
-//o que importa em cima tem que copiar para abaixo tambem, Component no declarations
-//Module no imports, WebService no providers
+
+// Tesouro Prefixado LTN
+import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
+import { TesouroPrefixadoLtnSimuladorComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn-simulador/tesouro-prefixado-ltn-simulador.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    // MenssageComponent,
-    // NewMenssageComponent,
     ContaComponent,
-   
     DebitoCadastrarComponent,
     DebitoConsultarComponent,
     ContaCorrenteComponent,
     ContaCorrenteInvestimentoComponent,
-
     PoupancaAplicarComponent,
     PoupancaResgatarComponent,
     PoupancaComponent,
-
     SelicComponent,
     SelicAplicarComponent,
     SelicResgatarComponent,
-
     ContaCorrenteEmprestimoComponent, 
     EmprestimoRealizarComponent,
     EmprestimoPagarComponent,
@@ -139,23 +82,14 @@ import { ComponentesModule } from  './componentes/componentes.module';
     ContaCorrenteDepositoComponent,
     ContaCorrenteSaqueComponent,
     ContaCorrenteDebitoComponent,
-    TesouroPrefixadoLtnComponent
+    TesouroPrefixadoLtnComponent,
+    TesouroPrefixadoLtnSimuladorComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     BrowserAnimationsModule,
-
-    MatButtonModule, 
-    MatCardModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    MatSelectModule,
-    MatTableModule,
     CdkTableModule,
-    MatRadioModule,
-    MatGridListModule,
     HttpClientModule,
     HttpModule,
     FormsModule,
@@ -166,45 +100,12 @@ import { ComponentesModule } from  './componentes/componentes.module';
   bootstrap: [AppComponent],
 
   exports: [
+    MaterialModule,
     CdkTableModule,
     CdkTreeModule,
     DragDropModule,
-    MatAutocompleteModule,
-    MatBadgeModule,
-    MatBottomSheetModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatTreeModule,
     ScrollingModule
   ]
 })
+
 export class AppModule { }

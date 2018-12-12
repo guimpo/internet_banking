@@ -105,14 +105,8 @@ namespace BackEnd.Controllers
             ContaCorrenteDao contaCorrente = new ContaCorrenteDao();
             Conta conta = new Conta();
             investimento.Conta.Saldo = investimento.Conta.Saldo - investimento.Valor;
-            conta = investimento.Conta;
-            contaCorrente.Alterar(conta);
-
-            if (conta == null)
-            {
-                return false;
-            }
-
+            //conta = investimento.Conta;
+            //contaCorrente.Alterar(conta);
 
             //preparando transacao
             TransacaoDao t = new TransacaoDao();
@@ -121,6 +115,11 @@ namespace BackEnd.Controllers
             transacao.Conta = investimento.Conta;
             transacao.tipo_transacao_id = 3;
             transacao.valor = investimento.Valor;
+            conta = contaCorrente.Alterar(transacao);
+            if (conta == null)
+            {
+                return false;
+            }
             t.Inserir(transacao);
 
             //inserir investimento

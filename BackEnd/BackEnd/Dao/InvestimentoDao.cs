@@ -10,27 +10,6 @@ namespace BackEnd.Dao
     public class InvestimentoDao 
     {
 
-        public Double ValorInvestido(int id_conta)
-        {
-            Double valor = 0;
-            Conexao conexao = new Conexao();
-            try
-            {
-   
-            }
-            catch (Exception e)
-            {
-
-                System.Diagnostics.Debug.WriteLine(e);
-                return valor;
-            }
-            finally
-            {
-                conexao.Fechar();
-            }
-            return valor;
-        }
-
         public double ValorInvestido(int id_conta, int id_tipo_investimento) 
         { 
             Conexao conexao = new Conexao();

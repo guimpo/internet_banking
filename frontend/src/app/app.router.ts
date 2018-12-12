@@ -13,12 +13,12 @@ import { PoupancaComponent } from './contaCorrente/investimento/poupanca/poupanc
 import { PoupancaAplicarComponent } from './contaCorrente/investimento/poupanca/poupanca-aplicar.component';
 import { PoupancaResgatarComponent } from './contaCorrente/investimento/poupanca/poupanca-resgatar.component';
 
-
 import { SelicComponent } from './contaCorrente/investimento/selic/selic.component';
 import { SelicAplicarComponent } from './contaCorrente/investimento/selic/selic-aplicar.component';
 import { SelicResgatarComponent } from './contaCorrente/investimento/selic/selic-resgatar.component';
 
 import { TesouroPrefixadoLtnComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn.component';
+import { TesouroPrefixadoLtnSimuladorComponent } from './contaCorrente/investimento/tesouro-prefixado-ltn/tesouro-prefixado-ltn-simulador/tesouro-prefixado-ltn-simulador.component';
 
 import { ContaCorrenteEmprestimoComponent } from './contaCorrente/conta-corrente-emprestimo.component';
 import { EmprestimoPagarComponent } from './contaCorrente/emprestimo/emprestimo-pagar.component';
@@ -27,6 +27,7 @@ import { EmprestimoSimularComponent } from './contaCorrente/emprestimo/emprestim
 
 import { DebitoConsultarComponent } from './contaCorrente/debito/debito-consultar.component';
 import { DebitoCadastrarComponent } from './contaCorrente/debito/debito-cadastrar.component';
+
 
 export const ROUTES : Routes = [
     { path: '', component: ContaComponent } ,
@@ -44,6 +45,7 @@ export const ROUTES : Routes = [
            
           ]
     }, 
+
     { path: 'conta-corrente-investimento-selic', component: SelicComponent,
     children: [
         { path: 'aplicar', component: SelicAplicarComponent },
@@ -53,6 +55,7 @@ export const ROUTES : Routes = [
 
     { path: 'conta-corrente-investimento-tesouro-prefixado-ltn', component: TesouroPrefixadoLtnComponent,
     children: [
+        { path: 'simular', component: TesouroPrefixadoLtnSimuladorComponent },
         { path: 'aplicar', component: PoupancaAplicarComponent },
         { path: 'resgatar', component: PoupancaResgatarComponent }
        
@@ -70,7 +73,6 @@ export const ROUTES : Routes = [
     }, 
  
     { path: 'conta-corrente-debito', component: ContaCorrenteDebitoComponent },
- 
     { path: 'conta-corrente-debito/debito-cadastrar', component: DebitoCadastrarComponent },
     { path: 'conta-corrente-debito/debito-consultar', component: DebitoConsultarComponent }
 ]

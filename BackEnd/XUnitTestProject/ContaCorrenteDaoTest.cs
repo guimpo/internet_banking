@@ -37,5 +37,38 @@ namespace XUnitTestProject
             Assert.True(transacaoEsperada.data.Date.Equals(retorno.data.Date));
             Assert.Equal(transacaoEsperada.valor, retorno.valor);
         }
+
+        [Fact]
+        public void AlterarporTransacaoTest()
+        {
+            // Criar transacao
+
+
+            var ccDao = new ContaCorrenteDao();
+
+            var conta = ccDao.BuscarPorId(7);
+
+            Transacao transacaomodifica = new Transacao()
+            {
+                id = 8,
+                data = DateTime.Now,
+                hora = DateTime.Now,
+                valor = 200.0,
+                tipo_transacao_id = 2,
+                Conta = conta
+            };
+
+            // buscar id 8
+            
+            
+            var retorno = ccDao.Alterar(transacaomodifica);
+
+            Assert.Equal(conta.Saldo+200, ccDao.BuscarPorId(7).Saldo);
+
+            transacaomodifica.tipo_transacao_id = 3;
+            var retorna = ccDao.Alterar(transacaomodifica);
+
+            Assert.Equal(conta.Saldo, ccDao.BuscarPorId(7).Saldo);
+        }
     }
 }

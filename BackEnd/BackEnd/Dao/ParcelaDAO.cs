@@ -21,7 +21,6 @@ namespace BackEnd.Dao
 
                 if (conexao.Comando.ExecuteNonQuery() > 0)
                 {
-                    t.Id = Convert.ToInt32(conexao.Comando.LastInsertedId.ToString());
                     return t;
                 }
                 return null;
@@ -66,7 +65,7 @@ namespace BackEnd.Dao
             }
             catch (MySqlException e)
             {
-
+                System.Diagnostics.Debug.WriteLine(e);
                 return 0;
             }
             finally
@@ -111,11 +110,6 @@ namespace BackEnd.Dao
         }
 
         public List<Parcela> ListarTodos()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Parcela> ListarTodosID()
         {
             Conexao conexao = new Conexao();
             try

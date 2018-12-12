@@ -1,0 +1,43 @@
+p {
+    word-wrap: break-word;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+mat-card {
+    position: relative;
+    margin: 15px;
+}
+
+.main {
+    margin-top: 40px; /* Add a top margin to avoid content overlay */
+}
+
+table {
+    margin: 15px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.lane {
+    display: flex;
+    flex-direction: column;
+}
+
+.left {
+    align-self: flex-start;
+    flex: 1 0 0;
+    width: 30%;
+    font-size: 10px;
+}
+
+.right {
+    margin-left: auto;
+    flex: 1.5 0 0;
+    width: 40%;
+    font-size: 8px;
+}
