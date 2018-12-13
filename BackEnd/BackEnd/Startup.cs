@@ -49,7 +49,7 @@ namespace BackEnd
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseCors("Cors");
             app.UseMvc();
         }
